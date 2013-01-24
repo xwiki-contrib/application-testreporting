@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xwikidoc>
+  <web>QA</web>
+  <name>AddTest</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <parent>QA.WebHome</parent>
+  <creator>xwiki:XWiki.Admin</creator>
+  <author>xwiki:XWiki.Admin</author>
+  <customClass/>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <creationDate>1357905842000</creationDate>
+  <date>1357912684000</date>
+  <contentUpdateDate>1357908520000</contentUpdateDate>
+  <version>1.1</version>
+  <title>AddTest</title>
+  <template/>
+  <defaultTemplate/>
+  <validationScript/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>{{velocity}}
+#if(("$!request.testName" != '') &amp;&amp; ("$!request.spaceName" != ''))
+  #set($targetDocName = "${request.spaceName}.${request.testName}")
+  #set($parent = ${request.spaceName} + ".WebHome")
+  $response.sendRedirect($xwiki.getURL($targetDocName, 'edit', "editor=inline&amp;template=QA.TestTemplate&amp;parent=$parent"))
+#end
+{{html wiki="true"}}
+&lt;form action="" class="xform third" id="addTestForm"&gt;
+(((
+            ; &lt;label for="testName"&gt;$msg.get('qaapp.WebHome.addTest.testName.label')&lt;/label&gt;
+            : &lt;input type="text" id="testName" name="testName"/&gt;
+            ; &lt;label for="spaceName"&gt;$msg.get('qaapp.WebHome.addTest.testSpace.label')&lt;/label&gt;
+            : &lt;input id="spaceName" class="suggestSpaces" type="text" value="" id="spaceName" name="spaceName" autocomplete="off"&gt;
+
+            &lt;div class="xform buttons"&gt;
+            &lt;span class="buttonwrapper"&gt;&lt;input type="submit" value="$msg.get('qaapp.WebHome.addTest.button')" class="button"/&gt;&lt;/span&gt;
+            &lt;/div&gt;
+)))
+&lt;/form&gt;
+{{/html}}
+{{/velocity}}</content>
+</xwikidoc>

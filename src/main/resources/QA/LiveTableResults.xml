@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xwikidoc>
+  <web>QA</web>
+  <name>LiveTableResults</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <parent>XWiki.WebHome</parent>
+  <creator>xwiki:XWiki.Admin</creator>
+  <author>xwiki:XWiki.Admin</author>
+  <customClass/>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <creationDate>1352394078000</creationDate>
+  <date>1358869464000</date>
+  <contentUpdateDate>1358869462000</contentUpdateDate>
+  <version>1.1</version>
+  <title>$msg.get("platform.livetable.results")</title>
+  <template/>
+  <defaultTemplate/>
+  <validationScript/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.0</syntaxId>
+  <hidden>true</hidden>
+  <attachment>
+    <filename>Internet Explorer.png</filename>
+    <filesize>2561</filesize>
+    <author>XWiki.Admin</author>
+    <date>1358528948000</date>
+    <version>1.2</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAv
+IiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RS
+ZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpD
+cmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNl
+SUQ9InhtcC5paWQ6N0QwMEQ3NUMyQUI4MTFFMjlCRDdFNDUzMTBDNzUzQzIiIHhtcE1NOkRvY3Vt
+ZW50SUQ9InhtcC5kaWQ6N0QwMEQ3NUQyQUI4MTFFMjlCRDdFNDUzMTBDNzUzQzIiPiA8eG1wTU06
+RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3RDAwRDc1QTJBQjgxMUUyOUJE
+N0U0NTMxMEM3NTNDMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3RDAwRDc1QjJBQjgxMUUy
+OUJEN0U0NTMxMEM3NTNDMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1w
+bWV0YT4gPD94cGFja2V0IGVuZD0iciI/Po5Bf7oAAAZ1SURBVHjapFV7bFP3Ff5+1/fhe30dv+LE
+duIkzhJIsjQJTM00AmgEDdFMRWpZWlHoCl3bbWXSuraq+AO6Sds0TV01FYmu2qqtY9NW6B8dFCIe
+BdI0oY80CSXPkpiQOAkO2LFj48f1fe06LB2MdhraT7pXutK55zvn+77zOwR3eQIBJ4YvPgtetAC6
+5tKS4a1qIrSFoRRfz8fR4207un6ZSKnZfKyu66DvFiCX06BTLKVnrj+VC328l85eLVmM5TA9p1wq
+c7A/OPhzf337C1PtsqIruPtDkdaNK2ul6W0ncwMr9EhXRfzA3pJXmmr4ep6jKLeDtp9+NXBybaOw
+5n/tgLf46++ra2pp9VfXNjSUB8WnmnsDpuh5+1jsHv2Z3y7+6d13zu8BVCkfnJG0+LGuxGFPIe1Z
+TvClAFZ/w7bN7bue37Bh8+qqcgb1vhPw3uiDFJ3HUGorxvEYadshP2MLnGs7/Y+/vpyY/vR14zeD
+P8gLi2p0OQ+5MzXhAy0P7X/8+7ufqCjxwyaOosHfAV+sE1Iqi4vK05hU25FJRrAQvoJENGLwH8H7
+PR8cu9J7YtcD65jqnkEpeC2mXMtTdDsAocyu1e2HHt31xBaPywGvux9ra7tRGhuEnM3iU+ZnCJke
+QOzqOK6MDWJ+dhqaqqOgwAGKEXH85Nme4Lk37gOU5BdqwFWs3dfQ8u0tOkywFbyLpqpheOMTRnwG
+ndpP8d7E6qvpSKeuZ1M+NSNB9ATAmq3IxxMjWfP6zS3XI9HXEoNvb79DA0pw1rjqNv3ELNrgLe5F
+TeUYSrNR8Mp1vDm7Q93z0ul9Uz3f+z1UBa6a5p2bvvvcL2prv2bWQSEZjyOVSIB3UChftemR0dkL
+f1YWJk8t5V0GEL+y/kdiYSVfU3kJleXjKIMEpzSCI7Nt2P3i6L6pzj/+CnI6Ci0XjY50v3zurT/s
+mV7QkGMEEKvbSFAITbDDVVIG+8qNT39e+M03LZq997Z9tTqGFRVBuFkOlfIABpONePGtFWMLfYd+
+859WCPd1HBjoOTc6vygjoxNorAiNs4K3O2AvX7WOsBbPvyli7V6PT/DcWzcJhnOgkXyIxRyD3409
+Cd2quaq3PHuCokALjiJwBoWEMjinoDj8VYWariGdNdypGR418aAtBRBcfidjLa7K13ETgDDW1TVX
+WWK2oMkyBwcm8HroSYwm61DkvuyWhTWtotsHZ1k1OCEvat4hxmPMl66roChy89sYA7aAg9kpgWIF
+5+cdbPxmii8uzlEFtB33mHoxlliJI6H7IS/OITRwdigbm+lnLE6G4QXjsiBLAHkP6oqUJkTTqH8p
+mbesphFkJeMiSkfGlwA++giwOdL2/WeYVKN5QmT1GA5N/xDRtBmJkOH18aGxGyNHH/uiaaeLau/n
+nCV+okMnRhf5qTKoImounVIS14JLMc3NKDAQ002+iYEGfm5df6wR5xfWgJLCkKUb4IsavpWe7KrW
+MvHx22aSswaK1/74UOGKVTxrEcGyNEyMCbmMiplPTozMTH7w92UX2VgWia0NwRmzHsfx+TbkCA/I
+cYNvDpaSeptYv22/ESfckp8V6x58iXOU8pqmGoXLIMS477QsFCmJxeGjrxqt5JY1MFHEbLLLpq9P
+povQF20ERxJQdQmC0wZTkc8ooX0z7fKcyl7pfCPPg1C5/lFL2TfWs6IVnMUMs0DBRFOGLAwWJs5c
+TAa7Dt46yVldtZUgjYrewXj3ZyNBV3ldVS3FUOCdLtDWQuh+BnxjVYtOdrbk7aIbS4fKZIyWNAgc
+AWvEmhgzrl0aioY6fr0Tqpy8FWBRz/KlIDTV3X354GfvPH+W2f7C0aLq2jq20AnWZQfNmaHRpryS
+S/7UZQXEuIvYVBpmVQVjJA+PDMyP/uW5h+X43MBtKyq/J3RZZxXZECdCwno6HBw+uG/TZPexN3OS
+LAsFdnjcVnidArx2Dl6HGb5CC3xeG4pK3WB5E4Jn/tbR/8rjrdnw+Ht3OC3/MhVIwyYzBY4Gt+Rn
+KTV7+eiBbUyo8zsbtrfvmRJbBMEX8HEWiyU/VUomk0nOheZnPuzsnup8+3Bior/jyxYXCRpulSSG
+lkYrDqcSevneA+HdqjEnq1ZydVZWEY+cTZwamsU0bXF4aEF0EUIoJZtakBOxiFFK8r/t26WFwxuO
+VJSbXD3Yans4UMqVzV+X5/vGMhcuXMpexP9x8gD/FGAAyEnJm+t7N9wAAAAASUVORK5CYII=
+</content>
+  </attachment>
+  <attachment>
+    <filename>Google Chrome.png</filename>
+    <filesize>900</filesize>
+    <author>XWiki.Admin</author>
+    <date>1358528948000</date>
+    <version>1.2</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAABv1BMVEX////gKCrcpSY5jUHmQjve
+pyXfIifkODTjMzHwwhPnsyDWnChLtElCmkXrVEcyhEDoS0H60AruvBrnsyDcpSbWnChLtElFn0ZZ
+mUBAlkTsW005jUHqVEcyhEDoS0HlPDffIifuYVHgKCr60ApAlkQ7kEI5jUHkODTjMzHywxfWnChL
+tElHpUfksCLepyVLtEn4zA/ywxfuvBr60ApSj8xFn0boS0HlPDfkODTjMzHgKCr0xw/uYVHfIidH
+pUdVkc2cvdzwa1mWvN5CmkVKisnkbR/hayLcpSbgaSdroNQ5jUHrVEfpUEThhIM7gsNJrkjfLjNL
+rkVrl73nsyBxo9NChcbmQjvqVEfZICVrotf80gm31Mf443/SgoS9z8Pj38DvzQzdvsOVmTJcpzzg
+emFYk86f1J1NoUT94Fbbu7+d0Zz32lDncR3wwhOQ043d17/ouySKzYjX2bzhY2LLwhjA3tFim9LZ
+tyDksCLQWl2EwIYxe72Ms9ktebluxWsuda9ZdDEtdK0zc6duazGIsNcib63epyUlaaHy1TeRtS+p
+oY3sW02dKh3KGh7aISW9KiN5qdHSKyibsCWNXzFzo8tjvR7gAAAAL3RSTlMAEREREREREREiIiIi
+IiIiIoiIiIiIiIiIiIiIiIiIiIjMzMzMzMzMzMzMzMzMzHLBVYcAAAFFSURBVHhenc1TdyRRFIbh
+6tA2Bt2x5pTZth3atm1j/INTZwed3PZ7+T1rr00kXUGN1mKx6LV1RZ8g7Svve9Dr9Q8+P/8tMwFZ
+zQLP+3t8PX6+WxBbNG+g0Umi0A0JgijJuoxXqPojS2FJxEmSLBsM318gD/37aZBleSMQmHS7nU6H
+YzEboAJFfvUawnNmq9W8skovKSRTDNCO0MVT75jH0xfv84ww/Wr1AAihyOPepWlbzXS4gIEBCKly
+OjRlt7Msa48PYiDfAd2zwWBXVzC4jYH5AMu/jw5w/2cxKAAdIFtnV2on63DQClAJcDwQvTmPDt9i
+oEoA8jkQtDY9v/8XdiqHgKqxQBOj6mOFLiVeSm3gQkChTYYkKbozHQNIo81oVPc7haLo2I8UIlGt
+18ZxMzt0bPe6jPhU4Zcm77jL1VaeSyTbMwzgX5gEAF+4AAAAAElFTkSuQmCC
+</content>
+  </attachment>
+  <attachment>
+    <filename>Internet Explorer 10.png</filename>
+    <filesize>2454</filesize>
+    <author>XWiki.Admin</author>
+    <date>1358528948000</date>
+    <version>1.2</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAv
+IiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RS
+ZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpD
+cmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNl
+SUQ9InhtcC5paWQ6Qzk4RjRFQzkyQUI3MTFFMjkxMDJGOTdGRTRBRTAzOUYiIHhtcE1NOkRvY3Vt
+ZW50SUQ9InhtcC5kaWQ6Qzk4RjRFQ0EyQUI3MTFFMjkxMDJGOTdGRTRBRTAzOUYiPiA8eG1wTU06
+RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDOThGNEVDNzJBQjcxMUUyOTEw
+MkY5N0ZFNEFFMDM5RiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDOThGNEVDODJBQjcxMUUy
+OTEwMkY5N0ZFNEFFMDM5RiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1w
+bWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pgo6oIYAAAYKSURBVHjalFVrTBxVGD0zO4+d2fcuC8vS
+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
+QmCC
+</content>
+  </attachment>
+  <attachment>
+    <filename>Mozilla Firefox.png</filename>
+    <filesize>1768</filesize>
+    <author>XWiki.Admin</author>
+    <date>1358528948000</date>
+    <version>1.2</version>
+    <comment/>
+    <content>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
+gg==
+</content>
+  </attachment>
+  <attachment>
+    <filename>Internet Explorer 7.png</filename>
+    <filesize>2453</filesize>
+    <author>XWiki.Admin</author>
+    <date>1358528948000</date>
+    <version>1.2</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAv
+IiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RS
+ZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpD
+cmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNl
+SUQ9InhtcC5paWQ6RjUzNzdCRUYyQUI3MTFFMkJDQjlGNDFDNkIwQ0VFRjkiIHhtcE1NOkRvY3Vt
+ZW50SUQ9InhtcC5kaWQ6RjUzNzdCRjAyQUI3MTFFMkJDQjlGNDFDNkIwQ0VFRjkiPiA8eG1wTU06
+RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNTM3N0JFRDJBQjcxMUUyQkNC
+OUY0MUM2QjBDRUVGOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNTM3N0JFRTJBQjcxMUUy
+QkNCOUY0MUM2QjBDRUVGOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1w
+bWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjWCSmQAAAYJSURBVHjalFVrUFRlGH7O2XPZc/a+y8Ky
+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
+YII=
+</content>
+  </attachment>
+  <attachment>
+    <filename>Internet Explorer 8.png</filename>
+    <filesize>2461</filesize>
+    <author>XWiki.Admin</author>
+    <date>1358528948000</date>
+    <version>1.2</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAv
+IiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RS
+ZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpD
+cmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNl
+SUQ9InhtcC5paWQ6RTk4NzVFOUYyQUI3MTFFMjgwOTNBRDEwOEFCREQzOTIiIHhtcE1NOkRvY3Vt
+ZW50SUQ9InhtcC5kaWQ6RTk4NzVFQTAyQUI3MTFFMjgwOTNBRDEwOEFCREQzOTIiPiA8eG1wTU06
+RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpFOTg3NUU5RDJBQjcxMUUyODA5
+M0FEMTA4QUJERDM5MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFOTg3NUU5RTJBQjcxMUUy
+ODA5M0FEMTA4QUJERDM5MiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1w
+bWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtnTXl4AAAYRSURBVHjalFV5TBxlFP/NMDO7s/fBwsKW
+wiKUQ4QetkapTaFKW1SSimiqqK231lujjaG1Jho1tmnEoMZb4x9WE7XVmtbWghW8kLYWCgisFChl
+aVl2Wdxjdo7PmSJaC8b0Jd/MN9+8eb93/N4bCucpXq8Dx44+Ct5kBIjiVCb91XJ4qIqlpfSWnwO7
+K2sPPheOyHFNlxAC6nwBPB4benqeonkqdFdi6Oc6Jj7iCQYTGDwp9bjsnONQl9Bc88RAjSgRSQM4
+T6Gp8hV5BcLg2r2Jw/PI2MGsUEOd5+X5+XwRr6Npl52x7XvVu3dpieGy6QiY/7HIGzOKVhfOLy3P
+yC0oLs70me5a0upNCnxv6w5eRB7ePvHu/i++3wjIgqYcE5TQlwfDH7uTGfe0gf8EMGcUr11Vs/7x
+srJVC3MyWRSl70HaH20QAqPoiFSjF7dSlbXiw1ZvY+W+zz/cFh789S31MwUE4viEHJi2M0sNKN5b
+en39bXdvuCPLkwGrqQvFGV8hPdgEIRLHUek+9Ms1iE2OYdx/HOHAmJr/MXzX8sOXx1v3rF9zOZvb
+0i74TgWlUzOLTNF658KaHTevv6PK7bQjzXUISwuaMSfYDjEex6/sFgwlrUFwpBfHu9sxOjwIRSaw
+WOygWRN27z3Q4mt8bzUgTc5aA13W0k3FpVdVESTBatmP+TnHkBbqU/VjaFKexrd9C0eiY02ExCPp
+ckyAye0FpzdD06dUY0uWrSo9PRZ4Pdz+2U0zakAbHPnOwopH9CYr0lJbkZ/djTnxAHjpND4arpU3
+vrRv00DL7W9AluDMX7Ku4pbHni0oWKQnoDEZCiESDoO308hcUHFj1/CR96Xx/q/P2J0GMF2w7H5T
+cjafn92D7MxezIUAh9CJncOV2LC5a9NA0zvPQ4wGoCQCgc7mbY2fvLlxcFxBgjWAMrtUA8lQDDY4
+PXNhy1tx39+OT10Zkz5tceWFuUHMy/LBxemQLR5G+2QJNn8yr3u8bcfWc6ngb/uq4XBLY9fohIgY
+oaBwJig6M3ibHbbMBZdTnNH9T4o4W5o73eBeXNgPVmdHCfUjJhIsXuu+E8SsOHOrHt1D02AM9hTo
+1BRStJpzGpI9IydZIQqicZWdisrRJB6M0QKDM8PBmlNzND+mACjWvDB/hKP0Rsw3noQdfXhr6E50
+TRYixfW7SzRcVm5ypcMxNxc6g1ZUjSHqUvuLEBk0TU09q23AWXTQOwTQnMHxdwQrlkf41NQEbWFs
+uCipFd3hPOwcugbixEkMHT7QEQ+eOMQaHSzLG9RhQZ0B0DhIJCFKUYpC/1VJjbKKQiEuqIMoOtZ7
+BuCnnwCrPWqr/4aNlOj7TBwJYsfgvQhE9QgPqVzv7ej+o3PXrdO5P3uAbWt4p+6K8mXXZHncXp2O
+MwiJRPT4CX//rj1NTZv3N/j++gCWWBxlb+xcczDceglpa6wiFa+0k9JnGsm82leJa3ldiOZtuWcD
+qIsd8fvfFiWZzCbquZJIJF7W9LTgrByHcHWx74SehLB7tBIJigfEkJpvHYyeIqupaG29qmeYBhFF
+sd6dmnobk0TPOsfUc4pl2QfV7fakLVvgoCi9WXc65aGBcbv9vYGb1aLLarOfAq03gHXOAeXIy6Gd
+2csphqJlRaktu3TRA9Q5U+yCa19E/Y4WPHTD0rOPF2tFjhPZ6kEUWa3toebfOn3OzMKcAloNjnc4
+wZiTQTJY8CU5pYRaV7qozInZjPs+fXLGXuOnBjBB4rzqJkM3N//+wW9fPH6AvemJXSm5BYVcsgOc
+0wZGp4fCJIGo5C/x6M7rF6UBxIhIOFmUcWKM8pOo33fsg00VkZXrtnqvXl9ttthYu4VVjU8V2M7N
+nPCax5rn0/t/yVTDuFeRjovJ9Stt1539Lm/Bhdfds3XLL6tf39dZvasvdOM3I+KpmDSDNdlrXph1
+rwnlU9kqCCwjdGV9HAmTzLoG/wZZ7ZMFebpCMyeZdh4If90xjEHGaHczBpOzv/2X592pKSvPjeK/
+IqB4lZGSNDX1ri233uCdo5s7elocbeuOHTnSEz96riHVqSvV297Z/4YzhPwpwACAg9n5IpKAEQAA
+AABJRU5ErkJggg==
+</content>
+  </attachment>
+  <attachment>
+    <filename>Internet Explorer 9.png</filename>
+    <filesize>2475</filesize>
+    <author>XWiki.Admin</author>
+    <date>1358528948000</date>
+    <version>1.2</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAv
+IiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RS
+ZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpD
+cmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNl
+SUQ9InhtcC5paWQ6RDU1REEyRUEyQUI3MTFFMkE1OEM5MTY4MEZGNTQ3NzMiIHhtcE1NOkRvY3Vt
+ZW50SUQ9InhtcC5kaWQ6RDU1REEyRUIyQUI3MTFFMkE1OEM5MTY4MEZGNTQ3NzMiPiA8eG1wTU06
+RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpENTVEQTJFODJBQjcxMUUyQTU4
+QzkxNjgwRkY1NDc3MyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpENTVEQTJFOTJBQjcxMUUy
+QTU4QzkxNjgwRkY1NDc3MyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1w
+bWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnynMJYAAAYfSURBVHjalFV7UFTXGf/du/ex9+57l4UF
+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
+nwADAOxBqgBHo7u8AAAAAElFTkSuQmCC
+</content>
+  </attachment>
+  <content>{{include document="XWiki.LiveTableResultsMacros"/}}
+
+{{velocity wiki="false"}}
+
+#macro(extendRow $row)
+  #set($rowDoc=$xwiki.getDocument($row.doc_fullName))
+  #set($lastExecution=$NULL)
+  #set($executions=$rowDoc.getObjects('QA.ExecutionClass'))
+  #foreach($execution in $executions)
+    #if (!$lastExecution || $lastExecution.getProperty('date').value.time &lt; $execution.getProperty('date').value.time)
+      #set($lastExecution=$execution)
+    #end
+  #end
+  ##Last Execution for $rowDoc was on $lastExecution
+  #set($platform=$lastExecution.getProperty('platform').value)
+  #set($platformDoc=$xwiki.getDocument($platform))
+  #if ($platformDoc)
+  #set($discard = $row.put("platform", "&lt;a href=""$platformDoc.getURL()""&gt;$platformDoc.get('version')&lt;/a&gt;"))
+  #else
+  #set($discard = $row.put("platform", $msg.get('qaapp.WebHome.LiveTable.no.tests.execution.found')))
+  #end
+  ##
+  ##
+  #set($browsers = {})
+  #foreach($execution in $executions)
+    #if ($execution.getProperty('platform').value == $platform)
+      #set($browser=$execution.getProperty('browser').value)
+      #set($browserDoc=$xwiki.getDocument($browser))
+      #set($browserName = $browserDoc.get('name'))
+      #set($versions = $browsers.get($browserName))
+      #if(!$versions)
+        #set($versions = $collectionstool.getSet())
+        #set($discard = $browsers.put($browserName, $versions))
+      #end
+      #set($discard = $versions.add($browserDoc.get('version')))
+    #end
+  #end
+  ## We get an image for each browser and put the versions
+  #set($browsersHTML='')
+  #foreach($browser in $sorttool.sort($browsers.entrySet(), 'key:asc'))
+    #set($browserIcon = $browser.key+'.png')
+    ## Sort (String sort, not Integer sort)
+    #set($browser.value = $sorttool.sort($browser.value))
+    #set($browsersHTML = $browsersHTML + "&lt;img src=""$doc.getAttachmentURL($browserIcon)"" alt=""$browser.key"" title=""$browser.key""&gt;" + "&lt;span class=""browserVersions""&gt;$browser.value.toString().replace('[', '').replace(']', '')&lt;/span&gt; " + "")
+  #end
+  #set($discard = $row.put("browsers","$browsersHTML"))
+  ## We put the browsers as text
+  ##set($discard = $row.put("browsers", $stringtool.join($browsers,',')))
+  #set($discard = $row.put("doc_runTest_url", $rowDoc.getURL('view', 'sheet=QA.ExecutionAddSheet')))
+#end
+#if($xcontext.action == 'get' &amp;&amp; "$!{request.outputSyntax}" == 'plain')
+  $response.setContentType('application/json')
+  #set($map = {})
+  #gridresultwithfilter_buildJSON('QA.TestClass' ['doc.name', 'doc.space', 'automated'] '' '' [] $map)
+  #foreach ($row in $map.rows)
+    #extendRow($row)
+  #end
+  $jsontool.serialize($map)
+#end
+{{/velocity}}</content>
+</xwikidoc>

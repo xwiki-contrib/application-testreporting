@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xwikidoc>
+  <web>QA</web>
+  <name>Translations</name>
+  <language>fr</language>
+  <defaultLanguage/>
+  <translation>1</translation>
+  <parent>QA.WebHome</parent>
+  <creator>xwiki:XWiki.Admin</creator>
+  <author>xwiki:XWiki.Admin</author>
+  <customClass/>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <creationDate>1355329643000</creationDate>
+  <date>1357747731000</date>
+  <contentUpdateDate>1357747731000</contentUpdateDate>
+  <version>1.1</version>
+  <title/>
+  <template/>
+  <defaultTemplate/>
+  <validationScript/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content># Translations for the LiveTable found on QA.WebHome
+qaapp.WebHome.LiveTable.doc.name=Nom du test
+qaapp.WebHome.LiveTable.doc.space=Nom de l'espace
+qaapp.WebHome.LiveTable.platform=Version XWiki testée sur
+qaapp.WebHome.LiveTable.browsers=Navigateurs testés
+qaapp.WebHome.LiveTable.automated=Tests Automatiques
+qaapp.WebHome.LiveTable._actions=Actions
+qaapp.WebHome.LiveTable.no.tests.execution.found=Aucune exécution de test n'a été retrouvée
+qaapp.WebHome.LiveTable._actions.runTest=Executer le test
+
+
+# Translations for the Add Test form
+qaapp.WebHome.addTest.button=Let's Add a test
+qaapp.WebHome.addTest.testName.label=Test Name
+qaapp.WebHome.addTest.testSpace.label=Test Space
+
+</content>
+</xwikidoc>

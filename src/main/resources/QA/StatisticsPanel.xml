@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xwikidoc>
+  <web>QA</web>
+  <name>StatisticsPanel</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <parent>QA.WebHome</parent>
+  <creator>xwiki:XWiki.Admin</creator>
+  <author>xwiki:XWiki.Admin</author>
+  <customClass/>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <creationDate>1358511268000</creationDate>
+  <date>1358869935000</date>
+  <contentUpdateDate>1358869935000</contentUpdateDate>
+  <version>1.1</version>
+  <title>Statistics Panel</title>
+  <template/>
+  <defaultTemplate/>
+  <validationScript/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.0</syntaxId>
+  <hidden>false</hidden>
+  <object>
+    <class>
+      <name>Panels.PanelClass</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <category>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>category</name>
+        <number>5</number>
+        <prettyName>Category</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators> ,|</separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>Information|Navigation|Tools|Administration|Other</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </category>
+      <content>
+        <disabled>0</disabled>
+        <editor>Text</editor>
+        <name>content</name>
+        <number>4</number>
+        <prettyName>Content</prettyName>
+        <rows>25</rows>
+        <size>60</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </content>
+      <description>
+        <disabled>0</disabled>
+        <editor>Text</editor>
+        <name>description</name>
+        <number>3</number>
+        <prettyName>Description</prettyName>
+        <rows>5</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </description>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <type>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>type</name>
+        <number>2</number>
+        <prettyName>Panel type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators> ,|</separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>view|edit</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </type>
+    </class>
+    <name>QA.StatisticsPanel</name>
+    <number>0</number>
+    <className>Panels.PanelClass</className>
+    <guid>620df311-a7df-4c45-b0f9-d2e08188cf9a</guid>
+    <property>
+      <category>Information</category>
+    </property>
+    <property>
+      <content>{{velocity}}
+#panelheader('Top 5 Testers')
+#set($statsCounter = {})
+
+#set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.ExecutionClass' and doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
+#foreach($item in $xwiki.searchDocuments($hql,5,0))
+  #foreach($object in $xwiki.getDocument($item).getObjects('QA.ExecutionClass'))
+    #set($testerName = $xwiki.getUserName($object.getProperty('user').getValue(), "$first_name $last_name", true))
+    #set($testerStats = $statsCounter.get($testerName))
+    #if($statsCounter.containsKey($testerName))
+      #set($discard = $statsCounter.put($testerName, $mathtool.add($testerStats, 1)))
+    #else
+      #set($discard = $statsCounter.put($testerName, 1))
+    #end
+  #end
+#end
+
+|=(% scope="col" %)Tester|=(% scope="col" %)Runs
+#foreach($key in $sorttool.sort($statsCounter.entrySet(), 'value:desc'))
+  |{{html}}$key.getKey(){{/html}}|$key.getValue() 
+#end
+#panelfooter()
+{{/velocity}}</content>
+    </property>
+    <property>
+      <description>Lists top 5 testers</description>
+    </property>
+    <property>
+      <name>QAStatisticsPanel</name>
+    </property>
+    <property>
+      <type>view</type>
+    </property>
+  </object>
+  <content>{{include document="Panels.PanelSheet"/}}</content>
+</xwikidoc>
