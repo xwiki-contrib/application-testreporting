@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1355404008000</creationDate>
-  <date>1357912729000</date>
-  <contentUpdateDate>1357912729000</contentUpdateDate>
+  <date>1359382649000</date>
+  <contentUpdateDate>1359382649000</contentUpdateDate>
   <version>1.1</version>
   <title>Management</title>
   <template/>
@@ -27,40 +27,46 @@
 
 {{velocity}}
 = Existing Tests =
-#set($hql = "select COUNT(obj) from BaseObject obj, XWikiDocument doc where doc.fullName=obj.name and obj.className='QA.TestClass' and doc.fullName &lt;&gt; 'QA.TestTemplate'")
-#set($results = $xwiki.search($hql, 0, 0))
-{{info}}There are currently ${results.get(0)} tests (QA.TestClass) in the application. For the full list, please visit [[QA Webhome&gt;&gt;QA.WebHome]].{{/info}}
+#set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.TestClass'")
+#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#if(!$results.isEmpty())
+ {{info}}There are currently ${results.size()} tests (QA.TestClass) in the application. For the full list, please visit [[QA Webhome&gt;&gt;QA.WebHome]].{{/info}}
+#end
 = Existing Browsers =
-#set($hql = "select COUNT(obj) from BaseObject obj, XWikiDocument doc where doc.fullName=obj.name and obj.className='QA.BrowserClass'")
-#set($results = $xwiki.search($hql, 0, 0).get(0))
-{{info}}There are $results browsers defined in the application.{{/info}}
-#set($collist = ["doc.name", "doc.space", "doc.date", "doc.author"])
-#set($colprops = {
+#set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.BrowserClass'")
+#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#if(!$results.isEmpty())
+  {{info}}There are ${results.size()} browsers defined in the application.{{/info}}
+  #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author"])
+  #set($colprops = {
                    "doc.name" : { "type" : "text" ,"link" : "true", "size" : 30, "sortable":true, "filterable":true},
                    "_ratings" : { "sortable":false},
                    "doc.date" : { "type" : "date" },
                    "doc.author" : { "type" : "text", "link" : "author"}
                  })
-#set($options = { "className":"QA.BrowserClass",
+  #set($options = { "className":"QA.BrowserClass",
                   "tagCloud" : false,
                   "translationPrefix" : "xe.index.",
                   "rowCount": 10 })
-#livetable("browsers" $collist $colprops $options) 
+  #livetable("browsers" $collist $colprops $options)
+#end
 = Existing Platforms =
-#set($hql = "select COUNT(obj) from BaseObject obj, XWikiDocument doc where doc.fullName=obj.name and obj.className='QA.PlatformClass'")
-#set($results = $xwiki.search($hql, 0, 0).get(0))
-{{info}}There are $results platform versions defined in the application.{{/info}}
-#set($collist = ["doc.name", "doc.space", "doc.date", "doc.author"])
-#set($colprops = {
+#set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.PlatformClass'")
+#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#if(!$results.isEmpty())
+  {{info}}There are $results.size() platform versions defined in the application.{{/info}}
+  #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author"])
+  #set($colprops = {
                    "doc.name" : { "type" : "text" ,"link" : "true", "size" : 30, "sortable":true, "filterable":true},
                    "_ratings" : { "sortable":false},
                    "doc.date" : { "type" : "date" },
                    "doc.author" : { "type" : "text", "link" : "author"}
                  })
-#set($options = { "className":"QA.PlatformClass",
+  #set($options = { "className":"QA.PlatformClass",
                   "tagCloud" : false,
                   "translationPrefix" : "xe.index.",
                   "rowCount": 10 })
-#livetable("platform" $collist $colprops $options) 
+  #livetable("platform" $collist $colprops $options) 
+#end
 {{/velocity}}</content>
 </xwikidoc>
