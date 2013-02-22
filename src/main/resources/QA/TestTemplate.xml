@@ -53,7 +53,7 @@
         <name>automatedLinkSourceCode</name>
         <number>3</number>
         <picker>0</picker>
-        <prettyName>automatedLinkSourceCode</prettyName>
+        <prettyName>Automated Link Source Code</prettyName>
         <size>30</size>
         <unmodifiable>0</unmodifiable>
         <validationMessage/>

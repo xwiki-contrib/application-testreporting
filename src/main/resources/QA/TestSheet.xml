@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1352720872000</creationDate>
-  <date>1361375617000</date>
-  <contentUpdateDate>1361375561000</contentUpdateDate>
+  <date>1361539399000</date>
+  <contentUpdateDate>1361539217000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'TestSheet')Test Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
   <template/>
@@ -135,6 +135,14 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.statusFail{
+  background-color:#DA4242;
+}
+
+.statusPass{
+  background-color:#3EC760;
 }</code>
     </property>
     <property>
@@ -184,6 +192,7 @@
 {{velocity}}
 #if ($context.action=="view")
 #if($doc.getObject('QA.TestClass'))
+(%class="buttonwrapper"%)[[Back to Application Homepage&gt;&gt;QA.WebHome]]
   == Steps to reproduce ==
 
   (% class="stepsToReproduce" %)(((
@@ -235,9 +244,9 @@
       #set($username=$xwiki.getUserName($object.getProperty('user').getValue(), true))
       #set($date=$xwiki.formatDate($object.getProperty('date').getValue(),"EEEE dd MMMM yyyy HH:mm:ss"))
       #if ($object.getProperty('passed').getValue() == '1')
-         #set($status = '(/)') 
+         #set($status = "(% class='statusPass' %)") 
       #else
-         #set($status = '(x)')
+         #set($status = "(% class='statusFail' %)")
       #end
       #set($jira=$object.getProperty('jira').getValue())
 |[[image:QA.LiveTableResults@${browserIcon}.png||style="vertical-align:middle"]] $browserName $browserVersion|{{html}}$username{{/html}}|$date|$status|$jira

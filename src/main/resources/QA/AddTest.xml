@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1357905842000</creationDate>
-  <date>1357912684000</date>
-  <contentUpdateDate>1357908520000</contentUpdateDate>
+  <date>1361539074000</date>
+  <contentUpdateDate>1361538677000</contentUpdateDate>
   <version>1.1</version>
   <title>AddTest</title>
   <template/>
@@ -25,10 +25,11 @@
   <hidden>false</hidden>
   <content>{{velocity}}
 #if(("$!request.testName" != '') &amp;&amp; ("$!request.spaceName" != ''))
-  #set($targetDocName = "${request.spaceName}.${request.testName}")
-  #set($parent = ${request.spaceName} + ".WebHome")
-  $response.sendRedirect($xwiki.getURL($targetDocName, 'edit', "editor=inline&amp;template=QA.TestTemplate&amp;parent=$parent"))
+  #set($targetDocReference = $services.model.createDocumentReference($xcontext.getDatabase(), "${request.spaceName}", "${request.testName}"))
+  #set($parentDocReference = $services.model.createDocumentReference($xcontext.getDatabase(), "${request.spaceName}", 'WebHome'))
+  $response.sendRedirect($xwiki.getURL($targetDocReference, 'edit', "editor=inline&amp;template=QA.TestTemplate&amp;title=$escapetool.url($request.testName)&amp;parent=$escapetool.url($parentDocReference)"))
 #end
+
 {{html wiki="true"}}
 &lt;form action="" class="xform third" id="addTestForm"&gt;
 (((

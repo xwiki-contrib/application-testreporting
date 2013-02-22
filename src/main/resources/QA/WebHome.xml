@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1340726350000</creationDate>
-  <date>1358852956000</date>
-  <contentUpdateDate>1358510908000</contentUpdateDate>
+  <date>1361539994000</date>
+  <contentUpdateDate>1361539972000</contentUpdateDate>
   <version>1.1</version>
   <title>QA</title>
   <template/>
@@ -278,7 +278,7 @@
 #set($columns = ['doc.name', 'doc.space', 'platform', 'browsers', 'automated', '_actions'])
 #set($columnsProperties = {
   'doc.name'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
-  'doc.space'     :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
+  'doc.space'     :{'type': 'text', 'link': 'space', 'size': 10, 'filterable': true, 'sortable': true},
   'platform'      :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': false},
   'browsers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'automated'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},

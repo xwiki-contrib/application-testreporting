@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1340726620000</creationDate>
-  <date>1358354141000</date>
-  <contentUpdateDate>1358354141000</contentUpdateDate>
+  <date>1361532748000</date>
+  <contentUpdateDate>1361532748000</contentUpdateDate>
   <version>1.1</version>
   <title>ExecutionClass</title>
   <template/>
@@ -86,7 +86,7 @@
     </jira>
     <passed>
       <customDisplay/>
-      <defaultValue>0</defaultValue>
+      <defaultValue>1</defaultValue>
       <disabled>0</disabled>
       <displayFormType>select</displayFormType>
       <displayType/>
@@ -176,18 +176,5 @@
       <sheet>XWiki.ClassSheet</sheet>
     </property>
   </object>
-  <content>{{velocity}}
-{{html wiki="true"}}
-&lt;select id="QA.ExecutionClass_0_platform" name="QA.ExecutionClass_0_platform"&gt;
-#set($sql = ", BaseObject as obj where obj.name=doc.fullName and obj.className='QA.PlatformClass'")
-#foreach ($item in $xwiki.searchDocuments($sql))
-#set($document = $xwiki.getDocument($item))
-#set($platformName = $document.getObject('QA.PlatformClass').getProperty('name').getValue())
-#set($platformVersion = $document.getObject('QA.PlatformClass').getProperty('version').getValue())
-## * $platformName $platformVersion
-: &lt;option value="$item" #if($item==$doc.getObject('QA.ExecutionClass').getProperty('platform').value) selected="selected"#end&gt;$platformName $platformVersion&lt;/option&gt;
-#end
-&lt;/select&gt;
-{{/html}}
-{{/velocity}}</content>
+  <content/>
 </xwikidoc>
