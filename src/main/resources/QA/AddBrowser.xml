@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xwikidoc>
+  <web>QA</web>
+  <name>AddBrowser</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <parent>QA.Management</parent>
+  <creator>xwiki:XWiki.Admin</creator>
+  <author>xwiki:XWiki.Admin</author>
+  <customClass/>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <creationDate>1361284671000</creationDate>
+  <date>1361462000000</date>
+  <contentUpdateDate>1361462000000</contentUpdateDate>
+  <version>1.1</version>
+  <title>AddBrowser</title>
+  <template/>
+  <defaultTemplate/>
+  <validationScript/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>{{velocity}}
+#set($browserName = $request.browserName)
+#set($browserVersion = $request.browserVersion)
+##$browserName
+##$browserVersion
+#if(("$!browserName" != '' || $browserName == '') &amp;&amp; ("$!browserVersion" != '' || $browserVersion == ''))
+  #set($targetDocName = $browserName)
+  #set($targetDocName = "${targetDocName} ${browserVersion}")
+  #set($documentReference = $services.model.createDocumentReference($xcontext.getDatabase(), 'QA', $targetDocName))
+  #set($redirectReference = $services.model.createDocumentReference($xcontext.getDatabase(), 'QA', 'Management'))
+  $response.sendRedirect($xwiki.getURL($documentReference, 'save', "QA.BrowserClass_0_name=$escapetool.url($browserName)&amp;QA.BrowserClass_0_version=$escapetool.url($browserVersion)&amp;template=QA.BrowserTemplate&amp;parent=QA.WebHome&amp;title=$escapetool.url($targetDocName)&amp;form_token=${services.csrf.getToken()}&amp;xredirect=$escapetool.url($xwiki.getURL($redirectReference))"))
+#end
+
+{{html wiki="true"}}
+&lt;form action="" class="xform third" id="addBrowserForm"&gt;
+(((
+            ; &lt;label for="browserName"&gt;$msg.get('qaapp.WebHome.addBrowser.browserName.label')&lt;/label&gt;
+            &lt;select id="browserName" name="browserName"&gt;
+              &lt;option value="Mozilla Firefox"&gt;Mozilla Firefox&lt;/option&gt;
+              &lt;option value="Google Chrome"&gt;Google Chrome&lt;/option&gt;
+              &lt;option value="Internet Explorer"&gt;Internet Explorer&lt;/option&gt;
+              &lt;option value="Safari"&gt;Safari&lt;/option&gt;
+              &lt;option value="Opera"&gt;Opera&lt;/option&gt;
+            &lt;/select&gt; 
+            ; &lt;label for="browserVersion"&gt;$msg.get('qaapp.WebHome.addBrowser.browserVersion.label')&lt;/label&gt;
+            : &lt;input type="text" id="browserVersion" name="browserVersion"&gt;
+
+            &lt;div class="xform buttons"&gt;
+            &lt;span class="buttonwrapper"&gt;&lt;input type="submit" value="$msg.get('qaapp.WebHome.addBrowser.button')" class="button"/&gt;&lt;/span&gt;
+            &lt;/div&gt;
+)))
+&lt;/form&gt;
+{{/html}}
+{{/velocity}}</content>
+</xwikidoc>

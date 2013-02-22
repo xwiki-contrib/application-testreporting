@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1355328117000</creationDate>
-  <date>1357905892000</date>
-  <contentUpdateDate>1357903580000</contentUpdateDate>
+  <date>1361374060000</date>
+  <contentUpdateDate>1361359480000</contentUpdateDate>
   <version>1.1</version>
   <title>Translations</title>
   <template/>
@@ -36,5 +36,15 @@ qaapp.WebHome.LiveTable._actions.runTest=Run Test
 # Translations for the Add Test form
 qaapp.WebHome.addTest.button=Add a new test
 qaapp.WebHome.addTest.testName.label=Test Name
-qaapp.WebHome.addTest.testSpace.label=Test Space</content>
+qaapp.WebHome.addTest.testSpace.label=Test Space
+
+# Translations in the Add Browser form
+qaapp.WebHome.addBrowser.button=Add a new browser
+qaapp.WebHome.addBrowser.browserName.label=Browser Name
+qaapp.WebHome.addBrowser.browserVersion.label=Browser Version
+
+# Translations in the Add Platform form
+qaapp.WebHome.addPlatform.button=Add a new platform
+qaapp.WebHome.addPlatform.platformName.label=Platform Name
+qaapp.WebHome.addPlatform.platformVersion.label=Platform Version</content>
 </xwikidoc>

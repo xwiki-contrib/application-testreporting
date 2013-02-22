@@ -2,20 +2,20 @@
 
 <xwikidoc>
   <web>QA</web>
-  <name>Firefox13</name>
+  <name>PlatformTemplate</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>QA.BrowserClass</parent>
+  <parent>QA.PlatformClass</parent>
   <creator>xwiki:XWiki.Admin</creator>
   <author>xwiki:XWiki.Admin</author>
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1340726445000</creationDate>
-  <date>1355765893000</date>
-  <contentUpdateDate>1355765893000</contentUpdateDate>
+  <creationDate>1361285073000</creationDate>
+  <date>1361285078000</date>
+  <contentUpdateDate>1361285078000</contentUpdateDate>
   <version>1.1</version>
-  <title>Firefox13</title>
+  <title>Platform Template</title>
   <template/>
   <defaultTemplate/>
   <validationScript/>
@@ -25,7 +25,7 @@
   <hidden>false</hidden>
   <object>
     <class>
-      <name>QA.BrowserClass</name>
+      <name>QA.PlatformClass</name>
       <customClass/>
       <customMapping/>
       <defaultViewSheet/>
@@ -60,15 +60,15 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </version>
     </class>
-    <name>QA.Firefox13</name>
+    <name>QA.PlatformTemplate</name>
     <number>0</number>
-    <className>QA.BrowserClass</className>
-    <guid>33a827f0-7eaf-4866-bdf2-de292ac5eb1e</guid>
+    <className>QA.PlatformClass</className>
+    <guid>a74f839f-a0aa-4c95-afb5-0ad61a460f06</guid>
     <property>
-      <name>Mozilla Firefox</name>
+      <name/>
     </property>
     <property>
-      <version>13</version>
+      <version/>
     </property>
   </object>
   <content/>

@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1340726526000</creationDate>
-  <date>1358422117000</date>
-  <contentUpdateDate>1358422117000</contentUpdateDate>
+  <date>1361293763000</date>
+  <contentUpdateDate>1361293763000</contentUpdateDate>
   <version>1.1</version>
   <title>PlatformClass</title>
   <template/>
@@ -59,11 +59,75 @@
       <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
     </version>
   </class>
+  <object>
+    <class>
+      <name>XWiki.ClassSheetBinding</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <sheet>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>sheet</name>
+        <number>1</number>
+        <picker>0</picker>
+        <prettyName>Sheet</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </sheet>
+    </class>
+    <name>QA.PlatformClass</name>
+    <number>0</number>
+    <className>XWiki.ClassSheetBinding</className>
+    <guid>da535c06-0e7f-4ff9-b43c-936f72c824b4</guid>
+    <property>
+      <sheet>PlatformSheet</sheet>
+    </property>
+  </object>
+  <object>
+    <class>
+      <name>XWiki.DocumentSheetBinding</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <sheet>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>sheet</name>
+        <number>1</number>
+        <picker>0</picker>
+        <prettyName>Sheet</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </sheet>
+    </class>
+    <name>QA.PlatformClass</name>
+    <number>0</number>
+    <className>XWiki.DocumentSheetBinding</className>
+    <guid>ce55d6f7-85c1-49ef-ac9f-47bed1479a36</guid>
+    <property>
+      <sheet>XWiki.ClassSheet</sheet>
+    </property>
+  </object>
   <content>{{velocity}}
 #if($type=='edit')
 {{html wiki="true"}}
 &lt;select id="QA.ExecutionClass_${object.number}_platform" name="QA.ExecutionClass_${object.number}_platform"&gt;
-#set($sql = ", BaseObject as obj where obj.name=doc.fullName and obj.className='QA.PlatformClass'")
+#set($sql = ", BaseObject as obj where obj.name=doc.fullName and obj.className='QA.PlatformClass' and doc.fullName &lt;&gt; 'QA.PlatformTemplate'")
 #foreach ($item in $xwiki.searchDocuments($sql))
 #set($document = $xwiki.getDocument($item))
 #set($platformName = $document.getObject('QA.PlatformClass').getProperty('name').getValue())

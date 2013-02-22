@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xwikidoc>
+  <web>QA</web>
+  <name>AddPlatform</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <parent>Main.AllDocs</parent>
+  <creator>xwiki:XWiki.Admin</creator>
+  <author>xwiki:XWiki.Admin</author>
+  <customClass/>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <creationDate>1361287687000</creationDate>
+  <date>1361462197000</date>
+  <contentUpdateDate>1361462196000</contentUpdateDate>
+  <version>1.1</version>
+  <title>AddPlatform</title>
+  <template/>
+  <defaultTemplate/>
+  <validationScript/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>{{velocity}}
+#set($platformName = $request.platformName)
+#set($platformVersion = $request.platformVersion)
+#if(("$!platformName" != '' || $platformName == '') &amp;&amp; ("$!platformVersion" != '' || $platformVersion == ''))
+  #set($targetDocName = $platformName)
+  #set($targetDocName = "${targetDocName} ${platformVersion}")
+  #set($documentReference = $services.model.createDocumentReference($xcontext.getDatabase(), 'QA', $targetDocName))
+  #set($redirectReference = $services.model.createDocumentReference($xcontext.getDatabase(), 'QA', 'Management'))
+  $response.sendRedirect($xwiki.getURL($documentReference, 'save', "QA.PlatformClass_0_name=$escapetool.url($platformName)&amp;QA.PlatformClass_0_version=$escapetool.url($platformVersion)&amp;template=QA.PlatformTemplate&amp;parent=QA.WebHome&amp;title=$escapetool.url($targetDocName)&amp;form_token=${services.csrf.getToken()}&amp;xredirect=$escapetool.url($xwiki.getURL($redirectReference))"))
+#end
+
+{{html wiki="true"}}
+&lt;form action="" class="xform third" id="addPlatformForm"&gt;
+(((
+            ; &lt;label for="platformName"&gt;$msg.get('qaapp.WebHome.addPlatform.platformName.label')&lt;/label&gt;
+            &lt;select id="platformName" name="platformName"&gt;
+              &lt;option value="XWiki"&gt;XWiki&lt;/option&gt;
+
+            &lt;/select&gt; 
+            ; &lt;label for="platformVersion"&gt;$msg.get('qaapp.WebHome.addPlatform.platformVersion.label')&lt;/label&gt;
+            : &lt;input type="text" id="platformVersion" name="platformVersion"&gt;
+
+            &lt;div class="xform buttons"&gt;
+            &lt;span class="buttonwrapper"&gt;&lt;input type="submit" value="$msg.get('qaapp.WebHome.addPlatform.button')" class="button"/&gt;&lt;/span&gt;
+            &lt;/div&gt;
+)))
+&lt;/form&gt;
+{{/html}}
+{{/velocity}}</content>
+</xwikidoc>
