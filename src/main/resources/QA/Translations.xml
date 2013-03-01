@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1355328117000</creationDate>
-  <date>1361374060000</date>
-  <contentUpdateDate>1361359480000</contentUpdateDate>
+  <date>1361804585000</date>
+  <contentUpdateDate>1361804582000</contentUpdateDate>
   <version>1.1</version>
   <title>Translations</title>
   <template/>
@@ -26,10 +26,10 @@
   <content># Translations for the LiveTable found on QA.WebHome
 qaapp.WebHome.LiveTable.doc.name=Test Name
 qaapp.WebHome.LiveTable.doc.space=Test Space
-qaapp.WebHome.LiveTable.platform=XWiki Version upon last test was run 
-qaapp.WebHome.LiveTable.browsers=Browsers Tested
+qaapp.WebHome.LiveTable.platform=Latest product version tested
+qaapp.WebHome.LiveTable.browsers=Tested Browsers
 qaapp.WebHome.LiveTable.automated=Automated Tests
-qaapp.WebHome.LiveTable._actions=Actions
+qaapp.WebHome.LiveTable._actions=Action
 qaapp.WebHome.LiveTable.no.tests.execution.found=No test executions found
 qaapp.WebHome.LiveTable._actions.runTest=Run Test
 
