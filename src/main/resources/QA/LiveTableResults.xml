@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1352394078000</creationDate>
-  <date>1362065359000</date>
-  <contentUpdateDate>1362065359000</contentUpdateDate>
+  <date>1362495921000</date>
+  <contentUpdateDate>1362495600000</contentUpdateDate>
   <version>1.1</version>
   <title>$msg.get("platform.livetable.results")</title>
   <template/>
@@ -23,6 +23,384 @@
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.0</syntaxId>
   <hidden>true</hidden>
+  <attachment>
+    <filename>PostgreSQL.png</filename>
+    <filesize>2764</filesize>
+    <author>XWiki.Admin</author>
+    <date>1362489014000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4RDY0MDhCOUIzNzlFMjExQURCREZDRjE2Njg4
+N0YyNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBOUEzODI5Nzc5QjYxMUUyQTZFRkY1OUM0
+Qjk4N0YxRCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBOUEzODI5Njc5QjYxMUUyQTZFRkY1
+OUM0Qjk4N0YxRCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dz
+KSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjkxNjQwOEI5
+QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjhENjQw
+OEI5QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpS
+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
+SbBC/58AAwDBg2QTK2vUtQAAAABJRU5ErkJggg==
+</content>
+  </attachment>
+  <attachment>
+    <filename>MySQL.png</filename>
+    <filesize>2617</filesize>
+    <author>XWiki.Admin</author>
+    <date>1362489013000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4RDY0MDhCOUIzNzlFMjExQURCREZDRjE2Njg4
+N0YyNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCMDFDMTk1OTc5QjYxMUUyOTk3RkIxMTdB
+M0ExRkQ1MyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCMDFDMTk1ODc5QjYxMUUyOTk3RkIx
+MTdBM0ExRkQ1MyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dz
+KSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjkxNjQwOEI5
+QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjhENjQw
+OEI5QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpS
+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
+</content>
+  </attachment>
+  <attachment>
+    <filename>Microsot SQL.png</filename>
+    <filesize>2525</filesize>
+    <author>XWiki.Admin</author>
+    <date>1362489012000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4RDY0MDhCOUIzNzlFMjExQURCREZDRjE2Njg4
+N0YyNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5OERBQjFDRDc5QjYxMUUyOERFM0U4MTlG
+QjU1NTNCNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5OERBQjFDQzc5QjYxMUUyOERFM0U4
+MTlGQjU1NTNCNSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dz
+KSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjkxNjQwOEI5
+QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjhENjQw
+OEI5QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpS
+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
+HOBB8RoAAAAASUVORK5CYII=
+</content>
+  </attachment>
+  <attachment>
+    <filename>HyperSQL.png</filename>
+    <filesize>2516</filesize>
+    <author>XWiki.Admin</author>
+    <date>1362489012000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4RDY0MDhCOUIzNzlFMjExQURCREZDRjE2Njg4
+N0YyNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBMTgwREYxODc5QjYxMUUyODVBQkY1NTQ5
+OUMxMzVENyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBMTgwREYxNzc5QjYxMUUyODVBQkY1
+NTQ5OUMxMzVENyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dz
+KSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjkxNjQwOEI5
+QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjhENjQw
+OEI5QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpS
+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
+SUVORK5CYII=
+</content>
+  </attachment>
+  <attachment>
+    <filename>IBM DB2.png</filename>
+    <filesize>2500</filesize>
+    <author>XWiki.Admin</author>
+    <date>1362489011000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4RDY0MDhCOUIzNzlFMjExQURCREZDRjE2Njg4
+N0YyNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5MTZBRTYyQzc5QjYxMUUyOTE2Q0Y3MTVC
+QTFEMTk1NyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5MTZBRTYyQjc5QjYxMUUyOTE2Q0Y3
+MTVCQTFEMTk1NyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dz
+KSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjkxNjQwOEI5
+QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjhENjQw
+OEI5QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpS
+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
+</content>
+  </attachment>
+  <attachment>
+    <filename>Apache Derby.png</filename>
+    <filesize>2435</filesize>
+    <author>XWiki.Admin</author>
+    <date>1362489011000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4RDY0MDhCOUIzNzlFMjExQURCREZDRjE2Njg4
+N0YyNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1OTExQTJCNDc5QjYxMUUyOEYxQkVDQTVC
+MDk2MzEyMiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1OTExQTJCMzc5QjYxMUUyOEYxQkVD
+QTVCMDk2MzEyMiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dz
+KSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjhFNjQwOEI5
+QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjhENjQw
+OEI5QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpS
+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
+</content>
+  </attachment>
+  <attachment>
+    <filename>Oracle.png</filename>
+    <filesize>2403</filesize>
+    <author>XWiki.Admin</author>
+    <date>1362489010000</date>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0
+NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4RDY0MDhCOUIzNzlFMjExQURCREZDRjE2Njg4
+N0YyNiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCNjM2M0IwODc5QjYxMUUyQTgzMDk4RjE4
+MkNBMjBCMyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCNjM2M0IwNzc5QjYxMUUyQTgzMDk4
+RjE4MkNBMjBCMyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dz
+KSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjkxNjQwOEI5
+QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjhENjQw
+OEI5QjM3OUUyMTFBREJERkNGMTY2ODg3RjI2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpS
+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
+AElFTkSuQmCC
+</content>
+  </attachment>
   <attachment>
     <filename>Internet Explorer.png</filename>
     <filesize>2561</filesize>
@@ -358,7 +736,7 @@ nwADAOxBqgBHo7u8AAAAAElFTkSuQmCC
   <content>{{include document="XWiki.LiveTableResultsMacros"/}}
 
 {{velocity wiki="false"}}
-
+## Macro which takes the latest (chronological) platform the test was run upon.
 #macro(extendRow $row)
   #set($rowDoc=$xwiki.getDocument($row.doc_fullName))
   #set($lastExecution=$NULL)
@@ -382,20 +760,34 @@ nwADAOxBqgBHo7u8AAAAAElFTkSuQmCC
   ##
   ##
   #set($browsers = {})
+  #set($databases = {})
   #foreach($execution in $executions)
     #if ($execution.getProperty('platform').value == $platformValue)
       #set($browserValue=$execution.getProperty('browser').value)
+      #set($databaseValue=$execution.getProperty('database').value)
       #set($browserDoc=$xwiki.getDocument($browserValue))
+      #set($databaseDoc=$xwiki.getDocument($databaseValue))
         #if($browserDoc.getObject('QA.BrowserClass'))
           #set($browserName = $browserDoc.get('name'))
-          #set($versions = $browsers.get($browserName))
-          #if(!$versions)
-            #set($versions = $collectionstool.getSet())
-            #set($discard = $browsers.put($browserName, $versions))
+          #set($browserVersions = $browsers.get($browserName))
+          #if(!$browserVersions)
+            #set($browserVersions = $collectionstool.getSet())
+            #set($discard = $browsers.put($browserName, $browserVersions))
           #end
-          #set($discard = $versions.add($browserDoc.get('version')))
+          #set($discard = $browserVersions.add($browserDoc.get('version')))
         #else
-          #set($discard = $browsers.put($browserValue, 'unknown'))
+          #set($discard = $browsers.put($browserValue, ''))
+        #end
+        #if($databaseDoc.getObject('QA.DatabaseClass'))
+          #set($databaseName = $databaseDoc.get('name'))
+          #set($databaseVersions = $databases.get($databaseName))
+          #if(!$databaseVersions)
+            #set($databaseVersions = $collectionstool.getSet())
+            #set($discard = $databases.put($databaseName, $databaseVersions))
+          #end
+          #set($discard = $databaseVersions.add($databaseDoc.get('version')))
+        #else
+          #set($discard = $databases.put($databaseValue, ''))
         #end
     #end
   #end
@@ -410,6 +802,16 @@ nwADAOxBqgBHo7u8AAAAAElFTkSuQmCC
   #set($discard = $row.put("browsers","$browsersHTML"))
   ## We put the browsers as text
   ##set($discard = $row.put("browsers", $stringtool.join($browsers,',')))
+
+  ## We get an image for each database and put the versions
+  #set($databasesHTML='')
+  #foreach($database in $sorttool.sort($databases.entrySet(), 'key:asc'))
+    #set($databaseIcon = $database.key+'.png')
+    ## Sort (String sort, not Integer sort)
+    #set($database.value = $sorttool.sort($database.value))
+    #set($databasesHTML = $databasesHTML + "&lt;img src=""$doc.getAttachmentURL($databaseIcon)"" alt=""$database.key"" title=""$database.key""&gt;" + "&lt;span class=""databaseVersions""&gt;$database.value.toString().replace('[', '').replace(']', '')&lt;/span&gt; " + "")
+  #end
+  #set($discard = $row.put("databases","$databasesHTML"))
   #set($discard = $row.put("doc_runTest_url", $rowDoc.getURL('view', 'sheet=QA.ExecutionAddSheet')))
 #end
 #if($xcontext.action == 'get' &amp;&amp; "$!{request.outputSyntax}" == 'plain')

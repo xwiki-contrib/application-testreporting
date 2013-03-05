@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1355506014000</creationDate>
-  <date>1358421732000</date>
-  <contentUpdateDate>1358421696000</contentUpdateDate>
+  <date>1362488337000</date>
+  <contentUpdateDate>1362487522000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'ExecutionAddSheet')Execution Add Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
   <template/>
@@ -84,7 +84,7 @@
     #set($dateFormat=$xwiki.getDocument('QA.ExecutionClass').getxWikiClass().get('date').getProperty('dateFormat').value)
     &lt;input type="hidden" name="QA.ExecutionClass_${object.number}_date" value="$escapetool.xml($datetool.format($dateFormat, $object.getProperty('date').value))"/&gt;
   &lt;/div&gt;
-  ## XE version selector    
+  ## Product version selector    
   ; &lt;label for="QA.ExecutionClass_${object.number}_platform"&gt;$doc.displayPrettyName('platform', false, false)&lt;/label&gt;
   : $doc.display('platform', 'edit')
   ##
@@ -92,6 +92,9 @@
   ; &lt;label for="QA.ExecutionClass_${object.number}_browser"&gt;$doc.displayPrettyName('browser', false, false)&lt;/label&gt;
   : $doc.display('browser', 'edit')
   ##
+  ## Database Version Selector
+  ; &lt;label for="QA.ExecutionClass_${object.number}_database"&gt;$doc.displayPrettyName('database', false, false)&lt;/label&gt;
+  : $doc.display('database', 'edit')
   ## Passed/Fail
   ; &lt;label for="QA.ExecutionClass_${object.number}_passed"&gt;$doc.displayPrettyName('passed', false, false)&lt;/label&gt;
   ; $doc.display('passed', 'edit')

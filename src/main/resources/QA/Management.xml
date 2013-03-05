@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1355404008000</creationDate>
-  <date>1361287734000</date>
-  <contentUpdateDate>1361287734000</contentUpdateDate>
+  <date>1362487877000</date>
+  <contentUpdateDate>1362487877000</contentUpdateDate>
   <version>1.1</version>
   <title>Management</title>
   <template/>
@@ -29,6 +29,26 @@
 #set($results = $xwiki.searchDocuments($hql, 0, 0))
 #if(!$results.isEmpty())
  {{info}}There are currently ${results.size()} tests (QA.TestClass) in the application. For the full list, please visit [[QA Webhome&gt;&gt;QA.WebHome]].{{/info}}
+#end
+= Existing Platforms =
+#set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.PlatformClass'")
+#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#if(!$results.isEmpty())
+  #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
+  #set($colprops = {
+                   "doc.name" : { "type" : "text" ,"link" : "true", "size" : 30, "sortable":true, "filterable":true},
+                   "_ratings" : { "sortable":false},
+                   "doc.date" : { "type" : "date" },
+                   "doc.author" : { "type" : "text", "link" : "author"},
+                   "_actions" : { 'actions' : ['delete'] }
+                 })
+  #set($options = { "className":"QA.PlatformClass",
+                  "tagCloud" : false,
+                  "translationPrefix" : "xe.index.",
+                  "rowCount": 10 })
+
+  (%class="buttonwrapper"%)[[Add new Platform&gt;&gt;QA.AddPlatform]]
+  #livetable("platforms" $collist $colprops $options) 
 #end
 = Existing Browsers =
 #set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.BrowserClass'")
@@ -50,10 +70,11 @@
   (%class="buttonwrapper"%)[[Add new Browser&gt;&gt;QA.AddBrowser]]
   #livetable("browsers" $collist $colprops $options)
 #end
-= Existing Platforms =
-#set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.PlatformClass'")
+= Existing Databases =
+#set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.DatabaseClass'")
 #set($results = $xwiki.searchDocuments($hql, 0, 0))
 #if(!$results.isEmpty())
+
   #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
   #set($colprops = {
                    "doc.name" : { "type" : "text" ,"link" : "true", "size" : 30, "sortable":true, "filterable":true},
@@ -62,13 +83,12 @@
                    "doc.author" : { "type" : "text", "link" : "author"},
                    "_actions" : { 'actions' : ['delete'] }
                  })
-  #set($options = { "className":"QA.PlatformClass",
+  #set($options = { "className":"QA.DatabaseClass",
                   "tagCloud" : false,
                   "translationPrefix" : "xe.index.",
                   "rowCount": 10 })
-
-  (%class="buttonwrapper"%)[[Add new Platform&gt;&gt;QA.AddPlatform]]
-  #livetable("platform" $collist $colprops $options) 
+  (%class="buttonwrapper"%)[[Add new Database&gt;&gt;QA.AddDatabase]]
+  #livetable("databases" $collist $colprops $options)
 #end
 {{/velocity}}</content>
 </xwikidoc>

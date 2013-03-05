@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1352720872000</creationDate>
-  <date>1362063131000</date>
-  <contentUpdateDate>1362062804000</contentUpdateDate>
+  <date>1362490359000</date>
+  <contentUpdateDate>1362490188000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'TestSheet')Test Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
   <template/>
@@ -206,6 +206,7 @@
     )))
 
   == Results ==
+  ## Creates a map where the platform is the key and values are the ExecutionClass objects that match the platform version  
   #macro(buildTestExecutionMap $ObjectsMap)
     ## Get all objects of the type Execution Class
     #set($objects = $doc.getObjects('QA.ExecutionClass'))
@@ -224,11 +225,13 @@
     === #if($platformObject) $platformObject.getProperty('name').getValue() $platformObject.getProperty('version').getValue() #else $platformDoc #end ===
 
     (% style="width:99%" %)
-    |=(% style="width:20%" %)Browser|=(% style="width:10%" %)User|=(% style="width:30%" %)Date Tested|=(% style="width:5%" %)Status|=(% style="width:35%;vertical-align:middle" %)JIRA Issue
+    |=(% style="width:20%" %)Browser|=(% style="width:20%" %)Database|=(% style="width:10%" %)User|=(% style="width:30%" %)Date Tested|=(% style="width:5%" %)Status|=(% style="width:35%;vertical-align:middle" %)JIRA Issue
     ##
     #foreach($object in $Objects.get($entry))
       #set($browserDoc = $xwiki.getDocument($object.getProperty('browser').getValue()))
       #set($browserObject = $browserDoc.getObject('QA.BrowserClass'))
+      #set($databaseDoc = $xwiki.getDocument($object.getProperty('database').getValue()))
+      #set($databaseObject = $databaseDoc.getObject('QA.DatabaseClass'))
       #if($browserObject)
         #set($browserName = $browserObject.getProperty('name').getValue())
         #set($browserVersion=$browserObject.getProperty('version').getValue())
@@ -239,6 +242,20 @@
       #else
         #set($browserColumn = $browserDoc)
       #end
+      #if($databaseObject)
+        #set($databaseName=$databaseObject.getProperty('name').getValue())
+        #set($databaseVersion=$databaseObject.getProperty('version').getValue())
+        #if ($databaseName=='HyperSQL')#set($databaseIcon="${databaseName}")#end
+        #if ($databaseName=='MySQL')#set($databaseIcon="${databaseName}")#end
+        #if ($databaseName=='PostgreSQL')#set($databaseIcon="${databaseName}")#end
+        #if ($databaseName=='Oracle')#set($databaseIcon="${databaseName}")#end
+        #if ($databaseName=='Microsoft SQL')#set($databaseIcon="${databaseName}")#end
+        #if ($databaseName=='IBM DB2')#set($databaseIcon="${databaseName}")#end
+        #if ($databaseName=='Apache Derby')#set($databaseIcon="${databaseName}")#end
+        #set($databaseColumn = "[[image:QA.LiveTableResults@${databaseIcon}.png||style=""vertical-align:middle""]] $databaseName $databaseVersion")
+      #else
+        #set($databaseColumn = $databaseDoc)
+      #end
       #set($username=$xwiki.getUserName($object.getProperty('user').getValue(), true))
       #set($date=$xwiki.formatDate($object.getProperty('date').getValue(),"EEEE dd MMMM yyyy HH:mm:ss"))
       #if ($object.getProperty('passed').getValue() == '1')
@@ -247,7 +264,7 @@
          #set($status = "(% class='statusFail' %)")
       #end
       #set($jira=$object.getProperty('jira').getValue())
-      |$browserColumn |{{html}}$username{{/html}}|$date|$status|$jira
+      |$browserColumn |$databaseColumn| {{html}}$username{{/html}}|$date|$status|$jira
     ##FOREACH END
     #end
   ##FOREACH END
