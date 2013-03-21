@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1340726620000</creationDate>
-  <date>1363099473000</date>
-  <contentUpdateDate>1363099473000</contentUpdateDate>
+  <date>1363364996000</date>
+  <contentUpdateDate>1363364996000</contentUpdateDate>
   <version>1.1</version>
   <title>ExecutionClass</title>
   <defaultTemplate/>
@@ -33,11 +33,11 @@
     <validationScript/>
     <browser>
       <cache>0</cache>
-      <classname>QA.BrowserClass</classname>
-      <customDisplay>{{include document="QA.BrowserClass"/}}</customDisplay>
+      <classname/>
+      <customDisplay/>
       <disabled>0</disabled>
       <displayType>select</displayType>
-      <idField>doc.fullName</idField>
+      <idField/>
       <multiSelect>0</multiSelect>
       <name>browser</name>
       <number>2</number>
@@ -48,17 +48,17 @@
       <separators/>
       <size>1</size>
       <sort>none</sort>
-      <sql/>
+      <sql>select doc.fullName, doc.name from XWikiDocument doc,BaseObject as obj where obj.name=doc.fullName and obj.className='QA.BrowserClass' and doc.fullName &lt;&gt; 'QA.BrowserTemplate'</sql>
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
       <validationRegExp/>
-      <valueField>doc.name</valueField>
+      <valueField/>
       <classType>com.xpn.xwiki.objects.classes.DBListClass</classType>
     </browser>
     <database>
       <cache>0</cache>
       <classname/>
-      <customDisplay>{{include document="QA.DatabaseClass"/}}</customDisplay>
+      <customDisplay/>
       <disabled>0</disabled>
       <displayType>select</displayType>
       <idField/>
@@ -72,7 +72,7 @@
       <separators/>
       <size>1</size>
       <sort>none</sort>
-      <sql/>
+      <sql>select doc.fullName, doc.name from XWikiDocument doc,BaseObject as obj where obj.name=doc.fullName and obj.className='QA.DatabaseClass' and doc.fullName &lt;&gt; 'QA.DatabaseTemplate'</sql>
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
       <validationRegExp/>
@@ -123,11 +123,11 @@
     </passed>
     <platform>
       <cache>0</cache>
-      <classname>QA.PlatformClass</classname>
-      <customDisplay>{{include document="QA.PlatformClass"/}}</customDisplay>
+      <classname/>
+      <customDisplay/>
       <disabled>0</disabled>
       <displayType>select</displayType>
-      <idField>doc.fullName</idField>
+      <idField/>
       <multiSelect>0</multiSelect>
       <name>platform</name>
       <number>1</number>
@@ -138,11 +138,11 @@
       <separators/>
       <size>1</size>
       <sort>none</sort>
-      <sql/>
+      <sql>select doc.fullName, doc.name from XWikiDocument doc,BaseObject as obj where obj.name=doc.fullName and obj.className='QA.PlatformClass' and doc.fullName &lt;&gt; 'QA.PlatformTemplate'</sql>
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
       <validationRegExp/>
-      <valueField>doc.name</valueField>
+      <valueField/>
       <classType>com.xpn.xwiki.objects.classes.DBListClass</classType>
     </platform>
     <user>

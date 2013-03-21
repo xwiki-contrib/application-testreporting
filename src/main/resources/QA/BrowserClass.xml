@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1340726370000</creationDate>
-  <date>1363099472000</date>
-  <contentUpdateDate>1363099472000</contentUpdateDate>
+  <date>1363102962000</date>
+  <contentUpdateDate>1363102962000</contentUpdateDate>
   <version>1.1</version>
   <title>BrowserClass</title>
   <defaultTemplate/>
@@ -122,24 +122,5 @@
       <sheet>XWiki.ClassSheet</sheet>
     </property>
   </object>
-  <content>{{velocity}}
-#if($type=='edit')
-{{html wiki="true"}}
-&lt;select id="QA.ExecutionClass_${object.number}_browser" name="QA.ExecutionClass_${object.number}_browser"&gt;
-#set($sql = ", BaseObject as obj where obj.name=doc.fullName and obj.className='QA.BrowserClass' and doc.fullName &lt;&gt; 'QA.BrowserTemplate'")
-#foreach ($item in $xwiki.searchDocuments($sql))
-#set($document = $xwiki.getDocument($item))
-#set($browserName = $document.getObject('QA.BrowserClass').getProperty('name').getValue())
-#set($browserVersion = $document.getObject('QA.BrowserClass').getProperty('version').getValue())
-: &lt;option value="$item" #if($item==$object.getProperty('browser').value) selected="selected"#end&gt;$browserName $browserVersion&lt;/option&gt;
-#end
-&lt;/select&gt;
-{{/html}}
-#else
-#set($browserDocName=$object.getProperty('browser').value)
-#set($browserDoc=$xwiki.getDocument($browserDocName))
-#set($browserObject=$browserDoc.getObject('QA.BrowserClass'))
-$!browserObject.getProperty('name').value $!browserObject.getProperty('version').value
-#end
-{{/velocity}}</content>
+  <content/>
 </xwikidoc>
