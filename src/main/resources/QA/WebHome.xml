@@ -12,7 +12,7 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1340726350000</creationDate>
-  <date>1363099489000</date>
+  <date>1364324934000</date>
   <contentUpdateDate>1363099489000</contentUpdateDate>
   <version>1.1</version>
   <title>QA</title>
@@ -105,6 +105,7 @@
       <code>document.observe('xwiki:livetable:newrow', function(event){
   event.memo.row.down('.actionrunTest').observe('click', function(event) {
     event.stop();
+    var runTestLink = [event.element()];
 
     var loading = new Element('div', {'class' : 'loading'});
     var dialog = new XWiki.widgets.ModalPopup(
@@ -117,21 +118,38 @@
     );
     dialog.showDialog();
 
+    var loadNextTest = function(runTestLink){
+      var cell = runTestLink.up('td');
+      var row = cell.up();
+      var table = row.up('table');
+      if (row.rowIndex + 1 &lt; table.rows.length){
+        var nextLink = table.rows[row.rowIndex + 1].cells[cell.cellIndex].down('a.actionrunTest');
+        loadTest(nextLink);
+        return nextLink;
+      }else{
+        return null;
+      }
+    }
+
     var onSubmit = function(event){
       event.stop();
-      var form = event.element();
+      var button = event.element();
+      var form = button.form;
       new Ajax.Request(form.action, {
          parameters : form.serialize(),
          onCreate: function(){
            form.disable();
          },
          onSuccess: function(){
-           dialog.closeDialog();
-           // Reload LiveTable
-           var end = qaHomePageLiveTable.limit;
-           var start = Math.max(qaHomePageLiveTable.lastOffset, 1);
-           qaHomePageLiveTable.clearCache();
-           qaHomePageLiveTable.getRows(start, end, start, end);
+           runTestLink[0] = button.name == 'addObjectAndNext' &amp;&amp; loadNextTest(runTestLink[0]);
+           if (!runTestLink[0]){
+             dialog.closeDialog();
+             // Reload LiveTable
+             var end = qaHomePageLiveTable.limit;
+             var start = Math.max(qaHomePageLiveTable.lastOffset, 1);
+             qaHomePageLiveTable.clearCache();
+             qaHomePageLiveTable.getRows(start, end, start, end);
+           }
            new XWiki.widgets.Notification("Test execution added", 'done');
          },
          on0 : function (response) {
@@ -144,18 +162,31 @@
       })
     }
 
-    var url = event.element().readAttribute('href');
-    new Ajax.Updater(loading.up(), url, {
-      parameters: {
-        xpage:'plain'
-      },
-      onComplete: function(){
-        var dialogContent = dialog.dialog.down('.xdialog-content')
-        document.fire('xwiki:dom:updated', {elements: [dialogContent]});
-        var form = dialogContent.down('form');
-        form &amp;&amp; form.observe('submit', onSubmit);
-      }
-    });   
+    var addNextButton = function(runTestButton){
+      var next = new Element('input', { 'class': 'secondary button', 'value': 'Run and Next','name': 'addObjectAndNext', 'type': 'submit'});
+      var span = new Element('span', {'class': 'buttonwrapper'});
+      span.insert(next);
+      runTestButton.up().insert({after: span});
+      next.observe('click', onSubmit);
+    }
+
+    var loadTest = function(runTestLink){
+      var url = runTestLink.readAttribute('href');
+      var dialogContent = dialog.dialog.down('.xdialog-content')
+      new Ajax.Updater(dialogContent, url, {
+        parameters: {
+          xpage:'plain'
+        },
+        onComplete: function(){
+          document.fire('xwiki:dom:updated', {elements: [dialogContent]});
+          var submit = dialogContent.down('input[name=addObject]');
+          submit &amp;&amp; submit.observe('click', onSubmit);
+          addNextButton(submit);
+        }
+      });  
+    }
+
+    loadTest(runTestLink[0]); 
   });
 });</code>
     </property>

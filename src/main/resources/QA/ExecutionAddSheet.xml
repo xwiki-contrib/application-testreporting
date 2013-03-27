@@ -12,8 +12,8 @@
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1355506014000</creationDate>
-  <date>1363099481000</date>
-  <contentUpdateDate>1363099481000</contentUpdateDate>
+  <date>1364318139000</date>
+  <contentUpdateDate>1364318139000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'ExecutionAddSheet')Execution Add Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
   <defaultTemplate/>
@@ -31,6 +31,7 @@
       #set($propNameStart=$entry.key.indexOf('_', $prefix.length())+1)
       #set($propertyName=$entry.key.substring($propNameStart))
       #set($discard=$object.set($propertyName, $entry.value.get(0)))
+      #set($discard = $response.addCookie("$prefix$propertyName", "$entry.value.get(0)", 3600))
     #end
   #end
   #set($discard=$doc.save())
@@ -63,6 +64,27 @@
 #end
 #if ("$!object.getProperty('date').value"=="")
   #set($discard=$object.set('date', $datetool.date))
+#end
+## We populate the object with the platform value from the cookie
+#if ("$!object.getProperty('platform').value"=="")
+  #set($cookiePlatform = $request.getCookie('QA.ExecutionClass_platform').getValue())
+  #if ("$!cookiePlatform" != "" || $cookiePlatform == "")
+    #set($discard=$object.set('platform', $cookiePlatform))
+  #end
+#end
+## We populate the object with the browser value from the cookie
+#if ("$!object.getProperty('browser').value"=="")
+  #set($cookieBrowser = $request.getCookie('QA.ExecutionClass_browser').getValue())
+  #if ("$!cookieBrowser" != "" || $cookieBrowser == "")
+    #set($discard=$object.set('browser', $cookieBrowser))
+  #end
+#end
+## We populate the object with the database value from the cookie
+#if ("$!object.getProperty('database').value"=="")
+  #set($cookieDatabase = $request.getCookie('QA.ExecutionClass_database').getValue())
+  #if ("$!cookieDatabase" != "" || $cookieDatabase == "")
+    #set($discard=$object.set('database', $cookieDatabase))
+  #end
 #end
 {{html wiki="true"}}
 (% class = "xform" %)(((
@@ -103,7 +125,7 @@
   : $doc.display('jira', 'edit')
   &lt;p class="buttons"&gt;
     &lt;span class="buttonwrapper"&gt;
-      &lt;input class="button" type="submit" name="addObject" value="Add"/&gt;
+      &lt;input class="button" type="submit" name="addObject" value="Run Test"/&gt;
     &lt;/span&gt;
   &lt;/p&gt;
 &lt;/form&gt;
