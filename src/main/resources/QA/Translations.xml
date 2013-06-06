@@ -11,9 +11,9 @@
   <author>xwiki:XWiki.Admin</author>
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1355328117000</creationDate>
-  <date>1363099488000</date>
-  <contentUpdateDate>1363099488000</contentUpdateDate>
+  <creationDate>1369325126000</creationDate>
+  <date>1369656253000</date>
+  <contentUpdateDate>1369656253000</contentUpdateDate>
   <version>1.1</version>
   <title>Translations</title>
   <defaultTemplate/>
@@ -57,26 +57,38 @@
       <scope>WIKI</scope>
     </property>
   </object>
-  <content># Translations for the LiveTable found on QA.WebHome
-qaapp.WebHome.LiveTable.doc.name=Test Name
-qaapp.WebHome.LiveTable.doc.space=Test Space
-qaapp.WebHome.LiveTable.platform=Latest product version tested
-qaapp.WebHome.LiveTable.browsers=Tested Browsers
-qaapp.WebHome.LiveTable.databases=Tested Databases
-qaapp.WebHome.LiveTable.automated=Automated Tests
+  <content># Translations for the LiveTable found on QA.WebHome and the Space.WebHome of the test spaces
+qaapp.WebHome.LiveTable.doc.name=Name
+qaapp.WebHome.LiveTable.doc.space= Space
+qaapp.WebHome.LiveTable.product=Latest product version tested
+qaapp.WebHome.LiveTable.browsers= Browsers
+qaapp.WebHome.LiveTable.databases= Databases
+qaapp.WebHome.LiveTable.automated=Automated
 qaapp.WebHome.LiveTable._actions=Action
 qaapp.WebHome.LiveTable.no.tests.execution.found=No test executions found
 qaapp.WebHome.LiveTable._actions.runTest=Run Test
 qaapp.WebHome.LiveTable._actions.delete=Delete Test
 
+# Translations for the LiveTable found on each TestPage and Product page
+qaapp.Custom.LiveTable.test=Name
+qaapp.Custom.LiveTable.product=Product
+qaapp.Custom.LiveTable.browser=Browsers
+qaapp.Custom.LiveTable.database=Databases
+qaapp.Custom.LiveTable.user=Tested By
+qaapp.Custom.LiveTable.date=Tested On
+qaapp.Custom.LiveTable.passed=Result
+qaapp.Custom.LiveTable.jira=Jira Issue
+qaapp.Custom.LiveTable._actions=Action
+
 # Translations for the buttons from QA.WebHome
 qaapp.WebHome.addTest.button=Add Test
+qaapp.WebHome.hallOfFame.button=Hall Of Fame
 qaapp.WebHome.statistics.button=Statistics
 qaapp.WebHome.management.button=Management
 
 # Translations for Management Page
 qaapp.Management.AddTest.button=Add new Test
-qaapp.Management.AddPlatform.button=Add new Platform
+qaapp.Management.AddProduct.button=Add new Product Version
 qaapp.Management.AddBrowser.button=Add new Browser
 qaapp.Management.AddDatabase.button=Add new Database
 
@@ -85,10 +97,10 @@ qaapp.AddTest.button=Add a new test
 qaapp.AddTest.testName.label=Test Name
 qaapp.AddTest.testSpace.label=Test Space
 
-# Translations in the Add Platform form
-qaapp.AddPlatform.button=Add a new platform
-qaapp.AddPlatform.platformName.label=Platform Name
-qaapp.AddPlatform.platformVersion.label=Platform Version
+# Translations in the Add Product form
+qaapp.AddProduct.button=Add a new product
+qaapp.AddProduct.productName.label=Product Name
+qaapp.AddProduct.productVersion.label=Product Version
 
 # Translations in the Add Browser form
 qaapp.AddBrowser.button=Add a new browser

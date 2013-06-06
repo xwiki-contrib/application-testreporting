@@ -11,7 +11,7 @@
   <author>xwiki:XWiki.Admin</author>
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1355329643000</creationDate>
+  <creationDate>1369325128000</creationDate>
   <date>1363099489000</date>
   <contentUpdateDate>1363099489000</contentUpdateDate>
   <version>1.1</version>
@@ -25,7 +25,7 @@
   <content># Translations for the LiveTable found on QA.WebHome
 qaapp.WebHome.LiveTable.doc.name=Nom du test
 qaapp.WebHome.LiveTable.doc.space=Nom de l'espace
-qaapp.WebHome.LiveTable.platform=Version XWiki testée sur
+qaapp.WebHome.LiveTable.product=Version XWiki testée sur
 qaapp.WebHome.LiveTable.browsers=Navigateurs testés
 qaapp.WebHome.LiveTable.automated=Tests Automatiques
 qaapp.WebHome.LiveTable._actions=Actions

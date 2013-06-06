@@ -11,9 +11,9 @@
   <author>xwiki:XWiki.Admin</author>
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1363086605000</creationDate>
-  <date>1363099488000</date>
-  <contentUpdateDate>1363099488000</contentUpdateDate>
+  <creationDate>1369325114000</creationDate>
+  <date>1369842486000</date>
+  <contentUpdateDate>1369842486000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'TestSpaceWebHomeTemplate')Test Space WebHome Template#{else}$doc.space#end</title>
   <defaultTemplate/>
@@ -26,10 +26,10 @@
 (%class="buttonwrapper"%)[[Add new Test&gt;&gt;QA.AddTest||queryString="spaceName=${doc.space}"]] [[Home&gt;&gt;QA.WebHome]]  
 #set($discard = $xwiki.ssx.use("QA.WebHome"))
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-#set($columns = ['doc.name', 'platform', 'browsers', 'databases', 'automated', '_actions'])
+#set($columns = ['doc.name', 'product', 'browsers', 'databases', 'automated'])
 #set($columnsProperties = {
   'doc.name'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
-  'platform'      :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': false},
+  'product'       :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': false},
   'browsers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'databases'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'automated'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
@@ -46,6 +46,9 @@
   'extraParams' : "testSpace=${doc.space}",
   'javascriptName' : 'qaHomePageLiveTable'
 })
+#if(!$isGuest)
+  #set($discard = $columns.add('_actions'))
+#end
 #livetable('qa' $columns $columnsProperties $options)
 {{/velocity}}</content>
 </xwikidoc>

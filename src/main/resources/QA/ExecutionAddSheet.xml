@@ -11,9 +11,9 @@
   <author>xwiki:XWiki.Admin</author>
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1355506014000</creationDate>
-  <date>1364318139000</date>
-  <contentUpdateDate>1364318139000</contentUpdateDate>
+  <creationDate>1369325115000</creationDate>
+  <date>1370017914000</date>
+  <contentUpdateDate>1370017882000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'ExecutionAddSheet')Execution Add Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
   <defaultTemplate/>
@@ -22,22 +22,95 @@
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
-  <content>{{velocity}}
-#set($object=$doc.newObject('QA.ExecutionClass'))
-#if($request.addObject)
+  <content>{{velocity output="false"}}
+#macro(addExecution)
+  #set($execution = {})
   #set($prefix='QA.ExecutionClass_')
+  #set($cookieProperties = ['product','browser','database'])
   #foreach($entry in $request.parameterMap.entrySet())
     #if($entry.key.startsWith($prefix))
       #set($propNameStart=$entry.key.indexOf('_', $prefix.length())+1)
       #set($propertyName=$entry.key.substring($propNameStart))
-      #set($discard=$object.set($propertyName, $entry.value.get(0)))
-      #set($discard = $response.addCookie("$prefix$propertyName", "$entry.value.get(0)", 3600))
+      #set($discard=$execution.put($propertyName, $entry.value.get(0)))
+      #if($cookieProperties.contains($propertyName))
+        ## We escape the cookie value because some of the characters are not allowed. (e.g. backslash)
+        #set($discard = $response.addCookie("$prefix$propertyName", "$escapetool.url($entry.value.get(0))", 3600))
+      #end
     #end
   #end
-  #set($discard=$doc.save())
+  ## Compute the Page name which will be used to store the execution
+  #set($version = $execution.product.replaceAll('^.*?(\d+).*$', '$1'))
+  #set($targetDocRef = $services.model.createDocumentReference($xcontext.database,
+    'TestReportingExecutions', "$execution.test$version"))
+  #set($targeDoc = $xwiki.getDocument($targetDocRef))
+  #set($object = $targeDoc.newObject('QA.ExecutionClass'))
+  #foreach($entry in $execution.entrySet())
+    #set($discard = $object.set($entry.key, $entry.value)) 
+  #end
+  #set($discard=$targeDoc.save())
   $response.sendRedirect($doc.getURL())
-#else
-#if($request.xpage=='plain')
+#end
+
+#macro(displayExecutionForm)
+  {{html wiki="true"}}
+  &lt;form class="xform" action="$doc.getURL('get', $request.queryString)"&gt;
+    ## If we don't receive a request parameter for the test name,
+    ## we generate the input field so the user can select the test this execution is related to
+    #if(!$doc.getObject('QA.TestClass'))
+      ; &lt;label for="QA.ExecutionClass_${object.number}_test"&gt;$doc.displayPrettyName('test', false, false)&lt;/label&gt;
+      : $doc.display('test', 'edit')
+    #else
+      ; &lt;label&gt;Test&lt;/label&gt;
+        &lt;p&gt;$doc.fullName&lt;/p&gt;
+        &lt;input type="hidden" name="QA.ExecutionClass_${object.number}_test" value="$doc.fullName"/&gt;
+    #end
+    ; &lt;label&gt;Steps to Reproduce&lt;/label&gt;
+    #if($doc.name!='ExecutionAddSheet')
+    : {{include reference="$services.model.serialize($doc.documentReference)"/}}
+    #end
+    ; &lt;label&gt;Expected Results&lt;/label&gt;
+    #if($doc.name!='ExecutionAddSheet')
+    : $doc.display('expectedResult', $doc.getObject('QA.TestClass'))
+    #end
+    #if($doc.name!='ExecutionAddSheet')
+    ; &lt;label&gt;Automated&lt;/label&gt;
+    : $doc.display('automated', $doc.getObject('QA.TestClass')) #if($doc.getObject('QA.TestClass').getProperty('automated').value == "1") [[image:icon:accept]] #else [[image:icon:cancel]] #end
+    #end
+    &lt;div class="hidden"&gt;
+      &lt;input type="hidden" name="form_token" value="$!{services.csrf.getToken()}"/&gt;
+      &lt;input type="hidden" name="sheet" value="QA.ExecutionAddSheet"/&gt;
+      &lt;input type="hidden" name="QA.ExecutionClass_${object.number}_user" value="$object.getProperty('user').value"/&gt;
+      #set($dateFormat=$xwiki.getDocument('QA.ExecutionClass').getxWikiClass().get('date').getProperty('dateFormat').value)
+      &lt;input type="hidden" name="QA.ExecutionClass_${object.number}_date" value="$escapetool.xml($datetool.format($dateFormat, $object.getProperty('date').value))"/&gt;
+    &lt;/div&gt;
+    ## Product version selector    
+    ; &lt;label for="QA.ExecutionClass_${object.number}_product"&gt;$doc.displayPrettyName('product', false, false)&lt;/label&gt;
+    : $doc.display('product', 'edit')
+    ##
+    ## Browser Version Selector
+    ; &lt;label for="QA.ExecutionClass_${object.number}_browser"&gt;$doc.displayPrettyName('browser', false, false)&lt;/label&gt;
+    : $doc.display('browser', 'edit')
+    ##
+    ## Database Version Selector
+    ; &lt;label for="QA.ExecutionClass_${object.number}_database"&gt;$doc.displayPrettyName('database', false, false)&lt;/label&gt;
+    : $doc.display('database', 'edit')
+    ## Passed/Fail
+    ; &lt;label for="QA.ExecutionClass_${object.number}_passed"&gt;$doc.displayPrettyName('passed', false, false)&lt;/label&gt;
+    ; $doc.display('passed', 'edit')
+    ##
+    ## Jira Issue
+    ; &lt;label for="QA.ExecutionClass_${object.number}_jira&gt;$doc.displayPrettyName('jira', false, false)&lt;/label&gt;
+    : $doc.display('jira', 'edit')
+    &lt;p class="buttons"&gt;
+      &lt;span class="buttonwrapper"&gt;
+        &lt;input class="button" type="submit" name="addObject" value="Run Test"/&gt;
+      &lt;/span&gt;
+    &lt;/p&gt;
+  &lt;/form&gt;
+  {{/html}}
+#end
+
+#macro(skinExtensionHooks)
   {{html}}
   ## AJAX request
   ## Hook for inserting CSS skin extensions
@@ -55,81 +128,56 @@
   &lt;!-- com.xpn.xwiki.plugin.skinx.JsSkinExtensionPlugin --&gt;
   ##
   {{/html}}
+#end
 
-#end
-#set($discard=$doc.use($object))
-#if ("$!object.getProperty('user').value"=="")
-  ## We want to set the User with a absolute reference
-  #set($discard=$object.set('user', $services.model.serialize($xcontext.userReference, 'default')))
-#end
-#if ("$!object.getProperty('date').value"=="")
-  #set($discard=$object.set('date', $datetool.date))
-#end
-## We populate the object with the platform value from the cookie
-#if ("$!object.getProperty('platform').value"=="")
-  #set($cookiePlatform = $request.getCookie('QA.ExecutionClass_platform').getValue())
-  #if ("$!cookiePlatform" != "" || $cookiePlatform == "")
-    #set($discard=$object.set('platform', $cookiePlatform))
+#macro(setDefaultExecutionValues)
+  #set($object=$doc.newObject('QA.ExecutionClass'))
+  #set($discard=$doc.use($object))
+  #if ("$!object.getProperty('user').value"=="")
+    ## We want to set the User with a absolute reference
+    #set($discard=$object.set('user', $services.model.serialize($xcontext.userReference, 'default')))
+  #end
+  #if ("$!object.getProperty('date').value"=="")
+    #set($discard=$object.set('date', $datetool.date))
+  #end
+  ## We populate the object with the product value from the cookie
+  #if ("$!object.getProperty('product').value"=="")
+    #set($cookieProduct = $request.getCookie('QA.ExecutionClass_product').getValue())
+    #if ("$!cookieProduct" != "" || $cookieProduct == "")
+      #set($discard=$object.set('product', $util.decodeURI($cookieProduct)))
+    #end
+  #end
+  ## We populate the object with the browser value from the cookie
+  #if ("$!object.getProperty('browser').value"=="")
+    #set($cookieBrowser = $request.getCookie('QA.ExecutionClass_browser').getValue())
+    #if ("$!cookieBrowser" != "" || $cookieBrowser == "")
+      #set($discard=$object.set('browser', $util.decodeURI($cookieBrowser)))
+    #end
+  #end
+  ## We populate the object with the database value from the cookie
+  #if ("$!object.getProperty('database').value"=="")
+    #set($cookieDatabase = $request.getCookie('QA.ExecutionClass_database').getValue())
+    #if ("$!cookieDatabase" != "" || $cookieDatabase == "")
+      #set($discard=$object.set('database', $util.decodeURI($cookieDatabase)))
+    #end
   #end
 #end
-## We populate the object with the browser value from the cookie
-#if ("$!object.getProperty('browser').value"=="")
-  #set($cookieBrowser = $request.getCookie('QA.ExecutionClass_browser').getValue())
-  #if ("$!cookieBrowser" != "" || $cookieBrowser == "")
-    #set($discard=$object.set('browser', $cookieBrowser))
+{{/velocity}}
+
+{{velocity}}
+#if($isGuest)
+  {{info}}Please Login{{/info}}
+#else
+  #if($request.addObject)
+    ## TODO: Add CSRF Token verification.
+    #addExecution
+  #else
+    #if($request.xpage=='plain')
+      #skinExtensionHooks##
+    #end
+    #setDefaultExecutionValues
+    #displayExecutionForm
   #end
-#end
-## We populate the object with the database value from the cookie
-#if ("$!object.getProperty('database').value"=="")
-  #set($cookieDatabase = $request.getCookie('QA.ExecutionClass_database').getValue())
-  #if ("$!cookieDatabase" != "" || $cookieDatabase == "")
-    #set($discard=$object.set('database', $cookieDatabase))
-  #end
-#end
-{{html wiki="true"}}
-(% class = "xform" %)(((
-  ; &lt;label&gt;Steps to Reproduce&lt;/label&gt;
-  #if($doc.name!='ExecutionAddSheet')
-  : {{include reference="$services.model.serialize($doc.documentReference)"/}}
-  #end
-  ; &lt;label&gt;Expected Results&lt;/label&gt;
-  #if($doc.name!='ExecutionAddSheet')
-  : $doc.display('expectedResult', $doc.getObject('QA.TestClass'))
-  #end
-)))
-&lt;form class="xform" action="$doc.getURL('view', $request.queryString)"&gt;
-  &lt;div class="hidden"&gt;
-    &lt;input type="hidden" name="form_token" value="$!{services.csrf.getToken()}"/&gt;
-    &lt;input type="hidden" name="sheet" value="QA.ExecutionAddSheet"/&gt;
-    &lt;input type="hidden" name="QA.ExecutionClass_${object.number}_user" value="$object.getProperty('user').value"/&gt;
-    #set($dateFormat=$xwiki.getDocument('QA.ExecutionClass').getxWikiClass().get('date').getProperty('dateFormat').value)
-    &lt;input type="hidden" name="QA.ExecutionClass_${object.number}_date" value="$escapetool.xml($datetool.format($dateFormat, $object.getProperty('date').value))"/&gt;
-  &lt;/div&gt;
-  ## Product version selector    
-  ; &lt;label for="QA.ExecutionClass_${object.number}_platform"&gt;$doc.displayPrettyName('platform', false, false)&lt;/label&gt;
-  : $doc.display('platform', 'edit')
-  ##
-  ## Browser Version Selector
-  ; &lt;label for="QA.ExecutionClass_${object.number}_browser"&gt;$doc.displayPrettyName('browser', false, false)&lt;/label&gt;
-  : $doc.display('browser', 'edit')
-  ##
-  ## Database Version Selector
-  ; &lt;label for="QA.ExecutionClass_${object.number}_database"&gt;$doc.displayPrettyName('database', false, false)&lt;/label&gt;
-  : $doc.display('database', 'edit')
-  ## Passed/Fail
-  ; &lt;label for="QA.ExecutionClass_${object.number}_passed"&gt;$doc.displayPrettyName('passed', false, false)&lt;/label&gt;
-  ; $doc.display('passed', 'edit')
-  ##
-  ## Jira Issue
-  ; &lt;label for="QA.ExecutionClass_${object.number}_jira&gt;$doc.displayPrettyName('jira', false, false)&lt;/label&gt;
-  : $doc.display('jira', 'edit')
-  &lt;p class="buttons"&gt;
-    &lt;span class="buttonwrapper"&gt;
-      &lt;input class="button" type="submit" name="addObject" value="Run Test"/&gt;
-    &lt;/span&gt;
-  &lt;/p&gt;
-&lt;/form&gt;
-{{/html}}
 #end
 {{/velocity}}</content>
 </xwikidoc>

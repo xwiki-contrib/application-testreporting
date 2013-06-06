@@ -2,7 +2,7 @@
 
 <xwikidoc>
   <web>QA</web>
-  <name>Statistics</name>
+  <name>HallOfFame</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
@@ -11,11 +11,11 @@
   <author>xwiki:XWiki.Admin</author>
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1358504602000</creationDate>
+  <creationDate>1369325125000</creationDate>
   <date>1363099487000</date>
   <contentUpdateDate>1363099487000</contentUpdateDate>
   <version>1.1</version>
-  <title>Statistics</title>
+  <title>HallOfFame</title>
   <defaultTemplate/>
   <validationScript/>
   <comment/>

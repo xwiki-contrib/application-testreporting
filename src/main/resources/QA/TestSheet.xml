@@ -11,9 +11,9 @@
   <author>xwiki:XWiki.Admin</author>
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1352720872000</creationDate>
-  <date>1363099488000</date>
-  <contentUpdateDate>1363099488000</contentUpdateDate>
+  <creationDate>1369325128000</creationDate>
+  <date>1369832432000</date>
+  <contentUpdateDate>1369832432000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'TestSheet')Test Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
   <defaultTemplate/>
@@ -191,7 +191,7 @@
 {{velocity}}
 #if ($context.action=="view")
   #if($doc.getObject('QA.TestClass'))
-    (%class="buttonwrapper"%)[[Back to $doc.space&gt;&gt;${doc.space}.WebHome]]
+    (%class="buttonwrapper"%)[[Home&gt;&gt;QA.WebHome]] (%class="buttonwrapper"%)[[$doc.space Home&gt;&gt;${doc.space}.WebHome]] (%class="buttonwrapper"%)[[Run Test&gt;&gt;$doc||queryString="sheet=QA.ExecutionAddSheet"]]
      == Steps to reproduce ==
 
     (% class="stepsToReproduce" %)(((
@@ -204,74 +204,37 @@
       $doc.display('expectedResult')
     )))
 
-  == Results ==
-  ## Creates a map where the platform is the key and values are the ExecutionClass objects that match the platform version  
-  #macro(buildTestExecutionMap $ObjectsMap)
-    ## Get all objects of the type Execution Class
-    #set($objects = $doc.getObjects('QA.ExecutionClass'))
-    #foreach ($object in $objects)
-      ## We populate the map with the values of the platform property found in the objects
-      #set($platformValue = $object.getProperty('platform').getValue())
-      #set($discard = $ObjectsMap.put($platformValue, $doc.getObjects('QA.ExecutionClass', 'platform', $platformValue)))
-    #end
-  #end
-  #set($Objects = {})
-  #buildTestExecutionMap($Objects)
-  #foreach($entry in $Objects.keySet())
-    #set($platformObject = $xwiki.getDocument($entry).getObject('QA.PlatformClass'))
-    #set($platformDoc = $xwiki.getDocument($entry))
 
-    === #if($platformObject) $platformObject.getProperty('name').getValue() $platformObject.getProperty('version').getValue() #else $platformDoc #end ===
+    == Results ==
+    #set($discard = $xwiki.ssx.use("QA.WebHome"))
+    #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
+    #set($columns = ['product', 'browser', 'database', 'user', 'date', 'passed', 'jira'])
+    #set($columnsProperties = {
+      'product'      :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': true},
+      'browser'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+      'database'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+      'user'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+      'date'         :{'type': 'date', 'html': true, 'filterable': false, 'sortable': true},
+      'passed'       :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+      'jira'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true}
+    })
 
-    (% style="width:99%" %)
-    |=(% style="width:20%" %)Browser|=(% style="width:20%" %)Database|=(% style="width:10%" %)User|=(% style="width:30%" %)Date Tested|=(% style="width:5%" %)Status|=(% style="width:35%;vertical-align:middle" %)JIRA Issue
-    ##
-    #foreach($object in $Objects.get($entry))
-      #set($browserDoc = $xwiki.getDocument($object.getProperty('browser').getValue()))
-      #set($browserObject = $browserDoc.getObject('QA.BrowserClass'))
-      #set($databaseDoc = $xwiki.getDocument($object.getProperty('database').getValue()))
-      #set($databaseObject = $databaseDoc.getObject('QA.DatabaseClass'))
-      #if($browserObject)
-        #set($browserName = $browserObject.getProperty('name').getValue())
-        #set($browserVersion=$browserObject.getProperty('version').getValue())
-        #if ($browserName=='Mozilla Firefox')#set($browserIcon="${browserName}")#end
-        #if ($browserName=='Google Chrome')#set($browserIcon="${browserName}")#end
-        #if ($browserName=='Internet Explorer')#set($browserIcon="${browserName}")#end
-        #set($browserColumn = "[[image:QA.LiveTableResults@${browserIcon}.png||style=""vertical-align:middle""]] $browserName $browserVersion")
-      #else
-        #set($browserColumn = $browserDoc)
-      #end
-      #if($databaseObject)
-        #set($databaseName=$databaseObject.getProperty('name').getValue())
-        #set($databaseVersion=$databaseObject.getProperty('version').getValue())
-        #if ($databaseName=='HyperSQL')#set($databaseIcon="${databaseName}")#end
-        #if ($databaseName=='MySQL')#set($databaseIcon="${databaseName}")#end
-        #if ($databaseName=='PostgreSQL')#set($databaseIcon="${databaseName}")#end
-        #if ($databaseName=='Oracle')#set($databaseIcon="${databaseName}")#end
-        #if ($databaseName=='Microsoft SQL')#set($databaseIcon="${databaseName}")#end
-        #if ($databaseName=='IBM DB2')#set($databaseIcon="${databaseName}")#end
-        #if ($databaseName=='Apache Derby')#set($databaseIcon="${databaseName}")#end
-        #set($databaseColumn = "[[image:QA.LiveTableResults@${databaseIcon}.png||style=""vertical-align:middle""]] $databaseName $databaseVersion")
-      #else
-        #set($databaseColumn = $databaseDoc)
-      #end
-      #set($username=$xwiki.getUserName($object.getProperty('user').getValue(), true))
-      #set($date=$xwiki.formatDate($object.getProperty('date').getValue(),"EEEE dd MMMM yyyy HH:mm:ss"))
-      #if ($object.getProperty('passed').getValue() == '1')
-        #set($status = "(% class='statusPass' %)") 
-      #else
-         #set($status = "(% class='statusFail' %)")
-      #end
-      #set($jira=$object.getProperty('jira').getValue())
-      |$browserColumn |$databaseColumn| {{html}}$username{{/html}}|$date|$status|$jira
-    ##FOREACH END
-    #end
-  ##FOREACH END
+    #set($options = {
+      'resultPage' : 'QA.LiveTableResultsDetailed',
+      'tagCloud': false,
+      "translationPrefix" : "qaapp.Custom.LiveTable.",
+      'rowCount': 15,
+      'maxPages': 10,
+      'defaultOrder': 'asc',
+      'extraParams' : "test=$escapetool.url($doc.fullName)",
+      'javascriptName' : 'qaHomePageLiveTable'
+    })
+    #livetable('qa' $columns $columnsProperties $options)
+
+  #else 
+    {{info}}This is just a sheet{{/info}}
+  ## END from check for Execution Class objects
   #end
-#else 
-{{info}}This is just a sheet{{/info}}
-## END from check for Execution Class objects
-#end
 ## END from view if
 #end</content>
 </xwikidoc>
