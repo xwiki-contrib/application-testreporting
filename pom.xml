@@ -65,21 +65,21 @@
   <dependency>
       <groupId>org.xwiki.platform</groupId>
       <artifactId>xwiki-platform-livetable-ui</artifactId>
-      <version>4.5.2</version>
+      <version>${project.parent.version}</version>
       <type>xar</type>
       <scope>runtime</scope> 
     </dependency>
       <dependency>
       <groupId>org.xwiki.platform</groupId>
       <artifactId>xwiki-platform-sheet-ui</artifactId>
-      <version>4.5.2</version>
+      <version>${project.parent.version}</version>
       <type>xar</type>
       <scope>runtime</scope> 
     </dependency>
     <dependency>
       <groupId>org.xwiki.platform</groupId>
       <artifactId>xwiki-platform-uiextension-ui</artifactId>
-      <version>4.5.2</version>
+      <version>${project.parent.version}</version>
       <type>xar</type>
       <scope>runtime</scope> 
     </dependency>
