@@ -26,14 +26,14 @@
   <parent>
     <groupId>org.xwiki.commons</groupId>
     <artifactId>xwiki-commons-pom</artifactId>
-    <version>5.0</version>
+    <version>4.5.2</version>
   </parent>
   <groupId>org.xwiki.contrib</groupId>
   <artifactId>application-testreporting</artifactId>
   <version>2.0-SNAPSHOT</version>
   <name>Test Reporting Application</name>
   <packaging>xar</packaging>
-  <description>Makes easier following and executing the Manual Test Reports</description>
+  <description>The application makes it easier to follow and execute manual tests for a product.</description>
   <inceptionYear>2013</inceptionYear>
   <issueManagement>
     <system>jira</system>
@@ -49,7 +49,6 @@
    <connection>scm:git:git://github.com/xwiki-contrib/application-testreporting.git</connection>
    <developerConnection>scm:git:git@github.com:xwiki-contrib/application-testreporting.git</developerConnection>
    <url>https://github.com/xwiki-contrib/application-testreporting</url>
-    <tag>HEAD</tag>
   </scm>
   <distributionManagement>
    <repository>
@@ -66,7 +65,21 @@
   <dependency>
       <groupId>org.xwiki.platform</groupId>
       <artifactId>xwiki-platform-livetable-ui</artifactId>
-      <version>4.5.4</version>
+      <version>4.5.2</version>
+      <type>xar</type>
+      <scope>runtime</scope> 
+    </dependency>
+      <dependency>
+      <groupId>org.xwiki.platform</groupId>
+      <artifactId>xwiki-platform-sheet-ui</artifactId>
+      <version>4.5.2</version>
+      <type>xar</type>
+      <scope>runtime</scope> 
+    </dependency>
+    <dependency>
+      <groupId>org.xwiki.platform</groupId>
+      <artifactId>xwiki-platform-uiextension-ui</artifactId>
+      <version>4.5.2</version>
       <type>xar</type>
       <scope>runtime</scope> 
     </dependency>
