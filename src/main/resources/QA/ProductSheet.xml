@@ -28,7 +28,7 @@
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
 #set($columns = ['test', 'browser', 'database', 'user', 'date', 'passed', 'jira'])
 #set($columnsProperties = {
-  'test'         :{'type': 'text', 'html' :false, 'filterable': false, 'sortable': true},
+  'test'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
   'browser'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
   'database'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
   'user'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
