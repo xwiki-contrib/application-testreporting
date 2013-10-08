@@ -61,8 +61,8 @@
 qaapp.WebHome.LiveTable.doc.name=Name
 qaapp.WebHome.LiveTable.doc.space= Space
 qaapp.WebHome.LiveTable.product=Latest product version tested
-qaapp.WebHome.LiveTable.browsers= Browsers
-qaapp.WebHome.LiveTable.databases= Databases
+qaapp.WebHome.LiveTable.browsers= Browser
+qaapp.WebHome.LiveTable.databases= Database
 qaapp.WebHome.LiveTable.automated=Automated
 qaapp.WebHome.LiveTable._actions=Action
 qaapp.WebHome.LiveTable.no.tests.execution.found=No test executions found
@@ -72,8 +72,8 @@ qaapp.WebHome.LiveTable._actions.delete=Delete Test
 # Translations for the LiveTable found on each TestPage and Product page
 qaapp.Custom.LiveTable.test=Name
 qaapp.Custom.LiveTable.product=Product
-qaapp.Custom.LiveTable.browser=Browsers
-qaapp.Custom.LiveTable.database=Databases
+qaapp.Custom.LiveTable.browser=Browser
+qaapp.Custom.LiveTable.database=Database
 qaapp.Custom.LiveTable.user=Tested By
 qaapp.Custom.LiveTable.date=Tested On
 qaapp.Custom.LiveTable.passed=Result
