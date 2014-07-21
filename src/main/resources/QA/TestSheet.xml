@@ -178,6 +178,8 @@
       {{/html}}
     ; &lt;label for="QA.TestClass_0_expectedResult&gt;$doc.displayPrettyName('expectedResult', false, false)&lt;/label&gt;
     : $doc.display('expectedResult')
+	; &lt;label for="QA.TestClass_0_userType"&gt;$doc.displayPrettyName('userType', false, false)&lt;/label&gt;
+    : $doc.display('userType')
     ; &lt;label for="QA.TestClass_0_automated"&gt;$doc.displayPrettyName('automated', false, false)&lt;/label&gt;
     : $doc.display('automated')
     ; &lt;label for="QA.TestClass_0_automatedLinkSourceCode"&gt;$doc.displayPrettyName('automatedLinkSourceCode', false, false)&lt;/label&gt;

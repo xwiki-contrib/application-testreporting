@@ -68,6 +68,8 @@ qaapp.WebHome.LiveTable._actions=Action
 qaapp.WebHome.LiveTable.no.tests.execution.found=No test executions found
 qaapp.WebHome.LiveTable._actions.runTest=Run Test
 qaapp.WebHome.LiveTable._actions.delete=Delete Test
+qaapp.WebHome.LiveTable.userType=User Type
+qaapp.WebHome.LiveTable.emptyvalue=
 
 # Translations for the LiveTable found on each TestPage and Product page
 qaapp.Custom.LiveTable.test=Name
