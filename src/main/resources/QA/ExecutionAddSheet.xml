@@ -78,7 +78,7 @@
     #end	
     #if($doc.name!='ExecutionAddSheet')
     ; &lt;label&gt;Automated&lt;/label&gt;
-    : $doc.display('automated', $doc.getObject('QA.TestClass')) #if($doc.getObject('QA.TestClass').getProperty('automated').value == "1") [[image:icon:accept]] #else [[image:icon:cancel]] #end
+    : $doc.display('automated', $doc.getObject('QA.TestClass')) #if($doc.getObject('QA.TestClass').getProperty('automated').value == "yes") [[image:icon:accept]] #else [[image:icon:cancel]] #end
     #end
     &lt;div class="hidden"&gt;
       &lt;input type="hidden" name="form_token" value="$!{services.csrf.getToken()}"/&gt;

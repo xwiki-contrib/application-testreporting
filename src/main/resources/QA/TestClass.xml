@@ -32,18 +32,25 @@
     <nameField/>
     <validationScript/>
     <automated>
+      <cache>0</cache>
       <customDisplay/>
-      <defaultValue/>
       <disabled>0</disabled>
-      <displayFormType>select</displayFormType>
-      <displayType/>
+      <displayType>select</displayType>
+      <multiSelect>0</multiSelect>
       <name>automated</name>
-      <number>2</number>
-      <prettyName>automated</prettyName>
+      <number>4</number>
+      <picker>0</picker>
+      <prettyName>Automated</prettyName>
+      <relationalStorage>0</relationalStorage>
+      <separator> </separator>
+      <separators> ,|</separators>
+      <size>1</size>
+      <sort>none</sort>
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
       <validationRegExp/>
-      <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      <values>yes=Yes|no=No</values>
+      <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
     </automated>
     <automatedLinkSourceCode>
       <customDisplay/>
@@ -74,25 +81,25 @@
       <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
     </expectedResult>
 	<userType>
-         <cache>0</cache>
-	 <customDisplay></customDisplay>
-	 <disabled>0</disabled>
-	 <displayType>select</displayType>
-	 <multiSelect>0</multiSelect>
-	 <name>userType</name>
-	 <number>4</number>
-	 <picker>0</picker>
-	 <prettyName>User Type</prettyName>
-	 <relationalStorage>0</relationalStorage>
-	 <separator> </separator>
-	 <separators> ,|</separators>
-	 <size>1</size>
-	 <sort>none</sort>
-	 <unmodifiable>0</unmodifiable>
-	 <validationMessage></validationMessage>
-	 <validationRegExp></validationRegExp>
-	 <values>admin=Admin|user=User|both=Both</values>
-	 <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+	  <cache>0</cache>
+	  <customDisplay></customDisplay>
+	  <disabled>0</disabled>
+	  <displayType>select</displayType>
+	  <multiSelect>0</multiSelect>
+	  <name>userType</name>
+	  <number>4</number>
+	  <picker>0</picker>
+	  <prettyName>User Type</prettyName>
+	  <relationalStorage>0</relationalStorage>
+	  <separator> </separator>
+	  <separators> ,|</separators>
+	  <size>1</size>
+	  <sort>none</sort>
+	  <unmodifiable>0</unmodifiable>
+	  <validationMessage></validationMessage>
+	  <validationRegExp></validationRegExp>
+	  <values>admin=Admin|user=User|both=Both</values>
+	  <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
 	</userType>
   </class>
   <object>

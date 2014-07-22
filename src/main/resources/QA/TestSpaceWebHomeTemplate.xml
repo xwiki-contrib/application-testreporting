@@ -33,7 +33,7 @@
   'product'       :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': false},
   'browsers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'databases'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
-  'automated'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+  'automated'     :{'type': 'list', 'class': 'QA.TestClass'},
   '_actions'      :{'actions': ['runTest', 'delete'] }
 })
 #set($options = {
