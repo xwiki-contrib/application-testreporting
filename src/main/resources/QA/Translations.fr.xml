@@ -23,8 +23,8 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
   <content># Translations for the LiveTable found on QA.WebHome
-qaapp.WebHome.LiveTable.doc.name=Nom du test
-qaapp.WebHome.LiveTable.doc.space=Nom de l'espace
+qaapp.WebHome.LiveTable.doc.name=Test
+qaapp.WebHome.LiveTable.doc.space=Catégorie
 qaapp.WebHome.LiveTable.product=Version XWiki testée sur
 qaapp.WebHome.LiveTable.browsers=Navigateurs testés
 qaapp.WebHome.LiveTable.automated=Tests Automatiques
