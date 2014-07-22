@@ -667,13 +667,13 @@ AABJRU5ErkJggg==
     #set($results = $services.query.xwql($statement).bindValue("product", $product.get(0)).bindValue("test", "${row.doc_space}.${row.doc_name}").execute())
     ## RESULTS: $results.class.name
     ## PRODUCT: $product
-    #set($productPage = $xwiki.getDocument($product))
+    #set($productPage = $xwiki.getDocument($product.get(0)))
     #set($productObject = $productPage.getObject('QA.ProductClass'))
     ## $productObject.class.name
     #if(!$productObject)
       #set($discard = $row.put("product", "$product"))
     #else
-      #set($discard = $row.put("product", "&lt;a href=""$xwiki.getDocument($product).getURL()""&gt;$productObject.getProperty('name').value $productObject.getProperty('version').value&lt;/a&gt;"))
+      #set($discard = $row.put("product", "&lt;a href=""$xwiki.getDocument($product.get(0)).getURL()""&gt;$productObject.getProperty('name').value $productObject.getProperty('version').value&lt;/a&gt;"))
     #end
     ##
     ##
