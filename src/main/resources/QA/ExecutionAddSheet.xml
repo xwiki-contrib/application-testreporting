@@ -73,6 +73,10 @@
     : $doc.display('expectedResult', $doc.getObject('QA.TestClass'))
     #end
     #if($doc.name!='ExecutionAddSheet')
+    ; &lt;label&gt;{{translation key=qaapp.WebHome.LiveTable.userType/}}&lt;/label&gt;
+    : $doc.display('userType', $doc.getObject('QA.TestClass'))
+    #end	
+    #if($doc.name!='ExecutionAddSheet')
     ; &lt;label&gt;Automated&lt;/label&gt;
     : $doc.display('automated', $doc.getObject('QA.TestClass')) #if($doc.getObject('QA.TestClass').getProperty('automated').value == "1") [[image:icon:accept]] #else [[image:icon:cancel]] #end
     #end
