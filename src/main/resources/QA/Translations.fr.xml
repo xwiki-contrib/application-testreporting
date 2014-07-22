@@ -31,7 +31,7 @@ qaapp.WebHome.LiveTable.automated=Tests Automatiques
 qaapp.WebHome.LiveTable._actions=Actions
 qaapp.WebHome.LiveTable.no.tests.execution.found=Aucune exécution de test n'a été retrouvée
 qaapp.WebHome.LiveTable._actions.runTest=Executer le test
-
+qaapp.WebHome.LiveTable.userType=Type d'utilisateur
 
 # Translations for the Add Test form
 qaapp.WebHome.addTest.button=Let's Add a test
