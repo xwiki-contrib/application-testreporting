@@ -74,7 +74,7 @@
       <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
     </expectedResult>
 	<userType>
-     <cache>0</cache>
+         <cache>0</cache>
 	 <customDisplay></customDisplay>
 	 <disabled>0</disabled>
 	 <displayType>select</displayType>
@@ -91,7 +91,7 @@
 	 <unmodifiable>0</unmodifiable>
 	 <validationMessage></validationMessage>
 	 <validationRegExp></validationRegExp>
-	 <values>value1=Admin|value2=User</values>
+	 <values>admin=Admin|user=User|both=Both</values>
 	 <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
 	</userType>
   </class>
