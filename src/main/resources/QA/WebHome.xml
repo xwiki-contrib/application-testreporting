@@ -309,9 +309,9 @@
   <content>{{velocity}}
 #set($discard = $xwiki.ssx.use("QA.WebHome"))
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-#set($columns = ['doc.name', 'doc.space', 'userType', 'product', 'browsers', 'databases', 'automated'])
+#set($columns = ['doc.title', 'doc.space', 'userType', 'product', 'browsers', 'databases', 'automated'])
 #set($columnsProperties = {
-  'doc.name'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
+  'doc.title'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
   'doc.space'     :{'type': 'text', 'link': 'space', 'size': 10, 'filterable': true, 'sortable': true},
   'userType'      :{'type': 'list', 'class': 'QA.TestClass'},
   'product'       :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': false},
@@ -325,7 +325,7 @@
   "translationPrefix" : "qaapp.WebHome.LiveTable.",
   'rowCount': 15,
   'maxPages': 10,
-  'selectedColumn': 'doc.name',
+  'selectedColumn': 'doc.title',
   'defaultOrder': 'asc',
   'javascriptName' : 'qaHomePageLiveTable'
 })

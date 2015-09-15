@@ -58,7 +58,7 @@
     </property>
   </object>
   <content># Translations for the LiveTable found on QA.WebHome and the Space.WebHome of the test spaces
-qaapp.WebHome.LiveTable.doc.name=Test
+qaapp.WebHome.LiveTable.doc.title=Test
 qaapp.WebHome.LiveTable.doc.space=Category
 qaapp.WebHome.LiveTable.product=Latest product version tested
 qaapp.WebHome.LiveTable.browsers=Browsers
