@@ -750,7 +750,7 @@ AABJRU5ErkJggg==
   #end
   ##
   ##
-  #gridresultwithfilter_buildJSON('QA.TestClass' ['doc.name', 'doc.space', 'automated', 'userType'] '' $filterWhere $filterParams $map)
+  #gridresultwithfilter_buildJSON('QA.TestClass' ['doc.title', 'doc.space', 'automated', 'userType'] '' $filterWhere $filterParams $map)
   #foreach ($row in $map.rows)
     #extendRow($row)
   #end
