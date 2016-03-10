@@ -100,7 +100,7 @@
       <name>jira</name>
       <number>6</number>
       <picker>0</picker>
-      <prettyName>jira</prettyName>
+      <prettyName>Jira</prettyName>
       <size>30</size>
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
