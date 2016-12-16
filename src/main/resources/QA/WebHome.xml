@@ -1,28 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xwikidoc>
+<xwikidoc version="1.2" reference="QA.WebHome" locale="">
   <web>QA</web>
   <name>WebHome</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>Main.WebHome</parent>
   <creator>xwiki:XWiki.Admin</creator>
-  <author>xwiki:XWiki.Admin</author>
-  <customClass/>
-  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1369325126000</creationDate>
-  <date>1369845237000</date>
-  <contentUpdateDate>1369845237000</contentUpdateDate>
+  <parent>Main.WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1481887086000</date>
+  <contentUpdateDate>1481887086000</contentUpdateDate>
   <version>1.1</version>
   <title>QA</title>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
+  <content>{{velocity}}
+#set($discard = $xwiki.ssx.use("QA.WebHome"))
+#set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
+#set($columns = ['doc.title', 'doc.space', 'userType', 'product', 'browsers', 'databases', 'automated'])
+#set($columnsProperties = {
+  'doc.title'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
+  'doc.space'     :{'type': 'text', 'link': 'space', 'size': 10, 'filterable': true, 'sortable': true},
+  'userType'      :{'type': 'list', 'class': 'QA.TestClass'},
+  'product'       :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': false},
+  'browsers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
+  'databases'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
+  'automated'     :{'type': 'list', 'class': 'QA.TestClass'}
+})
+#set($options = {
+  'resultPage' : 'QA.LiveTableResults',
+  'tagCloud': true,
+  "translationPrefix" : "qaapp.WebHome.LiveTable.",
+  'rowCount': 15,
+  'maxPages': 10,
+  'selectedColumn': 'doc.title',
+  'defaultOrder': 'asc',
+  'javascriptName' : 'qaHomePageLiveTable'
+})
+#if(!$isGuest)
+  #set($discard = $columns.add('_actions'))
+  #set($discard = $columnsProperties.put('_actions', { 'actions' : ['runTest'] }))
+#end
+(%class="buttonwrapper"%)[[$services.localization.render('qaapp.WebHome.addTest.button')&gt;&gt;QA.AddTest]] [[$services.localization.render('qaapp.WebHome.hallOfFame.button')&gt;&gt;QA.HallOfFame]] [[$services.localization.render('qaapp.WebHome.management.button')&gt;&gt;QA.Management]]#livetable('qa' $columns $columnsProperties $options)
+{{/velocity}}</content>
   <object>
+    <name>QA.WebHome</name>
+    <number>0</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>cc2ce171-e73a-4fab-a525-823f1ac8835d</guid>
     <class>
       <name>XWiki.JavaScriptExtension</name>
       <customClass/>
@@ -42,14 +72,16 @@
         <prettyName>Caching policy</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
-        <separators> ,|</separators>
+        <separators>|, </separators>
         <size>1</size>
         <unmodifiable>0</unmodifiable>
         <values>long|short|default|forbid</values>
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </cache>
       <code>
+        <contenttype>PureText</contenttype>
         <disabled>0</disabled>
+        <editor>PureText</editor>
         <name>code</name>
         <number>2</number>
         <prettyName>Code</prettyName>
@@ -87,17 +119,13 @@
         <prettyName>Use this extension</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
-        <separators> ,|</separators>
+        <separators>|, </separators>
         <size>1</size>
         <unmodifiable>0</unmodifiable>
-        <values>currentPage=Always on this page|onDemand=On demand|always=Always on this wiki</values>
+        <values>currentPage|onDemand|always</values>
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </use>
     </class>
-    <name>QA.WebHome</name>
-    <number>0</number>
-    <className>XWiki.JavaScriptExtension</className>
-    <guid>cc2ce171-e73a-4fab-a525-823f1ac8835d</guid>
     <property>
       <cache>short</cache>
     </property>
@@ -201,6 +229,10 @@
     </property>
   </object>
   <object>
+    <name>QA.WebHome</name>
+    <number>0</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>7d680acd-91f0-41f4-bf3c-6c47b8ab2db2</guid>
     <class>
       <name>XWiki.StyleSheetExtension</name>
       <customClass/>
@@ -216,30 +248,48 @@
         <displayType>select</displayType>
         <multiSelect>0</multiSelect>
         <name>cache</name>
-        <number>5</number>
+        <number>6</number>
         <prettyName>Caching policy</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
-        <separators> ,|</separators>
+        <separators>|, </separators>
         <size>1</size>
         <unmodifiable>0</unmodifiable>
         <values>long|short|default|forbid</values>
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </cache>
       <code>
+        <contenttype>PureText</contenttype>
         <disabled>0</disabled>
+        <editor>PureText</editor>
         <name>code</name>
-        <number>2</number>
+        <number>3</number>
         <prettyName>Code</prettyName>
         <rows>20</rows>
         <size>50</size>
         <unmodifiable>0</unmodifiable>
         <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
       </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>1</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
       <name>
         <disabled>0</disabled>
         <name>name</name>
-        <number>1</number>
+        <number>2</number>
         <prettyName>Name</prettyName>
         <size>30</size>
         <unmodifiable>0</unmodifiable>
@@ -250,7 +300,7 @@
         <displayFormType>select</displayFormType>
         <displayType>yesno</displayType>
         <name>parse</name>
-        <number>4</number>
+        <number>5</number>
         <prettyName>Parse content</prettyName>
         <unmodifiable>0</unmodifiable>
         <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
@@ -261,21 +311,17 @@
         <displayType>select</displayType>
         <multiSelect>0</multiSelect>
         <name>use</name>
-        <number>3</number>
+        <number>4</number>
         <prettyName>Use this extension</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
-        <separators> ,|</separators>
+        <separators>|, </separators>
         <size>1</size>
         <unmodifiable>0</unmodifiable>
-        <values>currentPage=Always on this page|onDemand=On demand|always=Always on this wiki</values>
+        <values>currentPage|onDemand|always</values>
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </use>
     </class>
-    <name>QA.WebHome</name>
-    <number>0</number>
-    <className>XWiki.StyleSheetExtension</className>
-    <guid>7d680acd-91f0-41f4-bf3c-6c47b8ab2db2</guid>
     <property>
       <cache>long</cache>
     </property>
@@ -306,33 +352,4 @@
       <use>currentPage</use>
     </property>
   </object>
-  <content>{{velocity}}
-#set($discard = $xwiki.ssx.use("QA.WebHome"))
-#set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-#set($columns = ['doc.title', 'doc.space', 'userType', 'product', 'browsers', 'databases', 'automated'])
-#set($columnsProperties = {
-  'doc.title'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
-  'doc.space'     :{'type': 'text', 'link': 'space', 'size': 10, 'filterable': true, 'sortable': true},
-  'userType'      :{'type': 'list', 'class': 'QA.TestClass'},
-  'product'       :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': false},
-  'browsers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
-  'databases'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
-  'automated'     :{'type': 'list', 'class': 'QA.TestClass'}
-})
-#set($options = {
-  'resultPage' : 'QA.LiveTableResults',
-  'tagCloud': true,
-  "translationPrefix" : "qaapp.WebHome.LiveTable.",
-  'rowCount': 15,
-  'maxPages': 10,
-  'selectedColumn': 'doc.title',
-  'defaultOrder': 'asc',
-  'javascriptName' : 'qaHomePageLiveTable'
-})
-#if(!$isGuest)
-  #set($discard = $columns.add('_actions'))
-  #set($discard = $columnsProperties.put('_actions', { 'actions' : ['runTest'] }))
-#end
-(%class="buttonwrapper"%)[[$services.localization.render('qaapp.WebHome.addTest.button')&gt;&gt;QA.AddTest]] [[$services.localization.render('qaapp.WebHome.hallOfFame.button')&gt;&gt;QA.HallOfFame]] [[$services.localization.render('qaapp.WebHome.management.button')&gt;&gt;QA.Management]]#livetable('qa' $columns $columnsProperties $options)
-{{/velocity}}</content>
 </xwikidoc>
