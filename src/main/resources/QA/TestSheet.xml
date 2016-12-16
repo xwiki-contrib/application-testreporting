@@ -43,7 +43,9 @@
       {{/html}}
     ; &lt;label for="QA.TestClass_0_expectedResult&gt;$doc.displayPrettyName('expectedResult', false, false)&lt;/label&gt;
     : $doc.display('expectedResult')
-	; &lt;label for="QA.TestClass_0_userType"&gt;$doc.displayPrettyName('userType', false, false)&lt;/label&gt;
+    ; &lt;label for="QA.TestClass_0_wikiType"&gt;$doc.displayPrettyName('wikiType', false, false)&lt;/label&gt;
+    : $doc.display('wikiType')
+    ; &lt;label for="QA.TestClass_0_userType"&gt;$doc.displayPrettyName('userType', false, false)&lt;/label&gt;
     : $doc.display('userType')
     ; &lt;label for="QA.TestClass_0_automated"&gt;$doc.displayPrettyName('automated', false, false)&lt;/label&gt;
     : $doc.display('automated')
@@ -103,7 +105,8 @@
   ## END from check for Execution Class objects
   #end
 ## END from view if
-#end</content>
+#end
+{{/velocity}}</content>
   <object>
     <name>QA.TestSheet</name>
     <number>0</number>

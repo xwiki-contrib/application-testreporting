@@ -70,6 +70,7 @@
       <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
     </automatedLinkSourceCode>
     <expectedResult>
+      <contenttype>---</contenttype>
       <customDisplay/>
       <disabled>0</disabled>
       <editor>---</editor>
@@ -105,6 +106,27 @@
       <values>admin=Admin|user=User|both=Both</values>
       <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
     </userType>
+    <wikiType>
+      <cache>0</cache>
+      <customDisplay/>
+      <disabled>0</disabled>
+      <displayType>select</displayType>
+      <multiSelect>0</multiSelect>
+      <name>wikiType</name>
+      <number>5</number>
+      <picker>0</picker>
+      <prettyName>Wiki Type</prettyName>
+      <relationalStorage>0</relationalStorage>
+      <separator> </separator>
+      <separators>|, </separators>
+      <size>1</size>
+      <sort>none</sort>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <values>mainWiki=Main Wiki|subWiki=Subwiki|both=Both</values>
+      <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+    </wikiType>
   </class>
   <object>
     <name>QA.TestClass</name>
