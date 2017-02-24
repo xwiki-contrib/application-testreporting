@@ -657,8 +657,6 @@ VGxYpVMomeP111tOnjqzl2qx59/2/CnAAH7gjpELWagQAAAAAElFTkSuQmCC
   <content>{{include document="XWiki.LiveTableResultsMacros"/}}
 {{velocity wiki="false"}}
 #if($xcontext.action == 'get' &amp;&amp; "$!{request.outputSyntax}" == 'plain')
-  #set($test = $request.test)
-  #set($product = $request.product)
   #set($sortColumn = $request.sort)
   #set($sortDir = $request.dir)
   ## $sortColumn
@@ -682,22 +680,56 @@ VGxYpVMomeP111tOnjqzl2qx59/2/CnAAH7gjpELWagQAAAAAElFTkSuQmCC
   ## $offset
   #set($discard = $map.put('reqNo', $mathtool.toInteger($request.reqNo)))
   ## #set($discard = $map.put('tags', []))
-  #set($dataQuery = "select execution.test, execution.product, execution.browser, execution.database, execution.user, execution.date, execution.passed, execution.jira from Document as doc, doc.object(QA.ExecutionClass) as execution where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
-  ##
-  #set($countQuery = "select count(execution) from Document as doc, doc.object(QA.ExecutionClass) as execution where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
-  ##
-  #if("$!test" != '' &amp;&amp; "$!product" == '')
-    #set($dataQuery = $services.query.xwql("${dataQuery} and execution.test = :test order by $orderBy").bindValue('test', $test))
-    #set($countQuery = $services.query.xwql("${countQuery} and execution.test = :test").bindValue('test', $test))
+  #set ($select = "select execution.test, execution.product, execution.browser, execution.database, execution.user, execution.date, execution.passed, execution.jira")
+  #set ($from = "from Document as doc, doc.object(QA.ExecutionClass) as execution")
+  #set ($where = "where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
+  #set ($parameters = {})
+
+  ## WHERE clause (Filters)
+  #if ("$!{request.product}" != '')
+    #set ($where = "${where} AND lower(execution.product) LIKE :product")
+    #set ($discard = $parameters.put('product', "%$stringtool.lowerCase(${request.product})%"))
   #end
-  #if("$!product" != '' &amp;&amp; "$!test" == '')
-    #set($dataQuery = $services.query.xwql("${dataQuery} and execution.product = :product order by $orderBy").bindValue('product', $product))
-    #set($countQuery = $services.query.xwql("${countQuery} and execution.product = :product").bindValue('product', $product))
+
+  #if ("$!request.test" != '')
+    #set ($where = "${where} AND lower(execution.test) LIKE :test")
+    #set ($discard = $parameters.put('test', "%$stringtool.lowerCase(${request.test})%"))
   #end
+
+  #if ("$!request.browser" != '')
+    #set ($where = "${where} AND lower(execution.browser) LIKE :browser")
+    #set ($discard = $parameters.put('browser', "%$stringtool.lowerCase(${request.browser})%"))
+  #end
+
+  #if ("$!request.database" != '')
+    #set ($where = "${where} AND lower(execution.database) LIKE :database")
+    #set ($discard = $parameters.put('database', "%$stringtool.lowerCase(${request.database})%"))
+  #end
+
+  #if ("$!request.passed" != '')
+    #set ($where = "${where} AND execution.passed=:passed")
+    #set ($discard = $parameters.put('passed', $util.parseInt(${request.passed})))
+  #end
+
+  #set ($countQuery = "select count(execution) $from $where")
+  #set ($dataQuery = "$select $from $where order by $orderBy")
+
+  #set($dataQuery = $services.query.xwql("${dataQuery}").addFilter('unique'))
+  #set($countQuery = $services.query.xwql("${countQuery}").addFilter('unique'))
+
+  #foreach ($parameterEntry in $parameters.entrySet())
+    #set ($discard = $countQuery.bindValue($parameterEntry.key, $parameterEntry.value))
+  #end
+
   #set($count = $countQuery.execute())
   ## $count
   #set($discard = $map.put('totalrows', $count))
   #set($limit =  $mathtool.toInteger($request.get('limit')))
+
+  #foreach ($parameterEntry in $parameters.entrySet())
+    #set ($discard = $dataQuery.bindValue($parameterEntry.key, $parameterEntry.value))
+  #end
+
   #set($items = $dataQuery.setLimit($limit).setOffset($offset).execute())
   #set($discard = $map.put('returnedrows', $mathtool.min($items.size(), $limit)))
   #set($discard = $map.put('offset', $mathtool.add($offset, 1)))
@@ -762,6 +794,7 @@ VGxYpVMomeP111tOnjqzl2qx59/2/CnAAH7gjpELWagQAAAAAElFTkSuQmCC
 ##  #foreach($item in $rows)
 ##    $velocityCount $item
 ##  #end
+
   $jsontool.serialize($map)
 #else
   Custom LiveTableResults page to compute the results for LiveTables which are used on TestSheet and ProductSheet pages
