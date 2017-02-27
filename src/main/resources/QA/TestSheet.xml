@@ -79,7 +79,7 @@
     #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
     #set($columns = ['product', 'browser', 'database', 'user', 'date', 'passed', 'jira'])
     #set($columnsProperties = {
-      'product'      :{'type': 'text', 'html' :true, 'filterable': true, 'sortable': true},
+      'product'      :{'type': 'list', 'html' :true, 'filterable': true, 'sortable': true},
       'browser'      :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
       'database'     :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
       'user'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
@@ -90,6 +90,7 @@
 
     #set($options = {
       'resultPage' : 'QA.LiveTableResultsDetailed',
+      'className': 'QA.ExecutionClass',
       'tagCloud': false,
       "translationPrefix" : "qaapp.Custom.LiveTable.",
       'rowCount': 15,

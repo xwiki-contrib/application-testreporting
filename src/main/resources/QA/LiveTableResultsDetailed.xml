@@ -687,13 +687,13 @@ VGxYpVMomeP111tOnjqzl2qx59/2/CnAAH7gjpELWagQAAAAAElFTkSuQmCC
 
   ## WHERE clause (Filters)
   #if ("$!{request.product}" != '')
-    #set ($where = "${where} AND lower(execution.product) LIKE :product")
-    #set ($discard = $parameters.put('product', "%$stringtool.lowerCase(${request.product})%"))
+    #set ($where = "${where} AND execution.product=:product")
+    #set ($discard = $parameters.put('product', "${request.product}"))
   #end
 
   #if ("$!request.test" != '')
-    #set ($where = "${where} AND lower(execution.test) LIKE :test")
-    #set ($discard = $parameters.put('test', "%$stringtool.lowerCase(${request.test})%"))
+    #set ($where = "${where} AND execution.test=:test")
+    #set ($discard = $parameters.put('test', "${request.test}"))
   #end
 
   #if ("$!request.browser" != '')
