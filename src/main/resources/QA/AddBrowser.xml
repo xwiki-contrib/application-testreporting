@@ -43,6 +43,7 @@
               &lt;option value="Mozilla Firefox"&gt;Mozilla Firefox&lt;/option&gt;
               &lt;option value="Google Chrome"&gt;Google Chrome&lt;/option&gt;
               &lt;option value="Internet Explorer"&gt;Internet Explorer&lt;/option&gt;
+              &lt;option value="Microsoft Edge"&gt;Microsoft Edge&lt;/option&gt;
               &lt;option value="Safari"&gt;Safari&lt;/option&gt;
               &lt;option value="Opera"&gt;Opera&lt;/option&gt;
             &lt;/select&gt; 
