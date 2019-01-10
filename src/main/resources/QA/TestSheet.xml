@@ -73,7 +73,9 @@
       $doc.display('expectedResult')
     )))
 
-
+    == $doc.displayPrettyName('automated', false, false) ==
+    $doc.display('automated')
+    
     == Results ==
     #set($discard = $xwiki.ssx.use("QA.WebHome"))
     #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
