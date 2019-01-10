@@ -28,7 +28,7 @@
     <version>8.4-10</version>
   </parent>
   <artifactId>application-testreporting</artifactId>
-  <version>2.2-SNAPSHOT</version>
+  <version>2.2</version>
   <name>Test Reporting Application</name>
   <packaging>xar</packaging>
   <description>Manage manual test plans</description>
@@ -54,7 +54,7 @@
    <connection>scm:git:git://github.com/xwiki-contrib/application-testreporting.git</connection>
    <developerConnection>scm:git:git@github.com:xwiki-contrib/application-testreporting.git</developerConnection>
    <url>https://github.com/xwiki-contrib/application-testreporting</url>
-    <tag>HEAD</tag>
+    <tag>application-testreporting-2.2</tag>
   </scm>
   <dependencies>
     <dependency>
