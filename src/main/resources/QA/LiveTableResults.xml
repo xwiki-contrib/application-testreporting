@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
 <xwikidoc version="1.2" reference="QA.LiveTableResults" locale="">
   <web>QA</web>
   <name>LiveTableResults</name>
@@ -126,7 +146,7 @@
 {{/velocity}}</content>
   <attachment>
     <filename>Apache Derby.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -135,7 +155,7 @@
   </attachment>
   <attachment>
     <filename>Google Chrome.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -144,7 +164,7 @@
   </attachment>
   <attachment>
     <filename>HyperSQL.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -153,7 +173,7 @@
   </attachment>
   <attachment>
     <filename>IBM DB2.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -162,7 +182,7 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 10.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -171,7 +191,7 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 7.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -180,7 +200,7 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 8.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -189,7 +209,7 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 9.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -198,7 +218,7 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -208,7 +228,7 @@
   <attachment>
     <filename>Microsoft Edge.png</filename>
     <mimetype>image/png</mimetype>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1490598357000</date>
     <version>1.1</version>
     <comment/>
@@ -217,7 +237,7 @@
   </attachment>
   <attachment>
     <filename>Microsoft SQL.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -226,7 +246,7 @@
   </attachment>
   <attachment>
     <filename>Mozilla Firefox.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -235,7 +255,7 @@
   </attachment>
   <attachment>
     <filename>MySQL.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -244,7 +264,7 @@
   </attachment>
   <attachment>
     <filename>Oracle.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
@@ -253,7 +273,7 @@
   </attachment>
   <attachment>
     <filename>PostgreSQL.png</filename>
-    <author>XWiki.Admin</author>
+    <author>xwiki:XWiki.Admin</author>
     <date>1481883296000</date>
     <version>1.1</version>
     <comment/>
