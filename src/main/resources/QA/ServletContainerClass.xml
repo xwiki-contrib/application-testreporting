@@ -20,25 +20,25 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.4" reference="QA.DatabaseClass" locale="">
+<xwikidoc version="1.4" reference="QA.ServletContainerClass" locale="">
   <web>QA</web>
-  <name>DatabaseClass</name>
+  <name>ServletContainerClass</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <parent>QA.WebHome</parent>
+  <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <version>1.1</version>
-  <title>DatabaseClass</title>
+  <title>ServletContainerClass</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
   <content/>
   <class>
-    <name>QA.DatabaseClass</name>
+    <name>QA.ServletContainerClass</name>
     <customClass/>
     <customMapping/>
     <defaultViewSheet/>
@@ -74,10 +74,10 @@
     </version>
   </class>
   <object>
-    <name>QA.DatabaseClass</name>
+    <name>QA.ServletContainerClass</name>
     <number>0</number>
     <className>XWiki.ClassSheetBinding</className>
-    <guid>e232c5ad-b948-45ee-b12c-d8603b3d0abe</guid>
+    <guid>a04b57d4-680a-4275-b04f-04dcf62082e7</guid>
     <class>
       <name>XWiki.ClassSheetBinding</name>
       <customClass/>
@@ -118,10 +118,10 @@
     </property>
   </object>
   <object>
-    <name>QA.DatabaseClass</name>
+    <name>QA.ServletContainerClass</name>
     <number>0</number>
     <className>XWiki.DocumentSheetBinding</className>
-    <guid>b06d3b1a-c076-4e18-8998-819a2b458b80</guid>
+    <guid>338b8b30-3ee9-47e8-b9cf-25c4bc278f47</guid>
     <class>
       <name>XWiki.DocumentSheetBinding</name>
       <customClass/>

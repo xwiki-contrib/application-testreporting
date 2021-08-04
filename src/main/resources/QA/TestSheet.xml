@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <!--
  * See the NOTICE file distributed with this work for additional
@@ -20,19 +20,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.2" reference="QA.TestSheet" locale="">
+<xwikidoc version="1.4" reference="QA.TestSheet" locale="">
   <web>QA</web>
   <name>TestSheet</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <creationDate>1369325128000</creationDate>
   <parent>QA.TestClass</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1481887129000</date>
-  <contentUpdateDate>1481887129000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'TestSheet')Test Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
   <comment/>
@@ -69,6 +66,8 @@
     : $doc.display('userType')
     ; &lt;label for="QA.TestClass_0_automated"&gt;$doc.displayPrettyName('automated', false, false)&lt;/label&gt;
     : $doc.display('automated')
+    ; &lt;label for="QA.TestClass_0_deprecated"&gt;$doc.displayPrettyName('deprecated', false, false)&lt;/label&gt;
+    : $doc.display('deprecated')
     ; &lt;label for="QA.TestClass_0_automatedLinkSourceCode"&gt;$doc.displayPrettyName('automatedLinkSourceCode', false, false)&lt;/label&gt;
     : $doc.display('automatedLinkSourceCode')
   )))
@@ -95,15 +94,17 @@
 
     == $doc.displayPrettyName('automated', false, false) ==
     $doc.display('automated')
-    
+
     == Results ==
     #set($discard = $xwiki.ssx.use("QA.WebHome"))
     #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-    #set($columns = ['product', 'browser', 'database', 'user', 'date', 'passed', 'jira'])
+    #set($columns = ['product', 'application', 'browser', 'database', 'servletContainer', 'user', 'date', 'passed', 'jira'])
     #set($columnsProperties = {
-      'product'      :{'type': 'list', 'html' :true, 'filterable': true, 'sortable': true},
-      'browser'      :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
-      'database'     :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
+      'product'      :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': true},
+      'application'  :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': true},
+      'browser'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+      'database'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+      'servletContainer' :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
       'user'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
       'date'         :{'type': 'date', 'html': true, 'filterable': false, 'sortable': true},
       'passed'       :{'type': 'boolean', 'html': true, 'filterable': true, 'sortable': true},
@@ -174,11 +175,14 @@
       <validationScript/>
       <cache>
         <cache>0</cache>
+        <defaultValue>long</defaultValue>
         <disabled>0</disabled>
         <displayType>select</displayType>
+        <freeText>forbidden</freeText>
+        <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>cache</name>
-        <number>6</number>
+        <number>5</number>
         <prettyName>Caching policy</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
@@ -193,7 +197,7 @@
         <disabled>0</disabled>
         <editor>PureText</editor>
         <name>code</name>
-        <number>3</number>
+        <number>2</number>
         <prettyName>Code</prettyName>
         <rows>20</rows>
         <size>50</size>
@@ -204,9 +208,11 @@
         <cache>0</cache>
         <disabled>0</disabled>
         <displayType>select</displayType>
+        <freeText>forbidden</freeText>
+        <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>contentType</name>
-        <number>1</number>
+        <number>6</number>
         <prettyName>Content Type</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
@@ -219,7 +225,7 @@
       <name>
         <disabled>0</disabled>
         <name>name</name>
-        <number>2</number>
+        <number>1</number>
         <prettyName>Name</prettyName>
         <size>30</size>
         <unmodifiable>0</unmodifiable>
@@ -230,7 +236,7 @@
         <displayFormType>select</displayFormType>
         <displayType>yesno</displayType>
         <name>parse</name>
-        <number>5</number>
+        <number>4</number>
         <prettyName>Parse content</prettyName>
         <unmodifiable>0</unmodifiable>
         <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
@@ -239,9 +245,11 @@
         <cache>0</cache>
         <disabled>0</disabled>
         <displayType>select</displayType>
+        <freeText>forbidden</freeText>
+        <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>use</name>
-        <number>4</number>
+        <number>3</number>
         <prettyName>Use this extension</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
@@ -269,6 +277,9 @@
 .statusPass{
   background-color:#3EC760;
 }</code>
+    </property>
+    <property>
+      <contentType/>
     </property>
     <property>
       <name>style</name>

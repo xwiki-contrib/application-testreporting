@@ -20,30 +20,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.4" reference="QA.PlatformTemplate" locale="">
+<xwikidoc version="1.4" reference="QA.None" locale="">
   <web>QA</web>
-  <name>PlatformTemplate</name>
+  <name>None</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <parent>QA.PlatformClass</parent>
+  <parent>QA.AppClass</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <version>1.1</version>
-  <title>Platform Template</title>
+  <title>None</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
   <content/>
   <object>
-    <name>QA.PlatformTemplate</name>
+    <name>QA.None</name>
     <number>0</number>
-    <className>QA.PlatformClass</className>
-    <guid>a74f839f-a0aa-4c95-afb5-0ad61a460f06</guid>
+    <className>QA.AppClass</className>
+    <guid>62de75a1-a831-4d71-958e-f39528b8cad2</guid>
     <class>
-      <name>QA.PlatformClass</name>
+      <name>QA.AppClass</name>
       <customClass/>
       <customMapping/>
       <defaultViewSheet/>
@@ -79,10 +79,10 @@
       </version>
     </class>
     <property>
-      <name/>
+      <name>-</name>
     </property>
     <property>
-      <version/>
+      <version>-</version>
     </property>
   </object>
 </xwikidoc>

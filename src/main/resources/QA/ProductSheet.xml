@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <!--
  * See the NOTICE file distributed with this work for additional
@@ -20,24 +20,18 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc>
+<xwikidoc version="1.4" reference="QA.ProductSheet" locale="">
   <web>QA</web>
   <name>ProductSheet</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>QA.ProductClass</parent>
   <creator>xwiki:XWiki.Admin</creator>
+  <parent>QA.ProductClass</parent>
   <author>xwiki:XWiki.Admin</author>
-  <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1369325117000</creationDate>
-  <date>1369230710000</date>
-  <contentUpdateDate>1369230709000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'ProductSheet')Product Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
@@ -46,11 +40,12 @@
 == Results ==
 #set($discard = $xwiki.ssx.use("QA.WebHome"))
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-#set($columns = ['test', 'browser', 'database', 'user', 'date', 'passed', 'jira'])
+#set($columns = ['test', 'browser', 'database', 'servletContainer', 'user', 'date', 'passed', 'jira'])
 #set($columnsProperties = {
-  'test'         :{'type': 'list', 'html': true, 'filterable': true, 'sortable': true},
-  'browser'      :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
-  'database'     :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
+  'test'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+  'browser'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+  'database'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
+  'servletContainer'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
   'user'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
   'date'         :{'type': 'date', 'html': true, 'filterable': false, 'sortable': true},
   'passed'       :{'type': 'boolean', 'html': true, 'filterable': true, 'sortable': true},

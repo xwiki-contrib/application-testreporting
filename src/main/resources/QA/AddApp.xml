@@ -20,43 +20,43 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.4" reference="QA.AddProduct" locale="">
+<xwikidoc version="1.4" reference="QA.AddApp" locale="">
   <web>QA</web>
-  <name>AddProduct</name>
+  <name>AddApp</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <parent>Main.AllDocs</parent>
+  <parent>qa:QA.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <version>1.1</version>
-  <title>AddProduct</title>
+  <title>Add App</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
   <content>{{velocity}}
-#set($productName = $request.productName)
-#set($productVersion = $request.productVersion)
-#if(("$!productName" != '' || $productName == '') &amp;&amp; ("$!productVersion" != '' || $productVersion == ''))
-  #set($targetDocName = "${productName} ${productVersion}")
+#set($appName = $request.appName)
+#set($appVersion = $request.appVersion)
+#if(("$!appName" != '' || $appName == '') &amp;&amp; ("$!appVersion" != '' || $appVersion == ''))
+  #set($targetDocName = "${appName} ${appVersion}")
   #set($documentReference = $services.model.createDocumentReference($xcontext.getDatabase(), 'QA', "$targetDocName"))
   #set($redirectReference = $services.model.createDocumentReference($xcontext.getDatabase(), 'QA', 'Management'))
-  $response.sendRedirect($xwiki.getURL($documentReference, 'save', "QA.ProductClass_0_name=$escapetool.url($productName)&amp;QA.ProductClass_0_version=$escapetool.url($productVersion)&amp;template=QA.ProductTemplate&amp;parent=QA.WebHome&amp;title=$escapetool.url($targetDocName)&amp;form_token=${services.csrf.getToken()}&amp;xredirect=$escapetool.url($xwiki.getURL($redirectReference))"))
+  $response.sendRedirect($xwiki.getURL($documentReference, 'save', "QA.AppClass_0_name=$escapetool.url($appName)&amp;QA.AppClass_0_version=$escapetool.url($appVersion)&amp;template=QA.AppTemplate&amp;parent=QA.WebHome&amp;title=$escapetool.url($targetDocName)&amp;form_token=${services.csrf.getToken()}&amp;xredirect=$escapetool.url($xwiki.getURL($redirectReference))"))
 #end
 
 {{html wiki="true"}}
-&lt;form action="" class="xform third" id="addProductForm"&gt;
+&lt;form action="" class="xform third" id="addAppForm"&gt;
 (((
-            ; &lt;label for="productName"&gt;$services.localization.render('qaapp.AddProduct.productName.label')&lt;/label&gt;
-            : &lt;input type="text" id="productName" name="productName"&gt;
+            ; &lt;label for="appName"&gt;$services.localization.render('qaapp.AddApp.AppName.label')&lt;/label&gt;
+            : &lt;input type="text" id="appName" name="appName"&gt;
 
-            ; &lt;label for="productVersion"&gt;$services.localization.render('qaapp.AddProduct.productVersion.label')&lt;/label&gt;
-            : &lt;input type="text" id="productVersion" name="productVersion"&gt;
+            ; &lt;label for="appVersion"&gt;$services.localization.render('qaapp.AddApp.appVersion.label')&lt;/label&gt;
+            : &lt;input type="text" id="appVersion" name="appVersion"&gt;
 
             &lt;div class="xform buttons"&gt;
-            &lt;span class="buttonwrapper"&gt;&lt;input type="submit" value="$services.localization.render('qaapp.AddProduct.button')" class="button"/&gt;&lt;/span&gt;
+            &lt;span class="buttonwrapper"&gt;&lt;input type="submit" value="$services.localization.render('qaapp.AddApp.button')" class="button"/&gt;&lt;/span&gt;
             &lt;/div&gt;
 )))
 &lt;/form&gt;

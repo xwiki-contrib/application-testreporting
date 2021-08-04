@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <!--
  * See the NOTICE file distributed with this work for additional
@@ -20,24 +20,18 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc>
+<xwikidoc version="1.4" reference="QA.ExecutionAddSheet" locale="">
   <web>QA</web>
   <name>ExecutionAddSheet</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>QA.ExecutionClass</parent>
   <creator>xwiki:XWiki.Admin</creator>
+  <parent>QA.ExecutionClass</parent>
   <author>xwiki:XWiki.Admin</author>
-  <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1369325115000</creationDate>
-  <date>1370017914000</date>
-  <contentUpdateDate>1370017882000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'ExecutionAddSheet')Execution Add Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
@@ -46,7 +40,7 @@
 #macro(addExecution)
   #set($execution = {})
   #set($prefix='QA.ExecutionClass_')
-  #set($cookieProperties = ['product','browser','database'])
+  #set($cookieProperties = ['product','browser','database','servletContainer'])
   #foreach($entry in $request.parameterMap.entrySet())
     #if($entry.key.startsWith($prefix))
       #set($propNameStart=$entry.key.indexOf('_', $prefix.length())+1)
@@ -111,6 +105,10 @@
     ; &lt;label for="QA.ExecutionClass_${object.number}_product"&gt;$doc.displayPrettyName('product', false, false)&lt;/label&gt;
     : $doc.display('product', 'edit')
     ##
+    ## App version selector    
+    ; &lt;label for="QA.ExecutionClass_${object.number}_application"&gt;$doc.displayPrettyName('application', false, false)&lt;/label&gt;
+    : $doc.display('application', 'edit')
+    ##
     ## Browser Version Selector
     ; &lt;label for="QA.ExecutionClass_${object.number}_browser"&gt;$doc.displayPrettyName('browser', false, false)&lt;/label&gt;
     : $doc.display('browser', 'edit')
@@ -118,6 +116,10 @@
     ## Database Version Selector
     ; &lt;label for="QA.ExecutionClass_${object.number}_database"&gt;$doc.displayPrettyName('database', false, false)&lt;/label&gt;
     : $doc.display('database', 'edit')
+    ##
+    ## Servlet Container Version Selector
+    ; &lt;label for="QA.ExecutionClass_${object.number}_servletContainer"&gt;$doc.displayPrettyName('servletContainer', false, false)&lt;/label&gt;
+    : $doc.display('servletContainer', 'edit')
     ## Passed/Fail
     ; &lt;label for="QA.ExecutionClass_${object.number}_passed"&gt;$doc.displayPrettyName('passed', false, false)&lt;/label&gt;
     ; $doc.display('passed', 'edit')
@@ -183,6 +185,13 @@
     #set($cookieDatabase = $request.getCookie('QA.ExecutionClass_database').getValue())
     #if ("$!cookieDatabase" != "" || $cookieDatabase == "")
       #set($discard=$object.set('database', $util.decodeURI($cookieDatabase)))
+    #end
+  #end
+  ## We populate the object with the servlet container value from the cookie
+  #if ("$!object.getProperty('servletContainer').value"=="")
+    #set($cookieServletContainer = $request.getCookie('QA.ExecutionClass_servletContainer').getValue())
+    #if ("$!cookieServletContainer" != "" || $cookieServletContainer == "")
+      #set($discard=$object.set('servletContainer', $util.decodeURI($cookieServletContainer)))
     #end
   #end
 #end

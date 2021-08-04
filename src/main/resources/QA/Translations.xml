@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <!--
  * See the NOTICE file distributed with this work for additional
@@ -20,19 +20,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.2" reference="QA.Translations" locale="">
+<xwikidoc version="1.4" reference="QA.Translations" locale="">
   <web>QA</web>
   <name>Translations</name>
   <language/>
   <defaultLanguage>en</defaultLanguage>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <creationDate>1369325126000</creationDate>
   <parent>QA.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1481887147000</date>
-  <contentUpdateDate>1481887147000</contentUpdateDate>
   <version>1.1</version>
   <title>Translations</title>
   <comment/>
@@ -45,6 +42,7 @@ qaapp.WebHome.LiveTable.doc.space=Category
 qaapp.WebHome.LiveTable.product=Latest product version tested
 qaapp.WebHome.LiveTable.browsers=Browsers
 qaapp.WebHome.LiveTable.databases=Databases
+qaapp.WebHome.LiveTable.servletContainers=Servlet Containers
 qaapp.WebHome.LiveTable.automated=Automated
 qaapp.WebHome.LiveTable._actions=Action
 qaapp.WebHome.LiveTable.no.tests.execution.found=No test executions found
@@ -53,12 +51,14 @@ qaapp.WebHome.LiveTable._actions.delete=Delete Test
 qaapp.WebHome.LiveTable.userType=User Type
 qaapp.WebHome.LiveTable.wikiType=Wiki Type
 qaapp.WebHome.LiveTable.emptyvalue=
+qaapp.WebHome.LiveTable.deprecated=Deprecated
 
 # Translations for the LiveTable found on each TestPage and Product page
 qaapp.Custom.LiveTable.test=Name
 qaapp.Custom.LiveTable.product=Product
 qaapp.Custom.LiveTable.browser=Browsers
 qaapp.Custom.LiveTable.database=Databases
+qaapp.Custom.LiveTable.servletContainer=Servlet Containers
 qaapp.Custom.LiveTable.user=Tested By
 qaapp.Custom.LiveTable.date=Tested On
 qaapp.Custom.LiveTable.passed=Result
@@ -76,6 +76,8 @@ qaapp.Management.AddTest.button=Add new Test
 qaapp.Management.AddProduct.button=Add new Product Version
 qaapp.Management.AddBrowser.button=Add new Browser
 qaapp.Management.AddDatabase.button=Add new Database
+qaapp.Management.AddServletContainer.button=Add new Servlet Container
+qaapp.Management.AddApp.button=Add new App Version
 
 # Translations for the Add Test form
 qaapp.AddTest.button=Add a new test
@@ -95,7 +97,18 @@ qaapp.AddBrowser.browserVersion.label=Browser Version
 # Translations in the Add Database form
 qaapp.AddDatabase.button=Add a new database
 qaapp.AddDatabase.databaseName.label=Database Name
-qaapp.AddDatabase.databaseVersion.label=Database Version</content>
+qaapp.AddDatabase.databaseVersion.label=Database Version
+
+# Translation in the Add Servlet container
+qaapp.AddServletContainer.servletName=Add a new servlet container
+qaapp.AddServletContainer.servletName.label=Servlet Container Name
+qaapp.AddServletContainer.servletVersion.label=Servlet Container Version
+
+# Translations in the Add App form
+qaapp.AddApp.button=Add a new app
+qaapp.AddApp.AppName.label=App Name
+qaapp.AddApp.appVersion.label=App Version
+qaapp.Custom.LiveTable.application=App</content>
   <object>
     <name>QA.Translations</name>
     <number>0</number>
@@ -114,6 +127,8 @@ qaapp.AddDatabase.databaseVersion.label=Database Version</content>
         <cache>0</cache>
         <disabled>0</disabled>
         <displayType>select</displayType>
+        <freeText>forbidden</freeText>
+        <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>scope</name>
         <number>1</number>

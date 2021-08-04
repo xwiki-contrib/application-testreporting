@@ -20,18 +20,18 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.4" reference="QA.PlatformSheet" locale="">
+<xwikidoc version="1.4" reference="QA.ServletContainerSheet" locale="">
   <web>QA</web>
-  <name>PlatformSheet</name>
+  <name>ServletContainerSheet</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <parent>QA.PlatformClass</parent>
+  <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <version>1.1</version>
-  <title>#if($doc.name == 'PlatformSheet')Platform Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
+  <title>Servlet Container Sheet</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
@@ -40,7 +40,7 @@
 ## You can modify this page to customize the presentation of your object.
 ## At first you should keep the default presentation and just save the document.
 
-#set($class = $doc.getObject('QA.PlatformClass').xWikiClass)
+#set($class = $doc.getObject('QA.ServletContainerClass').xWikiClass)
 #foreach($prop in $class.properties)
   ; $prop.prettyName
   : $doc.display($prop.getName())

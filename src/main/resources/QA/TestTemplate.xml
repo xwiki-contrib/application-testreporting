@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <!--
  * See the NOTICE file distributed with this work for additional
@@ -20,29 +20,28 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc>
+<xwikidoc version="1.4" reference="QA.TestTemplate" locale="">
   <web>QA</web>
   <name>TestTemplate</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>QA.TestClass</parent>
   <creator>xwiki:XWiki.Admin</creator>
+  <parent>QA.TestClass</parent>
   <author>xwiki:XWiki.Admin</author>
-  <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1369325131000</creationDate>
-  <date>1363099488000</date>
-  <contentUpdateDate>1363099488000</contentUpdateDate>
   <version>1.1</version>
   <title>Test Template</title>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
+  <content/>
   <object>
+    <name>QA.TestTemplate</name>
+    <number>0</number>
+    <className>QA.TestClass</className>
+    <guid>45e21d85-7448-48c5-bb66-d4b48ef07f34</guid>
     <class>
       <name>QA.TestClass</name>
       <customClass/>
@@ -55,8 +54,12 @@
       <automated>
         <cache>0</cache>
         <customDisplay/>
+        <defaultValue/>
         <disabled>0</disabled>
         <displayType>select</displayType>
+        <freeText/>
+        <hint/>
+        <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>automated</name>
         <number>4</number>
@@ -76,6 +79,7 @@
       <automatedLinkSourceCode>
         <customDisplay/>
         <disabled>0</disabled>
+        <hint/>
         <name>automatedLinkSourceCode</name>
         <number>3</number>
         <picker>0</picker>
@@ -86,10 +90,37 @@
         <validationRegExp/>
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </automatedLinkSourceCode>
+      <deprecated>
+        <cache>0</cache>
+        <customDisplay/>
+        <defaultValue/>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <freeText/>
+        <hint/>
+        <largeStorage>0</largeStorage>
+        <multiSelect>0</multiSelect>
+        <name>deprecated</name>
+        <number>5</number>
+        <picker>0</picker>
+        <prettyName>Deprecated</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <sort/>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <values>yes=Yes|no=No</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </deprecated>
       <expectedResult>
+        <contenttype>---</contenttype>
         <customDisplay/>
         <disabled>0</disabled>
         <editor>---</editor>
+        <hint/>
         <name>expectedResult</name>
         <number>2</number>
         <picker>0</picker>
@@ -104,8 +135,12 @@
       <userType>
         <cache>0</cache>
         <customDisplay/>
+        <defaultValue/>
         <disabled>0</disabled>
         <displayType>select</displayType>
+        <freeText/>
+        <hint/>
+        <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>userType</name>
         <number>4</number>
@@ -122,11 +157,28 @@
         <values>admin=Admin|user=User|both=Both</values>
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </userType>
+      <wikiType>
+        <cache>0</cache>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>wikiType</name>
+        <number>5</number>
+        <picker>0</picker>
+        <prettyName>Wiki Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <sort>none</sort>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <values>mainWiki=Main Wiki|subWiki=Subwiki|both=Both</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </wikiType>
     </class>
-    <name>QA.TestTemplate</name>
-    <number>0</number>
-    <className>QA.TestClass</className>
-    <guid>45e21d85-7448-48c5-bb66-d4b48ef07f34</guid>
     <property>
       <automated>no</automated>
     </property>
@@ -134,11 +186,16 @@
       <automatedLinkSourceCode/>
     </property>
     <property>
+      <deprecated>no</deprecated>
+    </property>
+    <property>
       <expectedResult/>
     </property>
     <property>
       <userType>admin</userType>
     </property>
+    <property>
+      <wikiType/>
+    </property>
   </object>
-  <content/>
 </xwikidoc>

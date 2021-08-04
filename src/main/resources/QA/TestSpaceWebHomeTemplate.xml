@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <!--
  * See the NOTICE file distributed with this work for additional
@@ -20,19 +20,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.2" reference="QA.TestSpaceWebHomeTemplate" locale="">
+<xwikidoc version="1.4" reference="QA.TestSpaceWebHomeTemplate" locale="">
   <web>QA</web>
   <name>TestSpaceWebHomeTemplate</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <creationDate>1369325114000</creationDate>
   <parent>QA.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1481887137000</date>
-  <contentUpdateDate>1481887137000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'TestSpaceWebHomeTemplate')Test Space WebHome Template#{else}$doc.space#end</title>
   <comment/>
@@ -43,14 +40,15 @@
 (%class="buttonwrapper"%)[[Add new Test&gt;&gt;QA.AddTest||queryString="spaceName=${doc.space}"]] [[Home&gt;&gt;QA.WebHome]]  
 #set($discard = $xwiki.ssx.use("QA.WebHome"))
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-#set($columns = ['doc.title', 'wikiType', 'userType', 'product', 'browsers', 'databases', 'automated'])
+#set($columns = ['doc.title', 'wikiType', 'userType', 'product', 'browsers', 'databases', 'servletContainers', 'automated'])
 #set($columnsProperties = {
   'doc.title'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
   'wikiType'      :{'type': 'list', 'class': 'QA.TestClass'},
   'userType'      :{'type': 'list', 'class': 'QA.TestClass'},
-  'product'       :{'type': 'text', 'html' :true, 'filterable': false, 'sortable': false},
+  'product'       :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'browsers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'databases'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
+  'servletContainers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'automated'     :{'type': 'list', 'class': 'QA.TestClass'},
   '_actions'      :{'actions': ['runTest', 'delete'] }
 })

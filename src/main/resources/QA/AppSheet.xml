@@ -20,18 +20,18 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.4" reference="QA.PlatformSheet" locale="">
+<xwikidoc version="1.4" reference="QA.AppSheet" locale="">
   <web>QA</web>
-  <name>PlatformSheet</name>
+  <name>AppSheet</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <parent>QA.PlatformClass</parent>
+  <parent>QA.AppClass</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <version>1.1</version>
-  <title>#if($doc.name == 'PlatformSheet')Platform Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
+  <title>#if($doc.name == 'AppSheet')App Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
@@ -40,7 +40,7 @@
 ## You can modify this page to customize the presentation of your object.
 ## At first you should keep the default presentation and just save the document.
 
-#set($class = $doc.getObject('QA.PlatformClass').xWikiClass)
+#set($class = $doc.getObject('QA.AppClass').xWikiClass)
 #foreach($prop in $class.properties)
   ; $prop.prettyName
   : $doc.display($prop.getName())

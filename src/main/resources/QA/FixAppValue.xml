@@ -1,0 +1,120 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.4" reference="QA.FixAppValue" locale="">
+  <web>QA</web>
+  <name>FixAppValue</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <parent>QA.Management</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <version>1.1</version>
+  <title>FixAppValue</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content>{{velocity}}
+#if ("$!request.documentsToFix" != "")
+  #set($classNameToRemove = "QA.ExecutionClass")
+  #set($documentsList = $request.getParameterValues('documentsToFix'))
+  #foreach($documentName in $documentsList)
+    ## * received: $documentName $xwiki.getURL($documentName)
+    #set($documentToClean = $xwiki.getXWiki().getDocument($documentName, $xcontext.context))
+    ##each object
+    #set($appObjs = $documentToClean.getObjects($classNameToRemove))
+    #foreach($appObj in $appObjs)
+      #set($appProp =  $appObj.set('application', 'QA.None', $xcontext.context))
+    #end
+    ## Set the new author
+    #set($discard = $documentToClean.setAuthorReference($xcontext.context.getUserReference()))
+    #set($discard = $xwiki.getXWiki().saveDocument($documentToClean, 'Added default value for application field',true, $xcontext.context))
+    1. update document [[$documentToClean.prefixedFullName]]
+  #end
+#elseif ("$!request.start" != "" &amp;&amp; "$!request.limit" != "")
+  #set($classNameToRemove = "QA.ExecutionClass")
+  #if("$!request.start" != "")
+    #set($startOffset = $mathtool.toInteger("$!request.start"))
+  #else
+    #set($startOffset = 0)
+  #end
+  #if("$!request.limit" != "")
+    #set($limitOffset = $mathtool.toInteger("$!request.limit"))
+  #else
+    #set($limitOffset = 0)
+  #end
+  #set($propType = "StringProperty")
+  #set($propName = 'application') $classNameToRemove
+  #set($documentsWithClass = $xwiki.searchDocuments(", BaseObject obj where obj.name = doc.fullName and obj.className = ?  order by doc.date desc", $limitOffset, $startOffset, [$classNameToRemove]))
+  {{html clean="false"}}
+  &lt;a class="update-selectAll" href="#"&gt;Select All&lt;/a&gt;
+  &lt;script type="text/javascript"&gt;
+  document.observe('xwiki:dom:loaded', function() {
+    var selectAllLink = $$('a.update-selectAll')[0];
+    if (!selectAllLink) {
+      return;
+    }
+    
+    selectAllLink.observe('click', function(evt){
+      evt.stop();
+      
+      $$('form.selectorsForm input[type=checkbox]').each(function(checkbox) {
+        checkbox.writeAttribute('checked', 'checked');
+      });
+    });
+  });
+  &lt;/script&gt;
+  &lt;form action="" method="post" class="xform full selectorsForm"&gt;
+  &lt;ol&gt;
+  #foreach($page in $documentsWithClass)
+    #set($deprecatedDocument = $xwiki.getDocument($page))
+    #set($appObj = $deprecatedDocument.getObject($classNameToRemove))    
+    #set($appProp = $deprecatedObject.getxWikiClass().getProperty($propName))
+    &lt;li&gt; &lt;input type="checkbox" name="documentsToFix" value="$escapetool.xml($page)"&gt;$page&lt;/input&gt; -&gt; &lt;a href="$deprecatedDocument.getURL()"&gt;link&lt;/a&gt; &lt;/li&gt;
+  #end
+  &lt;/ol&gt;
+  &lt;input type="hidden" name="className" value="$escapetool.xml($classNameToRemove)"/&gt;
+  &lt;input type="submit" class="button" value="Update" /&gt;
+  &lt;/form&gt;
+  {{/html}}
+#else
+  {{html}}
+  &lt;form action="" method="post" class="xform half"&gt;
+    &lt;dl&gt;
+      &lt;dt&gt;&lt;label&gt;Start:&lt;/label&gt;
+          &lt;div class="xHint"&gt;The index on which to start, for paginated cleanup (leave emtpy for all documents).&lt;/div&gt;
+      &lt;/dt&gt;
+      &lt;dd&gt;&lt;input type="text" name="start" value="$!request.start" /&gt;&lt;/dd&gt;
+      &lt;dt&gt;&lt;label&gt;Limit:&lt;/label&gt;
+          &lt;div class="xHint"&gt;The number of documents to cleanup, for paginated cleanup (leave empty to get all documents).&lt;/div&gt;
+      &lt;/dt&gt;
+      &lt;dd&gt;&lt;input type="text" name="limit" value="$!request.limit" /&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+    &lt;input type="submit" class="button" value="Search documents" /&gt;
+  &lt;/form&gt;
+  {{/html}}
+#end
+{{/velocity}}</content>
+</xwikidoc>

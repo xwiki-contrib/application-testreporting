@@ -20,14 +20,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.4" reference="QA.LiveTableResultsDetailed" locale="">
+<xwikidoc version="1.4" reference="QA.LiveTableResultsFullDetailed" locale="">
   <web>QA</web>
-  <name>LiveTableResultsDetailed</name>
+  <name>LiveTableResultsFullDetailed</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <parent>XWiki.WebHome</parent>
+  <parent>qa:QA.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <version>1.1</version>
@@ -68,11 +68,53 @@
   ##
   #set($countQuery = "select count(execution) from Document as doc, doc.object(QA.ExecutionClass) as execution where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
   ##
-  #if("$!test" != '' &amp;&amp; "$!product" == '')
-    #set($dataQuery = $services.query.xwql("${dataQuery} and execution.test = :test order by $orderBy").bindValue('test', $test))
-    #set($countQuery = $services.query.xwql("${countQuery} and execution.test = :test").bindValue('test', $test))
+  ## WHERE clause (Filters)
+  #if ("$!request.test" != '')
+    #set ($dataQuery = "${dataQuery} AND lower(execution.test) LIKE '%$stringtool.lowerCase(${request.test})%' ")
+    #set ($countQuery = "${countQuery} and lower(execution.test) LIKE '%$stringtool.lowerCase(${request.test})%' ")
   #end
-  #if("$!product" != '' &amp;&amp; "$!test" == '')
+  #if ("$!request.browser" != '')
+    #set ($dataQuery = "${dataQuery} AND lower(execution.browser) LIKE '%$stringtool.lowerCase(${request.browser})%' ")
+    #set ($countQuery = "${countQuery} and lower(execution.browser) LIKE '%$stringtool.lowerCase(${request.browser})%' ")
+  #end
+  #if ("$!request.database" != '')
+    #set ($dataQuery = "${dataQuery} AND lower(execution.database) LIKE '%$stringtool.lowerCase(${request.database})%' ")
+    #set ($countQuery = "${countQuery} and lower(execution.database) LIKE '%$stringtool.lowerCase(${request.database})%' ")
+  #end
+  #if ("$!request.servletContainer" != '')
+    #set ($dataQuery = "${dataQuery} AND lower(execution.servletContainer) LIKE '%$stringtool.lowerCase(${request.servletContainer})%' ")
+    #set ($countQuery = "${countQuery} and lower(execution.servletContainer) LIKE '%$stringtool.lowerCase(${request.servletContainer})%' ")
+  #end
+  #if ("$!request.user" != '')
+    #set ($dataQuery = "${dataQuery} AND lower(execution.user) LIKE '%$stringtool.lowerCase(${request.user})%' ")
+    #set ($countQuery = "${countQuery} and lower(execution.user) LIKE '%$stringtool.lowerCase(${request.user})%' ")
+  #end
+  #if ("$!request.date" != '')
+    ##set ($dataQuery = "${dataQuery} and execution.date &gt;= '${datetool.format('yyyy-MM-dd hh:mm',1517436000000)}' ")
+    ##set ($countQuery = "${countQuery} and execution.date &gt;= '${datetool.format('yyyy-MM-dd hh:mm',1517436000000)}' ")
+    ##set ($dataQuery = "${dataQuery} and upper(str(execution.date)) like upper($datetool.format('yyyy-MM-dd hh:mm', $request.date.getTime()))")
+    ##set ($countQuery = "${countQuery} and upper(str(execution.date)) LIKE upper($datetool.format('yyyy-MM-dd hh:mm', $request.date.getTime()))")
+    #set ($timestamps = $request.date.split('-'))
+    #if ($timestamps.size() == 2)
+      #set($timestamp0 = $numbertool.toNumber($timestamps[0])+3600000)
+      #set($timestamp1 = $numbertool.toNumber($timestamps[1])+3600000)
+      #set ($date0 = $request.date)
+      #set ($date1 = $datetool.format('yyyy-MM-dd HH:mm',${timestamp0}))
+      #set ($date2 = $datetool.format('yyyy-MM-dd HH:mm',${timestamp1}))
+      #set ($dataQuery = "${dataQuery} and execution.date &gt;= '${date1}' and execution.date &lt;= '${date2}'")
+      #set ($countQuery = "${countQuery} and execution.date &gt;= '${date1}' and execution.date &lt;= '${date2}'")
+    #else
+      ## Fall back to the older string matching
+      #set ($dataQuery = "${dataQuery} and lower(str(execution.date)) like '%$stringtool.lowerCase(${request.database})%'")
+      #set ($countQuery = "${countQuery} and lower(str(execution.date)) like '%$stringtool.lowerCase(${request.database})%'")
+    #end
+  #end
+  ##End WHERE
+  #if("$!product" == '')
+    #set($dataQuery = $services.query.xwql("${dataQuery} order by $orderBy"))
+    #set($countQuery = $services.query.xwql("${countQuery}"))
+  #end
+  #if("$!product" != '')
     #set($dataQuery = $services.query.xwql("${dataQuery} and execution.product = :product order by $orderBy").bindValue('product', $product))
     #set($countQuery = $services.query.xwql("${countQuery} and execution.product = :product").bindValue('product', $product))
   #end
@@ -128,10 +170,8 @@
     #if(!$databaseDocument.isNew())
       #set($databaseName = $databaseDocument.getObject('QA.DatabaseClass').getProperty('name').getValue())
       #set($databaseVersion = $databaseDocument.getObject('QA.DatabaseClass').getProperty('version').getValue())
-      #if ("$!databaseName" != '')
-        #set($databaseIconURL = $doc.getAttachmentURL("${databaseName}.png"))
-        #set($discard = $row.put('database', "&lt;img src=""$databaseIconURL""/&gt; &lt;span&gt;$!databaseName $!databaseVersion&lt;/span&gt;"))
-      #end
+      #set($databaseIconURL = $doc.getAttachmentURL("${databaseName}.png"))
+      #set($discard = $row.put('database', "&lt;img src=""$databaseIconURL""/&gt; &lt;span&gt;$!databaseName $!databaseVersion&lt;/span&gt;"))
     #else
       #set($discard = $row.put('database', "$databaseDocument"))
     #end
