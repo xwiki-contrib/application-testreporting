@@ -57,6 +57,10 @@
       <id>slauriere</id>
       <name>slauriere</name>
     </developer>
+    <developer>
+      <id>iandriuta</id>
+      <name>Ilie Andriuta</name>
+    </developer>
   </developers>
   <scm>
    <connection>scm:git:git://github.com/xwiki-contrib/application-testreporting.git</connection>
