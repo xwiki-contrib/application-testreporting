@@ -42,18 +42,18 @@
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
 #set($columns = ['test', 'browser', 'database', 'servletContainer', 'user', 'date', 'passed', 'jira'])
 #set($columnsProperties = {
-  'test'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
-  'browser'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
-  'database'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
-  'servletContainer'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
-  'user'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true},
-  'date'         :{'type': 'date', 'html': true, 'filterable': false, 'sortable': true},
+  'test'         :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
+  'browser'      :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
+  'database'     :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
+  'servletContainer'      :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
+  'user'         :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
+  'date'         :{'type': 'date', 'html': true, 'filterable': true, 'sortable': true},
   'passed'       :{'type': 'boolean', 'html': true, 'filterable': true, 'sortable': true},
   'jira'         :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true}
 })
 
 #set($options = {
-  'resultPage' : 'QA.LiveTableResultsDetailed',
+  'resultPage' : 'QA.LiveTableResultsFullDetailed',
   'className' : 'QA.ExecutionClass',
   'tagCloud': false,
   "translationPrefix" : "qaapp.Custom.LiveTable.",

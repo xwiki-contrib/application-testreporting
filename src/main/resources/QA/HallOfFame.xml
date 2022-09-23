@@ -41,14 +41,14 @@
     #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
     #set($columns = ['test', 'product', 'browser', 'database', 'servletContainer', 'user', 'date','passed'])
     #set($columnsProperties = {
-      'test'         :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
+      'test'         :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
       'product'      :{'type': 'list', 'html' :true, 'filterable': true, 'sortable': true},
-      'browser'      :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
-      'database'     :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
-      'servletContainer'      :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
-      'user'         :{'type': 'text', 'html': true, 'filterable': true, 'sortable': true},
+      'browser'      :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
+      'database'     :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
+      'servletContainer'      :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
+      'user'         :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
       'date'         :{'type': 'date', 'html': true, 'filterable': true, 'sortable': true},
-      'passed'       :{'type': 'text', 'html': true, 'filterable': false, 'sortable': true}
+      'passed'       :{'type': 'boolean', 'html': true, 'filterable': true, 'sortable': true}
     })
 
     #set($options = {

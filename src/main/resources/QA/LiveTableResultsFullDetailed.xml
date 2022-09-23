@@ -73,17 +73,25 @@
     #set ($dataQuery = "${dataQuery} AND lower(execution.test) LIKE '%$stringtool.lowerCase(${request.test})%' ")
     #set ($countQuery = "${countQuery} and lower(execution.test) LIKE '%$stringtool.lowerCase(${request.test})%' ")
   #end
+  #if ("$!request.passed" != '')
+    #set ($dataQuery = "${dataQuery} AND execution.passed = ${request.passed} ")
+    #set ($countQuery = "${countQuery} and execution.passed = ${request.passed} ")
+  #end
+  #if ("$!request.application" != '')
+    #set ($dataQuery = "${dataQuery} AND lower(execution.application) LIKE :likeApplication ")
+    #set ($countQuery = "${countQuery} and lower(execution.application) LIKE :likeApplication ")
+  #end
   #if ("$!request.browser" != '')
-    #set ($dataQuery = "${dataQuery} AND lower(execution.browser) LIKE '%$stringtool.lowerCase(${request.browser})%' ")
-    #set ($countQuery = "${countQuery} and lower(execution.browser) LIKE '%$stringtool.lowerCase(${request.browser})%' ")
+    #set ($dataQuery = "${dataQuery} AND lower(execution.browser) LIKE :likeBrowser ")
+    #set ($countQuery = "${countQuery} and lower(execution.browser) LIKE :likeBrowser ")
   #end
   #if ("$!request.database" != '')
-    #set ($dataQuery = "${dataQuery} AND lower(execution.database) LIKE '%$stringtool.lowerCase(${request.database})%' ")
-    #set ($countQuery = "${countQuery} and lower(execution.database) LIKE '%$stringtool.lowerCase(${request.database})%' ")
+    #set ($dataQuery = "${dataQuery} AND lower(execution.database) LIKE :likeDatabase ")
+    #set ($countQuery = "${countQuery} and lower(execution.database) LIKE :likeDatabase ")
   #end
   #if ("$!request.servletContainer" != '')
-    #set ($dataQuery = "${dataQuery} AND lower(execution.servletContainer) LIKE '%$stringtool.lowerCase(${request.servletContainer})%' ")
-    #set ($countQuery = "${countQuery} and lower(execution.servletContainer) LIKE '%$stringtool.lowerCase(${request.servletContainer})%' ")
+    #set ($dataQuery = "${dataQuery} AND lower(execution.servletContainer) LIKE :likeServletContainer ")
+    #set ($countQuery = "${countQuery} and lower(execution.servletContainer) LIKE :likeServletContainer ")
   #end
   #if ("$!request.user" != '')
     #set ($dataQuery = "${dataQuery} AND lower(execution.user) LIKE '%$stringtool.lowerCase(${request.user})%' ")
@@ -117,6 +125,30 @@
   #if("$!product" != '')
     #set($dataQuery = $services.query.xwql("${dataQuery} and execution.product = :product order by $orderBy").bindValue('product', $product))
     #set($countQuery = $services.query.xwql("${countQuery} and execution.product = :product").bindValue('product', $product))
+  #end
+  #if ("$!request.application" != '')
+    #set ($app = $stringtool.lowerCase($request.application))
+    #set ($app = $app.replaceAll('\\', '\\\\'))
+    #set ($discard = $dataQuery.bindValue('likeApplication', "%${app}%"))
+    #set ($discard = $countQuery.bindValue('likeApplication', "%${app}%"))
+  #end
+  #if ("$!request.browser" != '')
+    #set ($browser = $stringtool.lowerCase($request.browser))
+    #set ($browser = $browser.replaceAll('\\', '\\\\'))
+    #set ($discard = $dataQuery.bindValue('likeBrowser', "%${browser}%"))
+    #set ($discard = $countQuery.bindValue('likeBrowser', "%${browser}%"))
+  #end
+  #if ("$!request.servletContainer" != '')
+    #set ($servletContainer = $stringtool.lowerCase($request.servletContainer))
+    #set ($servletContainer = $servletContainer.replaceAll('\\', '\\\\'))
+    #set ($discard = $dataQuery.bindValue('likeServletContainer', "%${servletContainer}%"))
+    #set ($discard = $countQuery.bindValue('likeServletContainer', "%${servletContainer}%"))
+  #end
+  #if ("$!request.database" != '')
+    #set ($database = $stringtool.lowerCase($request.database))
+    #set ($database = $database.replaceAll('\\', '\\\\'))
+    #set ($discard = $dataQuery.bindValue('likeDatabase', "%${database}%"))
+    #set ($discard = $countQuery.bindValue('likeDatabase', "%${database}%"))
   #end
   #set($count = $countQuery.execute())
   ## $count
@@ -170,8 +202,10 @@
     #if(!$databaseDocument.isNew())
       #set($databaseName = $databaseDocument.getObject('QA.DatabaseClass').getProperty('name').getValue())
       #set($databaseVersion = $databaseDocument.getObject('QA.DatabaseClass').getProperty('version').getValue())
-      #set($databaseIconURL = $doc.getAttachmentURL("${databaseName}.png"))
-      #set($discard = $row.put('database', "&lt;img src=""$databaseIconURL""/&gt; &lt;span&gt;$!databaseName $!databaseVersion&lt;/span&gt;"))
+      #if ("$!databaseName" != '')
+        #set($databaseIconURL = $doc.getAttachmentURL("${databaseName}.png"))
+        #set($discard = $row.put('database', "&lt;img src=""$databaseIconURL""/&gt; &lt;span&gt;$!databaseName $!databaseVersion&lt;/span&gt;"))
+      #end
     #else
       #set($discard = $row.put('database', "$databaseDocument"))
     #end
@@ -207,6 +241,9 @@
 ##  #foreach($item in $rows)
 ##    $velocityCount $item
 ##  #end
+  #if ($request.sql == 1)
+  #set ($discard = $map.put('sql', $dataQuery))
+  #end
   $jsontool.serialize($map)
 #else
   Custom LiveTableResults page to compute the results for LiveTables which are used on TestSheet and ProductSheet pages
@@ -214,7 +251,6 @@
 {{/velocity}}</content>
   <attachment>
     <filename>Apache Derby.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -233,7 +269,6 @@
   </attachment>
   <attachment>
     <filename>Google Chrome.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -242,7 +277,6 @@
   </attachment>
   <attachment>
     <filename>HyperSQL.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -251,7 +285,6 @@
   </attachment>
   <attachment>
     <filename>IBM DB2.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -260,7 +293,6 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 10.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -269,7 +301,6 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 7.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -278,7 +309,6 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 8.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -287,7 +317,6 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 9.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -346,7 +375,6 @@
   </attachment>
   <attachment>
     <filename>Microsoft SQL.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -365,7 +393,6 @@
   </attachment>
   <attachment>
     <filename>MySQL.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -374,7 +401,6 @@
   </attachment>
   <attachment>
     <filename>Oracle.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -383,7 +409,6 @@
   </attachment>
   <attachment>
     <filename>PostgreSQL.png</filename>
-    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
