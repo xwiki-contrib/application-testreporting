@@ -251,6 +251,7 @@
 {{/velocity}}</content>
   <attachment>
     <filename>Apache Derby.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -269,6 +270,7 @@
   </attachment>
   <attachment>
     <filename>Google Chrome.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -277,6 +279,7 @@
   </attachment>
   <attachment>
     <filename>HyperSQL.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -285,6 +288,7 @@
   </attachment>
   <attachment>
     <filename>IBM DB2.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -293,6 +297,7 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 10.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -301,6 +306,7 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 7.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -309,6 +315,7 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 8.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -317,6 +324,7 @@
   </attachment>
   <attachment>
     <filename>Internet Explorer 9.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -375,6 +383,7 @@
   </attachment>
   <attachment>
     <filename>Microsoft SQL.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -393,6 +402,7 @@
   </attachment>
   <attachment>
     <filename>MySQL.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -401,6 +411,7 @@
   </attachment>
   <attachment>
     <filename>Oracle.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
@@ -409,6 +420,7 @@
   </attachment>
   <attachment>
     <filename>PostgreSQL.png</filename>
+    <mimetype>image/png</mimetype>
     <author>xwiki:XWiki.Admin</author>
     <version>1.1</version>
     <comment/>
