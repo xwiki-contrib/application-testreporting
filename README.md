@@ -2,7 +2,7 @@
 
 Manage manual test plans.
 
-* Project Lead: [Vincent Massol](http://www.xwiki.org/xwiki/bin/view/XWiki/VincentMassol)
+* Project Lead: [slauriere](http://www.xwiki.org/xwiki/bin/view/XWiki/slauriere)
 * [Documentation & Download](https://extensions.xwiki.org/xwiki/bin/view/Extension/Test%20Reporting%20Application)
 * [Issue Tracker](http://jira.xwiki.org/browse/TESTREPORT)
 * Communication: [Mailing List](http://dev.xwiki.org/xwiki/bin/view/Community/MailingLists), [IRC](http://dev.xwiki.org/xwiki/bin/view/Community/IRC)
