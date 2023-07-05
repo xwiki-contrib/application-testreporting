@@ -70,8 +70,8 @@
   ##
   ## WHERE clause (Filters)
   #if ("$!request.test" != '')
-    #set ($dataQuery = "${dataQuery} AND lower(execution.test) LIKE '%$stringtool.lowerCase(${request.test})%' ")
-    #set ($countQuery = "${countQuery} and lower(execution.test) LIKE '%$stringtool.lowerCase(${request.test})%' ")
+    #set ($dataQuery = "${dataQuery} AND execution.test = :testbind ")
+    #set ($countQuery = "${countQuery} and execution.test = :testbind ")
   #end
   #if ("$!request.passed" != '')
     #set ($dataQuery = "${dataQuery} AND execution.passed = ${request.passed} ")
@@ -137,6 +137,12 @@
     #set ($browser = $browser.replaceAll('\\', '\\\\'))
     #set ($discard = $dataQuery.bindValue('likeBrowser', "%${browser}%"))
     #set ($discard = $countQuery.bindValue('likeBrowser', "%${browser}%"))
+  #end
+  #if("$!request.test" != '')
+    ##set($test = $stringtool.lowerCase($request.test))
+    #set ($test = $test.replaceAll('\\', '\\\\'))
+    #set ($discard = $dataQuery.bindValue('testbind', "${test}"))
+    #set ($discard = $countQuery.bindValue('testbind', "${test}"))
   #end
   #if ("$!request.servletContainer" != '')
     #set ($servletContainer = $stringtool.lowerCase($request.servletContainer))
