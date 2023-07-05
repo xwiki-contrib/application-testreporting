@@ -1,0 +1,164 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.4" reference="QA.ExecutionAddListener" locale="">
+  <web>QA</web>
+  <name>ExecutionAddListener</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <parent>Main.WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <version>1.1</version>
+  <title>ExecutionAddListener</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content/>
+  <object>
+    <name>QA.ExecutionAddListener</name>
+    <number>0</number>
+    <className>XWiki.ScriptComponentClass</className>
+    <guid>d9f71b16-212b-473e-8bf3-006fb929494f</guid>
+    <class>
+      <name>XWiki.ScriptComponentClass</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <scope>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <freeText>forbidden</freeText>
+        <largeStorage>0</largeStorage>
+        <multiSelect>0</multiSelect>
+        <name>scope</name>
+        <number>2</number>
+        <prettyName>Scope</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>|wiki|global|user</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </scope>
+      <script_content>
+        <disabled>0</disabled>
+        <editor>Text</editor>
+        <name>script_content</name>
+        <number>3</number>
+        <prettyName>Script</prettyName>
+        <rows>20</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </script_content>
+      <script_language>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <freeText>forbidden</freeText>
+        <largeStorage>0</largeStorage>
+        <multiSelect>0</multiSelect>
+        <name>script_language</name>
+        <number>1</number>
+        <prettyName>Language</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>groovy|python</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </script_language>
+    </class>
+    <property>
+      <scope>wiki</scope>
+    </property>
+    <property>
+      <script_content>import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
+import org.slf4j.Logger;
+import org.xwiki.bridge.event.DocumentUpdatingEvent;
+import org.xwiki.component.annotation.Component;
+import org.xwiki.observation.AbstractEventListener;
+import org.xwiki.observation.event.Event;
+import com.xpn.xwiki.objects.BaseObject;
+
+import com.xpn.xwiki.XWiki;
+import com.xpn.xwiki.XWikiContext;
+import com.xpn.xwiki.doc.XWikiDocument;
+
+/** This listener updates the date of a test execution to the date it was actually executed indeed instead of the date it was created. */
+
+@Component
+@Named(ExecutionAddListener.LISTENER_NAME)
+@Singleton
+public class ExecutionAddListener extends AbstractEventListener
+{
+    final static String LISTENER_NAME = "testExecutionAddListener";
+
+    @Inject
+    protected Logger logger;
+
+    public ExecutionAddListener()
+    {
+        super(LISTENER_NAME, new DocumentUpdatingEvent());
+    }
+
+    @Override
+    public void onEvent(Event event, Object source, Object data)
+    {
+        logger.debug("Event: [{}] - Source: [{}]", LISTENER_NAME, event, source);
+
+        XWikiContext xcontext = (XWikiContext) data;
+        XWiki xwiki = xcontext.getWiki();
+        XWikiDocument doc = (XWikiDocument) source;
+        List&lt;BaseObject&gt; testExecutions = doc.getObjects('QA.ExecutionClass');
+        if (testExecutions != null &amp;&amp; testExecutions.size() &gt; 0) {
+          List&lt;BaseObject&gt; oldTestExecutions = doc.getOriginalDocument().getObjects('QA.ExecutionClass');
+          testExecutions.removeAll(oldTestExecutions);
+          if (testExecutions.size() == 1) {
+            BaseObject currentTestExecution = testExecutions.get(0);
+            if (currentTestExecution != null) {
+              currentTestExecution.setDateValue("date", new Date());
+            }
+          }
+        }
+    }
+}</script_content>
+    </property>
+    <property>
+      <script_language>groovy</script_language>
+    </property>
+  </object>
+</xwikidoc>
