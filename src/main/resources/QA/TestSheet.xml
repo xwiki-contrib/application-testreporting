@@ -92,9 +92,16 @@
       $doc.display('expectedResult')
     )))
 
-    == $doc.displayPrettyName('automated', false, false) ==
-    $doc.display('automated')
-
+    ## Display automated status from QA.AutomatedTestStatusClass
+    ## Old code:
+    ## == $doc.displayPrettyName('automated', false, false) ==
+    ## $doc.display('automated')
+    #set ($automatedObject = $doc.getObject('QA.AutomatedTestStatusClass'))
+    #if ($automatedObject)
+      == $doc.displayPrettyName('status', false, false, $automatedObject) ==
+      $doc.display('status', $automatedObject)
+    #end
+    
     == Results ==
     #set($discard = $xwiki.ssx.use("QA.WebHome"))
     #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))

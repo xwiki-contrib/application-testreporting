@@ -37,7 +37,7 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
   <content>{{velocity}}
-(%class="buttonwrapper"%)[[Add new Test&gt;&gt;QA.AddTest||queryString="spaceName=${doc.space}"]] [[Home&gt;&gt;QA.WebHome]]  
+(%class="buttonwrapper"%)[[Add new Test&gt;&gt;QA.AddTest||queryString="spaceName=${doc.space}"]] [[Home&gt;&gt;QA.WebHome]]
 #set($discard = $xwiki.ssx.use("QA.WebHome"))
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
 #set($columns = ['doc.title', 'wikiType', 'userType', 'product', 'browsers', 'databases', 'servletContainers', 'automated'])
@@ -50,7 +50,13 @@
   'databases'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'servletContainers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'automated'     :{'type': 'list', 'class': 'QA.TestClass'},
-  '_actions'      :{'actions': ['runTest', 'delete'] }
+  '_actions'      :{'actions': [
+    {
+      'id': 'runTest',
+      'icon': 'play'
+    },
+    'delete'
+  ]}
 })
 #set($options = {
   'resultPage' : 'QA.LiveTableResults',

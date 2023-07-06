@@ -158,7 +158,7 @@
       <code>document.observe('xwiki:livetable:newrow', function(event){
   event.memo.row.down('.actionrunTest').observe('click', function(event) {
     event.stop();
-    var runTestLink = [event.element()];
+    var runTestLink = [event.findElement('a')];
 
     var loading = new Element('div', {'class' : 'loading'});
     var dialog = new XWiki.widgets.ModalPopup(
@@ -236,10 +236,10 @@
           submit &amp;&amp; submit.observe('click', onSubmit);
           addNextButton(submit);
         }
-      });  
+      });
     }
 
-    loadTest(runTestLink[0]); 
+    loadTest(runTestLink[0]);
   });
 });</code>
     </property>
@@ -377,7 +377,7 @@
       <name>style</name>
     </property>
     <property>
-      <parse/>
+      <parse>0</parse>
     </property>
     <property>
       <use>currentPage</use>

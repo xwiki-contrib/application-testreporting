@@ -37,6 +37,8 @@
   <syntaxId>plain/1.0</syntaxId>
   <hidden>true</hidden>
   <content># Translations for the LiveTable found on QA.WebHome and the Space.WebHome of the test spaces
+qaapp.WebHome.LiveTable.doc.creationDate=Creation Date
+qaapp.WebHome.LiveTable.doc.date=Update Date
 qaapp.WebHome.LiveTable.doc.title=Test
 qaapp.WebHome.LiveTable.doc.space=Category
 qaapp.WebHome.LiveTable.product=Latest product version tested
@@ -54,9 +56,11 @@ qaapp.WebHome.LiveTable.emptyvalue=
 qaapp.WebHome.LiveTable.deprecated=Deprecated
 
 # Translations for the LiveTable found on each TestPage and Product page
+qaapp.Custom.LiveTable.doc.title=Test
 qaapp.Custom.LiveTable.test=Name
 qaapp.Custom.LiveTable.product=Product
 qaapp.Custom.LiveTable.browser=Browsers
+qaapp.Custom.LiveTable.browsers=Browsers
 qaapp.Custom.LiveTable.database=Databases
 qaapp.Custom.LiveTable.servletContainer=Servlet Containers
 qaapp.Custom.LiveTable.user=Tested By
@@ -64,6 +68,7 @@ qaapp.Custom.LiveTable.date=Tested On
 qaapp.Custom.LiveTable.passed=Result
 qaapp.Custom.LiveTable.jira=Jira Issue
 qaapp.Custom.LiveTable._actions=Action
+qaapp.Custom.LiveTable.doc.space=Category
 
 # Translations for the buttons from QA.WebHome
 qaapp.WebHome.addTest.button=Add Test
