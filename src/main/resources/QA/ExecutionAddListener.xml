@@ -108,6 +108,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.slf4j.Logger;
+import org.xwiki.bridge.event.DocumentCreatingEvent;
 import org.xwiki.bridge.event.DocumentUpdatingEvent;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.observation.AbstractEventListener;
@@ -132,7 +133,7 @@ public class ExecutionAddListener extends AbstractEventListener
 
     public ExecutionAddListener()
     {
-        super(LISTENER_NAME, new DocumentUpdatingEvent());
+        super(LISTENER_NAME, new DocumentCreatingEvent(), new DocumentUpdatingEvent());
     }
 
     @Override
@@ -143,10 +144,17 @@ public class ExecutionAddListener extends AbstractEventListener
         XWikiContext xcontext = (XWikiContext) data;
         XWiki xwiki = xcontext.getWiki();
         XWikiDocument doc = (XWikiDocument) source;
-        List&lt;BaseObject&gt; testExecutions = doc.getObjects('QA.ExecutionClass');
+        List&lt;BaseObject&gt; testExecutions = doc.getObjects("QA.ExecutionClass");
+        logger.debug("Test executions: " + testExecutions);
         if (testExecutions != null &amp;&amp; testExecutions.size() &gt; 0) {
-          List&lt;BaseObject&gt; oldTestExecutions = doc.getOriginalDocument().getObjects('QA.ExecutionClass');
-          testExecutions.removeAll(oldTestExecutions);
+          logger.debug("Test executions size: " + testExecutions.size());
+          if (doc.getOriginalDocument() != null) {
+            List&lt;BaseObject&gt; oldTestExecutions = doc.getOriginalDocument().getObjects('QA.ExecutionClass');
+            if (oldTestExecutions != null &amp;&amp; oldTestExecutions.size() &gt; 0) {
+              testExecutions.removeAll(oldTestExecutions);
+            }
+          }
+          logger.debug("Test executions: " + testExecutions.size());
           if (testExecutions.size() == 1) {
             BaseObject currentTestExecution = testExecutions.get(0);
             if (currentTestExecution != null) {
