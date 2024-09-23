@@ -64,7 +64,7 @@
   ## $offset
   #set($discard = $map.put('reqNo', $mathtool.toInteger($request.reqNo)))
   ## #set($discard = $map.put('tags', []))
-  #set($dataQuery = "select execution.test, execution.product, execution.application, execution.browser, execution.database, execution.user, execution.date, execution.passed, execution.jira, execution.servletContainer from Document as doc, doc.object(QA.ExecutionClass) as execution where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
+  #set($dataQuery = "select execution.test, execution.product, execution.application, execution.browser, execution.database, execution.user, execution.date, execution.passed, execution.jira, execution.servletContainer, execution.java from Document as doc, doc.object(QA.ExecutionClass) as execution where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
   ##
   #set($countQuery = "select count(execution) from Document as doc, doc.object(QA.ExecutionClass) as execution where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
   ##
@@ -92,6 +92,10 @@
   #if ("$!request.servletContainer" != '')
     #set ($dataQuery = "${dataQuery} AND lower(execution.servletContainer) LIKE :likeServletContainer ")
     #set ($countQuery = "${countQuery} and lower(execution.servletContainer) LIKE :likeServletContainer ")
+  #end
+  #if ("$!request.java" != '')
+    #set ($dataQuery = "${dataQuery} AND lower(execution.java) LIKE :likeJava ")
+    #set ($countQuery = "${countQuery} and lower(execution.java) LIKE :likeJava ")
   #end
   #if ("$!request.user" != '')
     #set ($dataQuery = "${dataQuery} AND lower(execution.user) LIKE '%$stringtool.lowerCase(${request.user})%' ")
@@ -150,6 +154,12 @@
     #set ($discard = $dataQuery.bindValue('likeServletContainer', "%${servletContainer}%"))
     #set ($discard = $countQuery.bindValue('likeServletContainer', "%${servletContainer}%"))
   #end
+  #if ("$!request.java" != '')
+    #set ($java = $stringtool.lowerCase($request.java))
+    #set ($java = $java.replaceAll('\\', '\\\\'))
+    #set ($discard = $dataQuery.bindValue('likeJava', "%${java}%"))
+    #set ($discard = $countQuery.bindValue('likeJava', "%${java}%"))
+  #end
   #if ("$!request.database" != '')
     #set ($database = $stringtool.lowerCase($request.database))
     #set ($database = $database.replaceAll('\\', '\\\\'))
@@ -198,8 +208,10 @@
     #if(!$browserDocument.isNew())
       #set($browserName = $browserDocument.getObject('QA.BrowserClass').getProperty('name').getValue())
       #set($browserVersion = $browserDocument.getObject('QA.BrowserClass').getProperty('version').getValue())
-      #set($browserIconURL = $doc.getAttachmentURL("${browserName}.png"))
-      #set($discard = $row.put('browser', "&lt;img src=""$browserIconURL""/&gt; &lt;span&gt;$!browserName $!browserVersion&lt;/span&gt;"))
+      #if ("$!browserName" != '')
+        #set($browserIconURL = $doc.getAttachmentURL("${browserName}.png"))
+        #set($discard = $row.put('browser', "&lt;img src=""$browserIconURL""/&gt; &lt;span&gt;$!browserName $!browserVersion&lt;/span&gt;"))
+      #end
     #else
       #set($discard = $row.put('browser', "$browserDocument"))
     #end
@@ -223,9 +235,21 @@
         #if("$!{servletContainerName}" != '')
             #set($servletContainerIconURL = $doc.getAttachmentURL("${servletContainerName}.png"))
             #set($discard = $row.put('servletContainer', "&lt;img src=""$!servletContainerIconURL""/&gt; &lt;span&gt;$!servletContainerName $!servletContainerVersion&lt;/span&gt;"))
-        #end        
+        #end
     #else
         #set($discard = $row.put('servletContainer', "$servletContainerDocument"))
+    #end
+    ##
+    #set($javaDocument = $xwiki.getDocument($item.get(10)))
+    #if(!$javaDocument.isNew())
+        #set($javaName = $javaDocument.getObject('QA.JavaClass').getProperty('name').getValue())
+        #set($javaVersion = $javaDocument.getObject('QA.JavaClass').getProperty('version').getValue())
+        #if("$!{javaName}" != '')
+            #set($javaIconURL = $doc.getAttachmentURL("${javaName}.png"))
+            #set($discard = $row.put('java', "&lt;img src=""$!javaIconURL""/&gt; &lt;span&gt;$!javaName $!javaVersion&lt;/span&gt;"))
+        #end
+    #else
+        #set($discard = $row.put('java', "$javaDocument"))
     #end
     ##
     #set($discard = $row.put('user', "$xwiki.getUserName($item.get(5), true)"))
@@ -255,6 +279,46 @@
   Custom LiveTableResults page to compute the results for LiveTables which are used on TestSheet and ProductSheet pages
 #end
 {{/velocity}}</content>
+  <attachment>
+    <filename>AdoptOpenJDK.png</filename>
+    <mimetype>image/png</mimetype>
+    <charset>UTF-8</charset>
+    <author>xwiki:XWiki.Admin</author>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABs0lEQVQ4y+1TvW/TQBzNHweCBUQkUlCGSp0ZqbohxJKhYunC2K6s3aiQAlVSwHHzWUhdmcQJceIQO/5QYvvO9p15F6f5C7KR0zvr+Z3v+fe7p8ulWxq5ndH/bcRJmlAwnqYJExKPQojgjK9FGiUACF/tSZJks3+xWGyMYpZESz+8/T0Yz+zpX5Oz2PfsbFtmFJIIyHwxoigKgsBxHMYY50IDyWEulkG58v3Bk+cPnxbye8XhHx1rpmXbjgfMzPl4MgWsuYMvPc+zbbvX66mqqmlaHMf3RjwFVXXz9ZvS6cfzd8cnhuV+uvjc7vwEWu0bIOMZZFnu9/ud1ahWq5ZlEUJEa6gMRk1FO3h1+P7D2dHbEozKXy4bzXZNrv+Q5Hqj9aurANf1ZqX6TZIkGHW7XUVRarWa67prI8wgpF+vpEfPXjzOvywU943pDCJ6GQxHfW0IMrddYKRPlDvVNE20puu6YRjgIhzOwzDMMRqkIp+UMFHa6jjZ0p0jJkJjIEIYbJ0dfollSimq8H1/kx0UEX9CfLFGYz8QRaYxgZhFlgFewPqVc6SWHTCeaG1313ZG2zP6BwhEhcCg1Lm9AAAAAElFTkSuQmCC</content>
+    <filesize>513</filesize>
+  </attachment>
+  <attachment>
+    <filename>AmazonJDK.png</filename>
+    <mimetype>image/png</mimetype>
+    <charset>UTF-8</charset>
+    <author>xwiki:XWiki.Admin</author>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAADAFBMVEX////+/v79/f36+vv8/Pz6+/v8/f37+/v7/PzQ0tZrcn1WXWltdH7y8vOssLa0t73Jy8+PlJv3+PiLkJjx8vOipq1UXGhhaXTIy8++wcawtLnc3uBcZG95f4mjp65DTFl3fYcSHS3Gyc1ASVe2ur82QE7d3+G/wsfJzNDb3N/Aw8iTmKDu7/A6RFLs7e5yeYNWXmqUmaCCiJDX2dwpM0Lz8/SMkpo/SFWBiJFdZXBTW2hVXWmZnqV8g4ykqa+IjpZqcXy1ub4wOUikqK8tNkW7vsOVmqE/SFaXnKMtN0WWm6Lp6utCS1hRWWX19vagpas5Q1H+/v1/hY4+R1VlbXhLU2De4OIZJDS8wMQ6Q1FvdoCztrxOVmNqb3hDS1Wjpan+/fz+///Iyszx8fLm5+n6+vrq6+3y8/T7+/yyu8ja4u7+8eH+/v/9/Pr///7//vz/8s7/0pL4vXH95cb+/Pr95MX5vW/627L8/v/9/Pv+/fv+/Pv9///54cL60p/5vGz9+vT97dj5tl74qD/6xoH85sn++fP++/j96tH7zI75s1r82q/7z5b827D9/Pn84Lv5sFD3mBv3mh/4pTn5sVP6uGP6uWP5slb4pz74nSf3nSf5tl385MT7zpT//v3+/vz98+b82Kn6wXb5slX5rEj5rEn5tFn6xHz83LP+9u3+/foAAAAAAAAAAAAAZAA5AAAAAwCU80AAAAgDAAAAAAAAAABF2ACHCJoImkeaR4jzMAgACJQA6wBV8yDy3AD2AFV3pPamCEkAAHcAAAAAAAAAAAAAAAAAAAAAAAAOlg14kmiAdpsAVfObeO0At3YAAAAAAAAAAAB5YsBgdpsAAAAAAAUAgACAAADAEAAAAAAAAACIAAAAAAUAAAAAAwB2AAAAeACaR4jzqAgAAFUAAAAAAABHiAAACJoAAACpCyQAAHcAAAAAAAAAAAAAAAAYAAAAAAAAAADzIABAAFUAAAAAAADzcAAAAFUAAAAAAH4ADAACAAAAAACgAQE0ngjEAfsY2jMnAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAUtJREFUKM+9UNVSxAAM3JTC4c7h7u7u7lLcaXHXYsXd3d31K+lxzHA/AHnJZDfZJAv8RxAYLVabWBY6CpCCFLoKRga/GY0mjcyQnr6BoZGxCZmawdzC0kppbUOsTLCwtbN3cHRyhouruZu7h6eXtw8Y9Zyvn78yIDAoOMQ0NCw8wilSLcVSVHRMbBziExKTklNS4aFMS/+WImRkIisbObl5+QWFRkVAcYlKiliutEy/vKKosqoaNbWoq29obOJZWYwENPughaHWNmrvoE69rm4IMs6hpxfoQ7/6BxrA4NDwCIkQaXRsfAICuElJmuIFTM/Mzs3RvDwiLCwuLa+sqn9eW9/Y3Nrewa58FC8Ie/sHh0fHJ6dn5xeXV9fSzRqpluP2Drh/eHx6fnl9e/8AxB+zZPaO+zWS51T4zylE3Kco8bwkSpxckKbjfxhfumVGjYZ+rRUAAAAASUVORK5CYII=</content>
+    <filesize>1202</filesize>
+  </attachment>
+  <attachment>
+    <filename>OracleJDK.png</filename>
+    <mimetype>image/png</mimetype>
+    <charset>UTF-8</charset>
+    <author>xwiki:XWiki.Admin</author>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACcklEQVRIx7VWy27aQBT1Nv297voFlbpDqOqmEhs2VdeV+gnpQ2kbKW0ANYRHIggp74Y3BIJxeT+MwYPHp3NHUVahGJKOZFkez5xzzznXGisej0fxer1P/H6/ez6fawBs7D5swggEAm7CJGwJLiZeGoYxsMXAAwdhEBZhCuw9hSqnia1AuCWA+D/XEKbP53MpJGnbyvm4Dj5TNyrRdV1VtvWcarGqR+D9K0fLlW3Bef83WOwNbKY72qM4B+ewbiJgJ27wbgZ8UJQ2bXJXcRqqVToA++mC1QpjlXoPS43BttjjKCBbzMNnouoSWPi1UBKF075wREDVstNXsI0+zC9PwbVLx7k5s0gEukq+E563wSIemL7nYs54HAKyYmVxcF0TSuLgoxpM/wvYy4l8tzAZlmy11rK1BJxz5BsaTlJltLoj8SxadLUAm3UxV9MY64YE14ZTHJ7n0R3PtiOgqkOZKr6d5xDO1hDN1xHJ1eU9UWqh3O5JAqr8IJpFtq7uZlGmpiJWuEZTqFAHE1z/GSHX6KCq9mURdW0A/2UJhsl2IyDQHxcFfAqlsX+awudwBseJAootYdXSRG+sS6KdQ54aS+wHkwK0KC2jar+e5dDuTxx9C/cSUFfk6h00hHxjyVC+6eEofoUPQgGBxwtNGTIR0NrhdL4dQUMb4u3HoAwvJAJOFFtIVdtIiytZactnIqHrotiUOekLcy2BfV/vU4f0J7rcHExXhDVFmcV3oYTugV8l0cIVnOUbqHUG63KwNx44/JaMsiBbRjMDk/lCBkyg67beHTi7HJlOxt2R+d8P/dvflj2hxCUkdR7620IYhEWYhP0XgyKSTyZvPdYAAAAASUVORK5CYII=</content>
+    <filesize>704</filesize>
+  </attachment>
+  <attachment>
+    <filename>OpenJDK.png</filename>
+    <mimetype>image/png</mimetype>
+    <charset>UTF-8</charset>
+    <author>xwiki:XWiki.Admin</author>
+    <version>1.1</version>
+    <comment/>
+    <content>iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI0LTA5LTIzVDEzOjQzOjAyKzAwOjAwnz4YCgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNC0wOS0yM1QxMzo0MzowMiswMDowMO5joLYAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjQtMDktMjNUMTM6NDM6MDIrMDA6MDC5doFpAAAD4ElEQVRIx51WS08bVxS2IrHqokjwE1qx6qbKjmUr/kEX3bDoAtFFFxGNKqVyWgUZQVOKkkhYdnnI3UQGnGYAG/CDYGIqEtcIbEpSaIJRsJuIGT/GnvHYM+Ov917POBhMUnOko+u559zznbdsAVBtxpSanZVKpf6taVqDrBlbjB9NqfYO0HWdsfktCMI5HfM8SxcCNHuoqir8fj96e3thtVoxPj7O5PT+UgCm17u7u4jH4+y+v78fnZ2daGtrg8PhYHckbf8f4LQifUjJ5/Oho6MDB/v7iEajsFgsjAcHB5k+1aPOtBSBmRJqIBKJMIMfd3VhZGQEPT09aG9vx+bmJpOTYrcegekZpZXlZQbw4ZUr6Pnsc3bn8XiY4XcV+L0A5XKZnY6JCXzx6SfQr30D2wft+M5mw9zMDGRZrtfpUkU2Ixi5exc3rl5F/KMurF27DuvwMO6MjTGZ6UTLEZie0Z7v6+vDi8NDhP0BiMRgNpOBy+Vieu/K/4URmIWjNDk5iYGBgbdCA3h6eho8z9edaTkCs4MmSP4pCAWUJQmKojCDwWCQteyluuh0/oeGhuB2u889TCQSCAQCDc60BEBZIh53d3cjnU7jkNTAbrfD6XSy1BwfH4PjuPevCmMTEgWSW02tGzcfUSM0RZQpSDKZxNTUFLxeLxYJa5pOOqnSsFq0U4vRYqzbM0Um29MAS6WOyaAtNcj/JRE57OMQ8/m3tW8SAX1vqeoaEymv/0Z+YwqqnLtwdZtLXhAlvBKKSAt5/B6JI/EyxXS2Dl5BKinY3DuEKJWYNkmRXlULJxAWf0Q+NocMOSviG0j7YWiVEsriCYrJGPNQOtqC+noPqzv/4JfZEH4LRHHTtYRvHQ8Rjh9g2B2E07uB0dlVlCsqVNJdLEWll39ADN9jXmQXbiIbuA3Bewv5xw5kCZ9w36MYc4NfskFZHcba4zU4l/9kAE+eJxFJvMDtmVX8RPhLmwsyaWVzPhiAkowitzLEws9wNyBGfkVFSCKzYAXvGUDhWQjFHQ6F+DzwjEPINwunfxvTK0/waHsf7rUt2BciGHsQxlc/38fy073aule1Wg00RQJPPOcXbqGw64O4MQGBANE0ZYOjELc5yEcx5LfmUH0+j5B/HvcWn+LhRhxf35nFDy4fUnwOo3OPsL5zgOsODny+SCIwasB2ilKAkvqLIedCo5CJcTZEch7l9B60soQKcaSqlvBgPQbP+g4UkuejNxniqVpLb0EiLaohV5RJmmpL8FybVkne1CJv/LXQ61N4+q9CQVbqu+psmzbYYm1aI2PA9IaxNiaQ3bOvqsFNpr4ZU/oP+PZL6zUwHCcAAAAASUVORK5CYII=</content>
+    <filesize>1220</filesize>
+  </attachment>
   <attachment>
     <filename>Apache Derby.png</filename>
     <mimetype>image/png</mimetype>

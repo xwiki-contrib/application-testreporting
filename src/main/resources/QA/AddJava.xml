@@ -1,0 +1,71 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.4" reference="QA.AddJava" locale="">
+  <web>QA</web>
+  <name>AddJava</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <parent>QA.JavaClass</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <version>1.1</version>
+  <title/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content>{{velocity}}
+#set($javaName = $request.javaName)
+#set($javaVersion = $request.javaVersion)
+
+#if(("$!javaName" != '' || $javaName == '') &amp;&amp; ("$!javaVersion" != '' || $javaVersion == ''))
+  #set($targetDocName = $javaName)
+  #set($targetDocName = "${targetDocName} ${javaVersion}")
+  #set($documentReference = $services.model.createDocumentReference($xcontext.getJava(), 'QA', $targetDocName))
+  #set($redirectReference = $services.model.createDocumentReference($xcontext.getJava(), 'QA', 'Management'))
+  $response.sendRedirect($xwiki.getURL($documentReference, 'save', "QA.JavaClass_0_name=$escapetool.url($javaName)&amp;QA.JavaClass_0_version=$escapetool.url($javaVersion)&amp;template=QA.JavaTemplate&amp;parent=QA.WebHome&amp;title=$escapetool.url($targetDocName)&amp;form_token=${services.csrf.getToken()}&amp;xredirect=$escapetool.url($xwiki.getURL($redirectReference))"))
+#end
+
+{{html wiki="true"}}
+&lt;form action="" class="xform third" id="addJavaForm"&gt;
+(((
+            ; &lt;label for="javaName"&gt;$services.localization.render('qaapp.AddJava.javaName.label')&lt;/label&gt;
+            : &lt;select id="javaName" name="javaName"&gt;
+                &lt;option value="OracleJDK"&gt;OracleJDK&lt;/option&gt;
+                &lt;option value="AdoptOpenJDK"&gt;AdoptOpenJDK&lt;/option&gt;
+                &lt;option value="AmazonJDK"&gt;AmazonJDK&lt;/option&gt;
+                &lt;option value="OpenJDK"&gt;OpenJDK&lt;/option&gt;
+              &lt;/select&gt;
+            ; &lt;label for="javaVersion"&gt;$services.localization.render('qaapp.AddJava.javaVersion.label')&lt;/label&gt;
+            : &lt;input type="text" id="javaVersion" name="javaVersion"&gt;
+
+            &lt;div class="xform buttons"&gt;
+            &lt;span class="buttonwrapper"&gt;&lt;input type="submit" value="$services.localization.render('qaapp.AddJava.javaName')" class="button"/&gt;&lt;/span&gt;
+            &lt;/div&gt;
+)))
+&lt;/form&gt;
+{{/html}}
+{{/velocity}}</content>
+</xwikidoc>

@@ -39,13 +39,14 @@
   <content>{{velocity}}
     #set($discard = $xwiki.ssx.use("QA.WebHome"))
     #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-    #set($columns = ['test', 'product', 'browser', 'database', 'servletContainer', 'user', 'date','passed'])
+    #set($columns = ['test', 'product', 'browser', 'database', 'servletContainer', 'java', 'user', 'date','passed'])
     #set($columnsProperties = {
       'test'         :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
       'product'      :{'type': 'list', 'html' :true, 'filterable': true, 'sortable': true},
       'browser'      :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
       'database'     :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
       'servletContainer'      :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
+      'java'      :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
       'user'         :{'type': 'suggest', 'html': true, 'filterable': true, 'sortable': true},
       'date'         :{'type': 'date', 'html': true, 'filterable': true, 'sortable': true},
       'passed'       :{'type': 'boolean', 'html': true, 'filterable': true, 'sortable': true}
