@@ -145,6 +145,26 @@
   (%class="buttonwrapper"%)[[$services.localization.render('qaapp.Management.AddServletContainer.button')&gt;&gt;QA.AddServletContainer]]
   #livetable("servlets" $collist $colprops $options)
 #end
+= Existing Java Versions =
+#set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.JavaClass'")
+#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#if(!$results.isEmpty())
+
+  #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
+  #set($colprops = {
+                   "doc.name" : { "type" : "text" ,"link" : "true", "size" : 30, "sortable":true, "filterable":true},
+                   "_ratings" : { "sortable":false},
+                   "doc.date" : { "type" : "date" },
+                   "doc.author" : { "type" : "text", "link" : "author"},
+                   "_actions" : { 'actions' : ['delete'] }
+                 })
+  #set($options = { "className":"QA.JavaClass",
+                  "tagCloud" : false,
+                  "translationPrefix" : "xe.index.",
+                  "rowCount": 10 })
+  (%class="buttonwrapper"%)[[$services.localization.render('qaapp.Management.AddJava.button')&gt;&gt;QA.AddJava]]
+  #livetable("javaVersions" $collist $colprops $options)
+#end
 
 = Fix application property =
   (%class="buttonwrapper"%)[[Set application value to "None"&gt;&gt;QA.FixAppValue]]

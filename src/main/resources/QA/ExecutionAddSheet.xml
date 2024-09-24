@@ -120,6 +120,9 @@
     ## Servlet Container Version Selector
     ; &lt;label for="QA.ExecutionClass_${object.number}_servletContainer"&gt;$doc.displayPrettyName('servletContainer', false, false)&lt;/label&gt;
     : $doc.display('servletContainer', 'edit')
+    ## Java Version Selector
+    ; &lt;label for="QA.ExecutionClass_${object.number}_java"&gt;$doc.displayPrettyName('java', false, false)&lt;/label&gt;
+    : $doc.display('java', 'edit')
     ## Passed/Fail
     ; &lt;label for="QA.ExecutionClass_${object.number}_passed"&gt;$doc.displayPrettyName('passed', false, false)&lt;/label&gt;
     ; $doc.display('passed', 'edit')

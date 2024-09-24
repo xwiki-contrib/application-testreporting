@@ -39,7 +39,7 @@
   <content>{{velocity}}
 #set($discard = $xwiki.ssx.use("QA.WebHome"))
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-#set($columns = ['deprecated','doc.title', 'doc.space', 'wikiType', 'userType', 'product', 'browsers', 'databases', 'servletContainers', 'automated'])
+#set($columns = ['deprecated','doc.title', 'doc.space', 'wikiType', 'userType', 'product', 'browsers', 'databases', 'servletContainers', 'javas', 'automated'])
 #set($columnsProperties = {
   'doc.title'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
   'doc.space'     :{'type': 'text', 'link': 'space', 'size': 10, 'filterable': true, 'sortable': true},
@@ -49,6 +49,7 @@
   'browsers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'databases'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'servletContainers'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
+  'javas'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'automated'     :{'type': 'list', 'class': 'QA.TestClass'},
   'deprecated'     :{'type': 'list', 'class': 'QA.TestClass'}
 })
@@ -367,6 +368,14 @@
 }
 
 .databaseVersions{
+  font-size:10px;
+}
+
+.javaVersions{
+  font-size:10px;
+}
+
+.servletContainerVersions{
   font-size:10px;
 }</code>
     </property>

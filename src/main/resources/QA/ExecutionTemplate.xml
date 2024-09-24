@@ -151,6 +151,34 @@
         <validationRegExp/>
         <classType>com.xpn.xwiki.objects.classes.DateClass</classType>
       </date>
+      <java>
+        <cache>0</cache>
+        <classname/>
+        <customDisplay/>
+        <defaultValue/>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <freeText/>
+        <hint/>
+        <idField/>
+        <largeStorage>0</largeStorage>
+        <multiSelect>0</multiSelect>
+        <name>java</name>
+        <number>11</number>
+        <picker>0</picker>
+        <prettyName>Java Version</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators/>
+        <size>1</size>
+        <sort/>
+        <sql>select doc.fullName, doc.name from XWikiDocument doc,BaseObject as obj where obj.name=doc.fullName and obj.className='QA.JavaClass' and doc.fullName &lt;&gt; 'QA.JavaTemplate' order by doc.name</sql>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <valueField/>
+        <classType>com.xpn.xwiki.objects.classes.DBListClass</classType>
+      </java>
       <jira>
         <customDisplay/>
         <disabled>0</disabled>
@@ -301,6 +329,9 @@
     </property>
     <property>
       <date>2012-11-30 11:47:03.0</date>
+    </property>
+    <property>
+      <java/>
     </property>
     <property>
       <jira/>
