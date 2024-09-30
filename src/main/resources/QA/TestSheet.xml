@@ -38,7 +38,6 @@
   <hidden>true</hidden>
   <content>{{velocity}}
 #set($discard=$xwiki.ssx.use('QA.TestSheet'))
-#set($discard=$xwiki.jsx.use('QA.TestSheet'))
 #if(($context.action=="inline")||($context.action=="edit"))
   #set ($useWysiwygEditor = $xwiki.getUserPreference('editor') == 'Wysiwyg')
   #set($type="edit")
@@ -80,6 +79,7 @@
 {{velocity}}
 #if ($context.action=="view")
   #if($doc.getObject('QA.TestClass'))
+    #set($discard=$xwiki.jsx.use('QA.TestSheet'))
     (%class="buttonwrapper"%)[[Home&gt;&gt;QA.WebHome]] (%class="buttonwrapper"%)[[$doc.space Home&gt;&gt;${doc.space}.WebHome]] (%class="buttonwrapper"%)[[Run Test&gt;&gt;$doc||queryString="sheet=QA.ExecutionAddSheet"]]
      == Steps to reproduce ==
 
@@ -229,15 +229,10 @@
     </property>
     <property>
       <code>require(['jquery'], function($) {
-  let submitButton = $('span.wikilink&gt;a[href$="sheet=QA.ExecutionAddSheet"]')[0];
-  $(document)
-      .on('keypress', function (event) {
-        if (event.which === 117) {
-          submitButton.click();
-        }
-        event.stopImmediatePropagation();
-        event.preventDefault();
-      });
+  shortcut.add("Alt+Shift+q", function() {
+    let submitButton = $('span.wikilink&gt;a[href$="sheet=QA.ExecutionAddSheet"]')[0];
+    submitButton.click();
+  });
 });</code>
     </property>
     <property>
