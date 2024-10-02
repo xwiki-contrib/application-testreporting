@@ -306,15 +306,10 @@
     </property>
     <property>
       <code>require(['jquery'], function($) {
-  let submitButton = $('input.button[name="addObject"]');
-  $(document)
-      .on('keypress', function (event) {
-        if (event.which === 117) {
-          submitButton.click();
-        }
-        event.stopImmediatePropagation();
-        event.preventDefault();
-      });
+  shortcut.add("Alt+Shift+q", function() {
+    let submitButton = $('input.button[name="addObject"]');
+    submitButton.click();
+  });
 });</code>
     </property>
     <property>
