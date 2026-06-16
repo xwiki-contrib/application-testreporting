@@ -123,9 +123,9 @@ qaapp.AddJava.javaName=Add a new JDK vendor
 qaapp.AddJava.javaName.label=JDK Vendor Name
 
 # Translation in the Add Distribution container
-qaapp.AddDistribution.distribution.label=Distribution Version
-qaapp.AddDistribution.distributionVersion=Add a new distribution version
-qaapp.AddDistribution.distributionVersion.label=Distribution Version
+qaapp.AddDistribution.distribution.label=Distribution Type
+qaapp.AddDistribution.distributionVersion=Add a new distribution type
+qaapp.AddDistribution.distributionVersion.label=Distribution Type
 qaapp.AddDistribution.distributionName=Add a new distribution
 qaapp.AddDistribution.distributionName.label=Distribution Name
 

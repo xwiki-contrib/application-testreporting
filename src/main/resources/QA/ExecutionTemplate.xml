@@ -194,7 +194,7 @@
         <name>distribution</name>
         <number>11</number>
         <picker>0</picker>
-        <prettyName>Distribution Version</prettyName>
+        <prettyName>Distribution Type</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
         <separators/>
