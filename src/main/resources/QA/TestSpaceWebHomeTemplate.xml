@@ -40,10 +40,11 @@
 (%class="buttonwrapper"%)[[Add new Test&gt;&gt;QA.AddTest||queryString="spaceName=${doc.space}"]] [[Home&gt;&gt;QA.WebHome]]
 #set($discard = $xwiki.ssx.use("QA.WebHome"))
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-#set($columns = ['doc.title', 'wikiType', 'userType', 'product', 'browsers', 'databases', 'servletContainers',
-    'javas', 'distributions', 'automated'])
+#set($columns = ['deprecated', 'doc.title', 'wikiType', 'userType', 'product', 'browsers', 'databases',
+    'servletContainers', 'javas', 'distributions', 'automated'])
 #set($columnsProperties = {
-  'doc.title'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
+  'deprecated'    :{'type': 'list', 'class': 'QA.TestClass'},
+  'doc.title'     :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
   'wikiType'      :{'type': 'list', 'class': 'QA.TestClass'},
   'userType'      :{'type': 'list', 'class': 'QA.TestClass'},
   'product'       :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
