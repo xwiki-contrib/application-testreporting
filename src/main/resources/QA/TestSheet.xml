@@ -44,20 +44,7 @@
   {{html wiki="true"}}
   (% class = "xform" %)(((
     ; &lt;label for="content"&gt;Steps to reproduce&lt;/label&gt;
-    : {{html clean="false"}}
-      #if (!$useWysiwygEditor)
-        &lt;div id="xwikieditcontentinner"&gt;
-          ## The tool bar may have an entry to insert an HTML macro. Make sure it doesn't break the HTML macro we are currently in.
-          #set ($toolBar = "#template('simpleedittoolbar.vm')")
-          $!toolBar.replace('{{', '&amp;#123;&amp;#123;')
-      #end
-      $xwiki.getTextArea($tdoc.content)
-      #if ($useWysiwygEditor)
-        #wysiwyg_editProperty($tdoc "content" true)
-      #else
-        &lt;/div&gt;
-      #end
-      {{/html}}
+    : {{include reference="AppWithinMinutes.Content"/}}
     ; &lt;label for="QA.TestClass_0_expectedResult&gt;$doc.displayPrettyName('expectedResult', false, false)&lt;/label&gt;
     : $doc.display('expectedResult')
     ; &lt;label for="QA.TestClass_0_wikiType"&gt;$doc.displayPrettyName('wikiType', false, false)&lt;/label&gt;
