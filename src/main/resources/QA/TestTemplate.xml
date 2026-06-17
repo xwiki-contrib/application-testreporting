@@ -221,10 +221,7 @@
       </wikiType>
     </class>
     <property>
-      <automated>no</automated>
-    </property>
-    <property>
-      <automatedLinkSourceCode/>
+      <automated>needsTest</automated>
     </property>
     <property>
       <deprecated>no</deprecated>

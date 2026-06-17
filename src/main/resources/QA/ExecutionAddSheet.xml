@@ -86,14 +86,18 @@
     ; &lt;label&gt;Expected Results&lt;/label&gt;
     #if($doc.name!='ExecutionAddSheet')
     : $doc.display('expectedResult', $doc.getObject('QA.TestClass'))
-    #end
-    #if($doc.name!='ExecutionAddSheet')
     ; &lt;label&gt;{{translation key=qaapp.WebHome.LiveTable.userType/}}&lt;/label&gt;
     : $doc.display('userType', $doc.getObject('QA.TestClass'))
-    #end	
-    #if($doc.name!='ExecutionAddSheet')
+    #set ($automatedProperty = $doc.getObject('QA.TestClass').getProperty('automated'))
+    #if ($automatedProperty.value == "automated")
+      #set ($automatedIcon = 'check')
+    #elseif ($automatedProperty.value == "needsTest")
+      #set ($automatedIcon = 'warning')
+    #elseif ($automatedProperty.value == "notAutomatable")
+      #set ($automatedIcon = 'remove')
+    #end
     ; &lt;label&gt;Automated&lt;/label&gt;
-    : $doc.display('automated', $doc.getObject('QA.TestClass')) #if($doc.getObject('QA.TestClass').getProperty('automated').value == "yes") [[image:icon:accept]] #else [[image:icon:cancel]] #end
+    : $services.icon.renderHTML($automatedIcon) $doc.display('automated', $doc.getObject('QA.TestClass'))
     #end
     &lt;div class="hidden"&gt;
       &lt;input type="hidden" name="form_token" value="$!{services.csrf.getToken()}"/&gt;
