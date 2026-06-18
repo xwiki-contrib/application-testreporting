@@ -62,20 +62,34 @@
         <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>automated</name>
-        <number>3</number>
-        <picker>1</picker>
-        <prettyName>Automation Status</prettyName>
+        <number>4</number>
+        <picker>0</picker>
+        <prettyName>Automated</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
-        <separators>|, </separators>
+        <separators> ,|</separators>
         <size>1</size>
-        <sort/>
+        <sort>none</sort>
         <unmodifiable>0</unmodifiable>
         <validationMessage/>
         <validationRegExp/>
-        <values>automated=Automated|notAutomatable=Not Automatable|needsTest=Needs Automated Test</values>
+        <values>yes=Yes|no=No</values>
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </automated>
+      <automatedLinkSourceCode>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <hint/>
+        <name>automatedLinkSourceCode</name>
+        <number>3</number>
+        <picker>0</picker>
+        <prettyName>Automated Link Source Code</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </automatedLinkSourceCode>
       <deprecated>
         <cache>0</cache>
         <customDisplay/>
@@ -87,7 +101,7 @@
         <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>deprecated</name>
-        <number>7</number>
+        <number>5</number>
         <picker>0</picker>
         <prettyName>Deprecated</prettyName>
         <relationalStorage>0</relationalStorage>
@@ -108,10 +122,9 @@
         <editor>---</editor>
         <hint/>
         <name>expectedResult</name>
-        <number>1</number>
+        <number>2</number>
         <picker>0</picker>
         <prettyName>Expected result</prettyName>
-        <restricted>0</restricted>
         <rows>5</rows>
         <size>40</size>
         <unmodifiable>0</unmodifiable>
@@ -119,56 +132,6 @@
         <validationRegExp/>
         <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
       </expectedResult>
-      <jira>
-        <customDisplay/>
-        <disabled>0</disabled>
-        <hint/>
-        <name>jira</name>
-        <number>4</number>
-        <picker>1</picker>
-        <prettyName>JIRA link for automating the test</prettyName>
-        <size>30</size>
-        <unmodifiable>0</unmodifiable>
-        <validationMessage/>
-        <validationRegExp/>
-        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
-      </jira>
-      <notes>
-        <contenttype>---</contenttype>
-        <customDisplay/>
-        <disabled>0</disabled>
-        <editor>---</editor>
-        <hint/>
-        <name>notes</name>
-        <number>6</number>
-        <picker>1</picker>
-        <prettyName>Notes</prettyName>
-        <restricted>0</restricted>
-        <rows>5</rows>
-        <size>40</size>
-        <unmodifiable>0</unmodifiable>
-        <validationMessage/>
-        <validationRegExp/>
-        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
-      </notes>
-      <tests>
-        <contenttype>---</contenttype>
-        <customDisplay/>
-        <disabled>0</disabled>
-        <editor>---</editor>
-        <hint/>
-        <name>tests</name>
-        <number>5</number>
-        <picker>1</picker>
-        <prettyName>List of automated GitHub test links</prettyName>
-        <restricted>0</restricted>
-        <rows>5</rows>
-        <size>40</size>
-        <unmodifiable>0</unmodifiable>
-        <validationMessage/>
-        <validationRegExp/>
-        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
-      </tests>
       <userType>
         <cache>0</cache>
         <customDisplay/>
@@ -180,7 +143,7 @@
         <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>userType</name>
-        <number>1</number>
+        <number>4</number>
         <picker>0</picker>
         <prettyName>User Type</prettyName>
         <relationalStorage>0</relationalStorage>
@@ -197,15 +160,11 @@
       <wikiType>
         <cache>0</cache>
         <customDisplay/>
-        <defaultValue/>
         <disabled>0</disabled>
         <displayType>select</displayType>
-        <freeText/>
-        <hint/>
-        <largeStorage>0</largeStorage>
         <multiSelect>0</multiSelect>
         <name>wikiType</name>
-        <number>2</number>
+        <number>5</number>
         <picker>0</picker>
         <prettyName>Wiki Type</prettyName>
         <relationalStorage>0</relationalStorage>
@@ -228,15 +187,6 @@
     </property>
     <property>
       <expectedResult/>
-    </property>
-    <property>
-      <jira/>
-    </property>
-    <property>
-      <notes/>
-    </property>
-    <property>
-      <tests/>
     </property>
     <property>
       <userType>admin</userType>

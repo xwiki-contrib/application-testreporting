@@ -47,20 +47,16 @@
     : {{include reference="AppWithinMinutes.Content"/}}
     ; &lt;label for="QA.TestClass_0_expectedResult&gt;$doc.displayPrettyName('expectedResult', false, false)&lt;/label&gt;
     : $doc.display('expectedResult')
-    ; &lt;label for="QA.TestClass_0_userType"&gt;$doc.displayPrettyName('userType', false, false)&lt;/label&gt;
-    : $doc.display('userType')
     ; &lt;label for="QA.TestClass_0_wikiType"&gt;$doc.displayPrettyName('wikiType', false, false)&lt;/label&gt;
     : $doc.display('wikiType')
+    ; &lt;label for="QA.TestClass_0_userType"&gt;$doc.displayPrettyName('userType', false, false)&lt;/label&gt;
+    : $doc.display('userType')
     ; &lt;label for="QA.TestClass_0_automated"&gt;$doc.displayPrettyName('automated', false, false)&lt;/label&gt;
     : $doc.display('automated')
-    ; &lt;label for="QA.TestClass_0_jira"&gt;$doc.displayPrettyName('jira', false, false)&lt;/label&gt;
-    : $doc.display('jira')
-    ; &lt;label for="QA.TestClass_0_tests"&gt;$doc.displayPrettyName('tests', false, false)&lt;/label&gt;
-    : $doc.display('tests')
-    ; &lt;label for="QA.TestClass_0_notes"&gt;$doc.displayPrettyName('notes', false, false)&lt;/label&gt;
-    : $doc.display('notes')
     ; &lt;label for="QA.TestClass_0_deprecated"&gt;$doc.displayPrettyName('deprecated', false, false)&lt;/label&gt;
     : $doc.display('deprecated')
+    ; &lt;label for="QA.TestClass_0_automatedLinkSourceCode"&gt;$doc.displayPrettyName('automatedLinkSourceCode', false, false)&lt;/label&gt;
+    : $doc.display('automatedLinkSourceCode')
   )))
   {{/html}}
 #end
@@ -84,9 +80,16 @@
       $doc.display('expectedResult')
     )))
 
-    == $doc.displayPrettyName('automated', false, false) ==
-    $doc.display('automated')
-
+    ## Display automated status from QA.AutomatedTestStatusClass
+    ## Old code:
+    ## == $doc.displayPrettyName('automated', false, false) ==
+    ## $doc.display('automated')
+    #set ($automatedObject = $doc.getObject('QA.AutomatedTestStatusClass'))
+    #if ($automatedObject)
+      == $doc.displayPrettyName('status', false, false, $automatedObject) ==
+      $doc.display('status', $automatedObject)
+    #end
+    
     == Results ==
     #set($discard = $xwiki.ssx.use("QA.WebHome"))
     #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
