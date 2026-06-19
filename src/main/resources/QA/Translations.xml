@@ -48,6 +48,7 @@ qaapp.WebHome.LiveTable.servletContainers=Containers
 qaapp.WebHome.LiveTable.javas=Java
 qaapp.WebHome.LiveTable.distributions=Distribution
 qaapp.WebHome.LiveTable.automated=Automated
+qaapp.WebHome.LiveTable.status=Automation Status
 qaapp.WebHome.LiveTable._actions=Action
 qaapp.WebHome.LiveTable.no.tests.execution.found=No test executions found
 qaapp.WebHome.LiveTable._actions.runTest=Run Test

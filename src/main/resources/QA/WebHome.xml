@@ -39,7 +39,7 @@
   <content>{{velocity}}
 #set($discard = $xwiki.ssx.use("QA.WebHome"))
 #set($discard = $xwiki.jsx.use("QA.WebHome" ,{'minify':false,'defer':false}))
-#set($columns = ['deprecated','doc.title', 'doc.space', 'wikiType', 'userType', 'product', 'browsers', 'databases', 'servletContainers', 'javas', 'distributions', 'automated'])
+#set($columns = ['deprecated','doc.title', 'doc.space', 'wikiType', 'userType', 'product', 'browsers', 'databases', 'servletContainers', 'javas', 'distributions', 'status'])
 #set($columnsProperties = {
   'doc.title'      :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
   'doc.space'     :{'type': 'text', 'link': 'space', 'size': 10, 'filterable': true, 'sortable': true},
@@ -52,6 +52,7 @@
   'javas'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'distributions'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'automated'     :{'type': 'list', 'class': 'QA.TestClass'},
+  'status'        :{'type': 'list', 'class': 'QA.AutomatedTestStatusClass'},
   'deprecated'     :{'type': 'list', 'class': 'QA.TestClass'}
 })
 #set($options = {

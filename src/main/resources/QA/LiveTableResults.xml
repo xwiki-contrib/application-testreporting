@@ -192,11 +192,6 @@
     #set($discard = $row.put("javas", ''))
     #set($discard = $row.put("distributions", ''))
   #end
-  #set ($maybeAutomatedXObject = $xwiki.getDocument("${row.doc_space}.${row.doc_name}"))
-  #set ($maybeAutomatedXObject = $maybeAutomatedXObject.getObject('QA.AutomatedTestStatusClass'))
-  #if ($maybeAutomatedXObject)
-    #set ($discard = $row.put("automated","$maybeAutomatedXObject.status"))
-  #end
   #set($test = "${row.doc_space}.${row.doc_name}")
   #set($discard = $row.put("doc_runTest_url", $xwiki.getURL($row.doc_fullName, 'get', "sheet=QA.ExecutionAddSheet")))
 ##ExtendRow Macro End
@@ -213,7 +208,7 @@
   #end
   ##
   ##
-  #gridresultwithfilter_buildJSON('QA.TestClass' ['doc.title', 'doc.space', 'automated','deprecated', 'userType', 'wikiType'] '' $filterWhere $filterParams $map)
+  #gridresultwithfilter_buildJSON('QA.TestClass' ['doc.title', 'doc.space', 'automated', 'status','deprecated', 'userType', 'wikiType'] '' $filterWhere $filterParams $map)
   #foreach ($row in $map.rows)
     #extendRow($row)
   #end

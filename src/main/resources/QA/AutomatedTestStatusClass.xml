@@ -87,7 +87,7 @@
       <freeText/>
       <hint/>
       <largeStorage>0</largeStorage>
-      <multiSelect>1</multiSelect>
+      <multiSelect>0</multiSelect>
       <name>status</name>
       <number>1</number>
       <picker>1</picker>

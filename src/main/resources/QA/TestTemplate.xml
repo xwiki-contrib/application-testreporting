@@ -40,6 +40,109 @@
   <object>
     <name>QA.TestTemplate</name>
     <number>0</number>
+    <className>QA.AutomatedTestStatusClass</className>
+    <guid>766289ee-ec60-4c08-8b0a-c9c51a25b660</guid>
+    <class>
+      <name>QA.AutomatedTestStatusClass</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <jira>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <hint/>
+        <name>jira</name>
+        <number>2</number>
+        <picker>1</picker>
+        <prettyName>JIRA link for automating the test</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </jira>
+      <notes>
+        <contenttype>---</contenttype>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <editor>---</editor>
+        <hint/>
+        <name>notes</name>
+        <number>4</number>
+        <picker>1</picker>
+        <prettyName>Notes</prettyName>
+        <restricted>0</restricted>
+        <rows>5</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </notes>
+      <status>
+        <cache>0</cache>
+        <customDisplay/>
+        <defaultValue/>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <freeText/>
+        <hint/>
+        <largeStorage>0</largeStorage>
+        <multiSelect>0</multiSelect>
+        <name>status</name>
+        <number>1</number>
+        <picker>1</picker>
+        <prettyName>Automation Status</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <sort/>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <values>Automated|Not Automatable|Needs Automated Test</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </status>
+      <tests>
+        <contenttype>---</contenttype>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <editor>---</editor>
+        <hint/>
+        <name>tests</name>
+        <number>3</number>
+        <picker>1</picker>
+        <prettyName>List of automated GitHub test links</prettyName>
+        <restricted>0</restricted>
+        <rows>5</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </tests>
+    </class>
+    <property>
+      <jira/>
+    </property>
+    <property>
+      <notes/>
+    </property>
+    <property>
+      <status/>
+    </property>
+    <property>
+      <tests/>
+    </property>
+  </object>
+  <object>
+    <name>QA.TestTemplate</name>
+    <number>0</number>
     <className>QA.TestClass</className>
     <guid>45e21d85-7448-48c5-bb66-d4b48ef07f34</guid>
     <class>
@@ -180,7 +283,10 @@
       </wikiType>
     </class>
     <property>
-      <automated>needsTest</automated>
+      <automated>no</automated>
+    </property>
+    <property>
+      <automatedLinkSourceCode/>
     </property>
     <property>
       <deprecated>no</deprecated>

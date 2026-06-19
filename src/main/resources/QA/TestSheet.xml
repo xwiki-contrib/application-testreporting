@@ -51,12 +51,19 @@
     : $doc.display('wikiType')
     ; &lt;label for="QA.TestClass_0_userType"&gt;$doc.displayPrettyName('userType', false, false)&lt;/label&gt;
     : $doc.display('userType')
-    ; &lt;label for="QA.TestClass_0_automated"&gt;$doc.displayPrettyName('automated', false, false)&lt;/label&gt;
-    : $doc.display('automated')
+    #set ($automatedObject = $doc.getObject('QA.AutomatedTestStatusClass'))
+    #if ($automatedObject)
+      ; &lt;label for="QA.AutomatedTestStatusClass_0_status"&gt;$doc.displayPrettyName('status', false, false, $automatedObject)&lt;/label&gt;
+      : $doc.display('status')
+      ; &lt;label for="QA.AutomatedTestStatusClass_0_jira"&gt;$doc.displayPrettyName('jira', false, false, $automatedObject)&lt;/label&gt;
+      : $doc.display('jira')
+      ; &lt;label for="QA.AutomatedTestStatusClass_0_tests"&gt;$doc.displayPrettyName('tests', false, false, $automatedObject)&lt;/label&gt;
+      : $doc.display('tests')
+      ; &lt;label for="QA.AutomatedTestStatusClass_0_notes"&gt;$doc.displayPrettyName('notes', false, false, $automatedObject)&lt;/label&gt;
+      : $doc.display('notes')
+    #end
     ; &lt;label for="QA.TestClass_0_deprecated"&gt;$doc.displayPrettyName('deprecated', false, false)&lt;/label&gt;
     : $doc.display('deprecated')
-    ; &lt;label for="QA.TestClass_0_automatedLinkSourceCode"&gt;$doc.displayPrettyName('automatedLinkSourceCode', false, false)&lt;/label&gt;
-    : $doc.display('automatedLinkSourceCode')
   )))
   {{/html}}
 #end
@@ -84,10 +91,28 @@
     ## Old code:
     ## == $doc.displayPrettyName('automated', false, false) ==
     ## $doc.display('automated')
+    == $doc.displayPrettyName('wikiType', false, false) ==
+    $doc.display('wikiType')
+    == $doc.displayPrettyName('userType', false, false) ==
+    $doc.display('userType')
     #set ($automatedObject = $doc.getObject('QA.AutomatedTestStatusClass'))
     #if ($automatedObject)
       == $doc.displayPrettyName('status', false, false, $automatedObject) ==
       $doc.display('status', $automatedObject)
+      == $doc.displayPrettyName('jira', false, false, $automatedObject) ==
+      $doc.display('jira', $automatedObject)
+      == $doc.displayPrettyName('tests', false, false, $automatedObject) ==
+      $doc.display('tests', $automatedObject)
+      == $doc.displayPrettyName('notes', false, false, $automatedObject) ==
+      $doc.display('notes', $automatedObject)
+    #else
+
+      {{warning cssClass="add-automatedclass-xobject-container"}}
+        This page is missing an Automation XObject.
+        #if ($hasEdit)
+          [[Click here to create one&gt;&gt;$services.rendering.escape($doc.fullName, 'xwiki/2.1')]]
+        #end
+      {{/warning}}
     #end
     
     == Results ==
@@ -221,6 +246,24 @@
   shortcut.add("Alt+Shift+q", function() {
     let submitButton = $('span.wikilink&gt;a[href$="sheet=QA.ExecutionAddSheet"]')[0];
     submitButton.click();
+  });
+  $('.add-automatedclass-xobject-container a').on('click', function (event) {
+    event.preventDefault();
+    fetch(XWiki.currentDocument.getRestURL('objects'), {
+      method: "POST",
+      body: "className=QA.AutomatedTestStatusClass",
+      headers: {
+        "Content-type": "application/x-www-form-urlencoded"
+      }
+    }).then((response) =&gt; {
+      if (!response.ok) {
+        throw response;
+      }
+      window.location.reload();
+    }).catch((error) =&gt; {
+      console.error('Failed to add the QA.AutomatedTestStatusClass object', error);
+      var notification = new XWiki.widgets.Notification('Failed to add the QA.AutomatedTestStatusClass object', 'error');
+    });
   });
 });</code>
     </property>
