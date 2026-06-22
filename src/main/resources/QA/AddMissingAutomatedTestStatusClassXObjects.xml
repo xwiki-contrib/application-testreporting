@@ -1,0 +1,74 @@
+<?xml version="1.1" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.4" reference="QA.AddMissingAutomatedTestStatusClassXObjects" locale="">
+  <web>QA</web>
+  <name>AddMissingAutomatedTestStatusClassXObjects</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <parent>QA.Management</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <version>1.1</version>
+  <title>Add Missing AutomatedTestStatusClass XObjects</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content>{{html}}
+&lt;form&gt;
+  &lt;input type="hidden" id="fixAction" name="fixAction" value="addMissing"&gt;
+  &lt;button class="btn btn-primary"&gt;
+    Add missing XObjects
+  &lt;/button&gt;
+&lt;/form&gt;
+{{/html}}
+
+The following documents have issues related to the QA.AutomatedTestStatusClass XObject:
+
+{{velocity wiki="true"}}
+|=Document|=QA.AutomatedTestStatusClass XObject Status
+#set ($statement = 'from doc.object(QA.TestClass) as user')
+#foreach ($docName in $services.query.xwql($statement).execute())
+  #set ($document = $xwiki.getDocument($docName))
+  #set ($objs = $document.getObjects('QA.AutomatedTestStatusClass'))
+  #if ($objs.isEmpty())
+    #set ($status = 'No XObject')
+    #if ($request.fixAction == 'addMissing')
+      #set ($discard = $document.createNewObject('QA.AutomatedTestStatusClass'))
+      #set ($discard = $document.save('Added missing QA.AutomatedTestStatusClass XObject'))
+      #set ($status = 'No XObject (Fixed)')
+    #end
+  #elseif ($objs.size() &gt; 1)
+    #set ($status = 'Multiple XObjects')
+  #else
+    #set ($status = 'Ok')
+  #end
+  #if ($status != 'Ok')
+    | [[$services.rendering.escape($docName, 'xwiki/2.1')]] | $status
+  #end
+#end
+{{/velocity}}
+</content>
+</xwikidoc>
