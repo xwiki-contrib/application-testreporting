@@ -189,6 +189,8 @@
 = Fix application property =
   (%class="buttonwrapper"%)[[Set application value to "None"&gt;&gt;QA.FixAppValue]]
 
+= Add Missing QA.AutomatedTestStatusClass XObjects =
+  (%class="buttonwrapper"%)[[Add Missing QA.AutomatedTestStatusClass XObjects&gt;&gt;QA.AddMissingAutomatedTestStatusClassXObjects]]
 
 {{/velocity}}</content>
 </xwikidoc>

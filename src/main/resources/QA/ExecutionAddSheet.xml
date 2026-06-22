@@ -85,15 +85,21 @@
     #end
     ; &lt;label&gt;Expected Results&lt;/label&gt;
     #if($doc.name!='ExecutionAddSheet')
-    : $doc.display('expectedResult', $doc.getObject('QA.TestClass'))
-    #end
-    #if($doc.name!='ExecutionAddSheet')
-    ; &lt;label&gt;{{translation key=qaapp.WebHome.LiveTable.userType/}}&lt;/label&gt;
-    : $doc.display('userType', $doc.getObject('QA.TestClass'))
-    #end	
-    #if($doc.name!='ExecutionAddSheet')
-    ; &lt;label&gt;Automated&lt;/label&gt;
-    : $doc.display('automated', $doc.getObject('QA.TestClass')) #if($doc.getObject('QA.TestClass').getProperty('automated').value == "yes") [[image:icon:accept]] #else [[image:icon:cancel]] #end
+      : $doc.display('expectedResult', $doc.getObject('QA.TestClass'))
+      ; &lt;label&gt;{{translation key=qaapp.WebHome.LiveTable.userType/}}&lt;/label&gt;
+      : $doc.display('userType', $doc.getObject('QA.TestClass'))
+      #if ($doc.getObject('QA.AutomatedTestStatusClass'))
+        #set ($automatedProperty = $doc.getObject('QA.AutomatedTestStatusClass').getProperty('status'))
+        #if ($automatedProperty.value == "Automated")
+          #set ($automatedIcon = 'check')
+        #elseif ($automatedProperty.value == "Needs Automated Test")
+          #set ($automatedIcon = 'warning')
+        #elseif ($automatedProperty.value == "Not Automatable")
+          #set ($automatedIcon = 'remove')
+        #end
+        ; &lt;label&gt;Automated&lt;/label&gt;
+        : $services.icon.renderHTML($automatedIcon) $doc.display('status', $doc.getObject('QA.AutomatedTestStatusClass'))
+      #end
     #end
     &lt;div class="hidden"&gt;
       &lt;input type="hidden" name="form_token" value="$!{services.csrf.getToken()}"/&gt;
