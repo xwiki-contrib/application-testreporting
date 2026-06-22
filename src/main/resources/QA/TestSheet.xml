@@ -91,20 +91,10 @@
     ## Old code:
     ## == $doc.displayPrettyName('automated', false, false) ==
     ## $doc.display('automated')
-    == $doc.displayPrettyName('wikiType', false, false) ==
-    $doc.display('wikiType')
-    == $doc.displayPrettyName('userType', false, false) ==
-    $doc.display('userType')
     #set ($automatedObject = $doc.getObject('QA.AutomatedTestStatusClass'))
     #if ($automatedObject)
       == $doc.displayPrettyName('status', false, false, $automatedObject) ==
       $doc.display('status', $automatedObject)
-      == $doc.displayPrettyName('jira', false, false, $automatedObject) ==
-      $doc.display('jira', $automatedObject)
-      == $doc.displayPrettyName('tests', false, false, $automatedObject) ==
-      $doc.display('tests', $automatedObject)
-      == $doc.displayPrettyName('notes', false, false, $automatedObject) ==
-      $doc.display('notes', $automatedObject)
     #else
 
       {{warning cssClass="add-automatedclass-xobject-container"}}
