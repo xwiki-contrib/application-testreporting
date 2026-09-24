@@ -42,11 +42,11 @@ qaapp.WebHome.LiveTable.doc.date=Update Date
 qaapp.WebHome.LiveTable.doc.title=Test
 qaapp.WebHome.LiveTable.doc.space=Category
 qaapp.WebHome.LiveTable.product=Latest version tested
-qaapp.WebHome.LiveTable.browsers=Browsers
-qaapp.WebHome.LiveTable.databases=Databases
-qaapp.WebHome.LiveTable.servletContainers=Containers
-qaapp.WebHome.LiveTable.javas=Java
-qaapp.WebHome.LiveTable.distributions=Distribution
+qaapp.WebHome.LiveTable.browser=Browsers
+qaapp.WebHome.LiveTable.database=Databases
+qaapp.WebHome.LiveTable.servletContainer=Containers
+qaapp.WebHome.LiveTable.java=Java
+qaapp.WebHome.LiveTable.distribution=Distribution
 qaapp.WebHome.LiveTable.automated=Automated
 qaapp.WebHome.LiveTable.status=Automation Status
 qaapp.WebHome.LiveTable._actions=Action
@@ -134,7 +134,28 @@ qaapp.AddDistribution.distributionName.label=Distribution Name
 qaapp.AddApp.button=Add a new app
 qaapp.AddApp.AppName.label=App Name
 qaapp.AddApp.appVersion.label=App Version
-qaapp.Custom.LiveTable.application=App</content>
+qaapp.Custom.LiveTable.application=App
+
+#######################################
+## DEPRECATED
+#######################################
+#@deprecatedstart
+
+#######################################
+## until 2.9.1
+#######################################
+#@deprecated qaapp.WebHome.LiveTable.browser
+qaapp.WebHome.LiveTable.browsers=Browsers
+#@deprecated qaapp.WebHome.LiveTable.database
+qaapp.WebHome.LiveTable.databases=Databases
+#@deprecated qaapp.WebHome.LiveTable.servletContainer
+qaapp.WebHome.LiveTable.servletContainers=Containers
+#@deprecated qaapp.WebHome.LiveTable.java
+qaapp.WebHome.LiveTable.javas=Java
+#@deprecated qaapp.WebHome.LiveTable.distribution
+qaapp.WebHome.LiveTable.distributions=Distribution
+
+#@deprecatedend</content>
   <object>
     <name>QA.Translations</name>
     <number>0</number>

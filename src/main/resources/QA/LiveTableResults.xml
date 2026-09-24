@@ -145,7 +145,7 @@
     #end
     ## Browsers: $browsers
     ## HTML: $browsersHTML
-    #set($discard = $row.put("browsers","$browsersHTML"))
+    #set($discard = $row.put("browser","$browsersHTML"))
     ## We get an image for each database and put the versions
     #set($databasesHTML='')
     #foreach($database in $sorttool.sort($databases.entrySet(), 'key:asc'))
@@ -159,7 +159,7 @@
       #end
       #set($databasesHTML = $databasesHTML + "&lt;img src=""$doc.getAttachmentURL($databaseIcon)"" alt=""$database.key"" title=""$database.key""&gt;" + "&lt;span class=""databaseVersions""&gt;$databaseValue&lt;/span&gt; " + "")
     #end
-    #set($discard = $row.put("databases","$databasesHTML"))
+    #set($discard = $row.put("database","$databasesHTML"))
     ## We get an image for each servlet container and put the versions
     #set($servletContainersHTML='')
     #foreach($servletContainer in $sorttool.sort($servletContainers.entrySet(), 'key:asc'))
@@ -168,7 +168,7 @@
       #set($servletContainer.value = $sorttool.sort($servletContainer.value))
       #set($servletContainersHTML = $servletContainersHTML + "&lt;img src=""$doc.getAttachmentURL($servletContainerIcon)"" alt=""$servletContainer.key"" title=""$servletContainer.key""&gt;" + "&lt;span class=""servletContainerVersions""&gt;$!{servletContainer.value.toString().replace('[', '').replace(']', '')}&lt;/span&gt; " + "")
     #end
-    #set($discard = $row.put("servletContainers","$servletContainersHTML"))
+    #set($discard = $row.put("servletContainer","$servletContainersHTML"))
     ## We get an image for each java version and put the versions
     #set($javasHTML='')
     #foreach($java in $sorttool.sort($javas.entrySet(), 'key:asc'))
@@ -177,20 +177,20 @@
       #set($java.value = $sorttool.sort($java.value))
       #set($javasHTML = $javasHTML + "&lt;img src=""$doc.getAttachmentURL($javaIcon)"" alt=""$java.key"" title=""$java.key""&gt;" + "&lt;span class=""javaVersions""&gt; $!{java.value.toString().replace('[', '').replace(']', '')}&lt;/span&gt; &lt;br&gt;")
     #end
-    #set($discard = $row.put("javas","$javasHTML"))
+    #set($discard = $row.put("java","$javasHTML"))
     #set($distributionsHTML='')
     ## Only one distribution version per distribution
     #foreach($distribution in $sorttool.sort($distributions.entrySet(), 'key:asc'))
       #set($distributionsHTML = $distributionsHTML + "&lt;span class=""distributionVersions""&gt;$!{distribution.value}&lt;/span&gt; &lt;br&gt;")
     #end
-    #set($discard = $row.put("distributions","$distributionsHTML"))
+    #set($discard = $row.put("distribution","$distributionsHTML"))
   #else
     #set($discard = $row.put("product", $services.localization.render('qaapp.WebHome.LiveTable.no.tests.execution.found')))
-    #set($discard = $row.put("browsers", ''))
-    #set($discard = $row.put("databases", ''))
-    #set($discard = $row.put("servletContainers", ''))
-    #set($discard = $row.put("javas", ''))
-    #set($discard = $row.put("distributions", ''))
+    #set($discard = $row.put("browser", ''))
+    #set($discard = $row.put("database", ''))
+    #set($discard = $row.put("servletContainer", ''))
+    #set($discard = $row.put("java", ''))
+    #set($discard = $row.put("distribution", ''))
   #end
   #set($test = "${row.doc_space}.${row.doc_name}")
   #set($discard = $row.put("doc_runTest_url", $xwiki.getURL($row.doc_fullName, 'get', "sheet=QA.ExecutionAddSheet")))
@@ -210,20 +210,21 @@
   #set($discard = $list.addAll($keptItems))
 #end
 #**
- * Removes what #gridresultwithfilter_buildQuery added to sort on 'product', which it took for a property of the object
- * of each row (a QA.TestClass object, or an object of the class given by the product_class request parameter): the
- * joins and their parameters, which are the last ones of $whereParams. The order clause is removed by the caller.
+ * Removes what #gridresultwithfilter_buildQuery added to sort on a column computed from the latest execution (see
+ * #filterAndSortByLatestExecution), which it took for a property of the object of each row (a QA.TestClass object, or
+ * an object of the class given by the request parameter named after the column with a '_class' suffix): the joins and
+ * their parameters, which are the last ones of $whereParams. The order clause is removed by the caller.
  *#
-#macro(removePlatformProductSort)
-  #set($platformProductClauses = {
+#macro(removePlatformSort)
+  #set($platformSortClauses = {
     ", ${tableName} ${safe_tableAlias}": " and ${orderObjectAlias}.id=${safe_tableAlias}.id.id and ${safe_tableAlias}.name = ?"
   })
   #if($orderObjectAlias != 'obj')
-    #set($discard = $platformProductClauses.put(", BaseObject ${orderObjectAlias}",
+    #set($discard = $platformSortClauses.put(", BaseObject ${orderObjectAlias}",
       " and ${orderObjectAlias}.name = doc.fullName and ${orderObjectAlias}.className = ?"))
   #end
   #set($removedParams = 0)
-  #foreach($clause in $platformProductClauses.entrySet())
+  #foreach($clause in $platformSortClauses.entrySet())
     ## Only remove the parameter of a clause that is indeed there, so that the parameters stay aligned otherwise.
     #if($sql.contains($clause.value))
       #set($sql = $sql.replace($clause.key, '').replace($clause.value, ''))
@@ -237,63 +238,105 @@
   #end
 #end
 #**
- * Filters and orders the query built by #gridresultwithfilter_buildQuery on the latest product tested. This is not a
- * QA.TestClass property: like in #extendRow, it is the product of the most recent QA.ExecutionClass object of each
- * test. The filter keeps the tests whose latest product is one of $productFilterValues. The order is on the product
- * version, compared number by number (1 to 3 numbers), ignoring suffixes such as '-rc-1'.
+ * Sets $versionOrderClauses to the order clauses, each preceded by a comma, comparing the version held by the given
+ * field number by number (1 to 3 numbers), ignoring suffixes such as '-rc-1'.
  *#
-#macro(filterAndSortByLatestProduct)
+#macro(versionOrderClauses $versionField $direction)
+  ## Keep only the numbers of the version: '18.7.0-rc-1', '18.7RC1' and '18.7 RC' become '18.7.0', '18.7' and '18.7'.
+  #set($version = "lower($versionField)")
+  #set($dashIndex = "locate('-', concat($version, '-'))")
+  #set($rcIndex = "locate('rc', concat($version, 'rc'))")
+  #set($numbers = "trim(substring($version, 1, (case when $dashIndex &lt; $rcIndex then $dashIndex else $rcIndex end) - 1))")
+  ## Pad to at least 3 numbers ('9.11' becomes '9.11.0.0.') so that each number is followed by a dot.
+  #set($padded = "concat($numbers, '.0.0.')")
+  #set($dot1 = "locate('.', $padded)")
+  #set($dot2 = "locate('.', $padded, $dot1 + 1)")
+  #set($dot3 = "locate('.', $padded, $dot2 + 1)")
+  #set($versionNumbers = ["substring($padded, 1, $dot1 - 1)", "substring($padded, $dot1 + 1, $dot2 - $dot1 - 1)",
+    "substring($padded, $dot2 + 1, $dot3 - $dot2 - 1)"])
+  ## Numbers are compared by length first, then as strings, so that 9 &lt; 10 without casting them (which would fail on
+  ## unexpected values).
+  #set($versionOrderClauses = '')
+  #foreach($versionNumber in $versionNumbers)
+    #set($versionOrderClauses = "$versionOrderClauses, length($versionNumber) $direction, $versionNumber $direction")
+  #end
+#end
+#**
+ * Filters and orders the query built by #gridresultwithfilter_buildQuery on the columns computed from the latest
+ * execution of each test, which are not QA.TestClass properties: like in #extendRow, the latest execution is the most
+ * recent QA.ExecutionClass object of the test, and its product is the latest product tested.
+ * The product filter keeps the tests whose latest product is one of the filter values, and the product order is on the
+ * product version. The filter of an environment column (browser, database, etc.) keeps the tests with at least one
+ * execution of their latest product on one of the filter values, and its order is on the environment of the latest
+ * execution: its name, then its version. Versions are compared with #versionOrderClauses.
+ * The filter values are in $filterValuesByColumn and the sorted column is $sortColumn (empty when none of them).
+ *#
+#macro(filterAndSortByLatestExecution)
   #if($orderSql != '')
     #set($sql = $stringtool.removeEnd($sql, " $orderSql"))
   #end
-  #if($sortByProduct)
-    #removePlatformProductSort()
+  #if($sortColumn != '')
+    #removePlatformSort()
   #end
   ##
-  ## Join the product of the latest execution and its version. Left joins keep the tests that have no execution. The
-  ## subqueries have join conditions and no where clause because query filters (e.g. 'hidden') insert their clause after
-  ## the first where of the statement.
+  ## Join the product of the latest execution. Left joins keep the tests that have no execution. The subqueries have
+  ## join conditions and no where clause because query filters (e.g. 'hidden') insert their clause after the first where
+  ## of the statement.
   #set($latestDate = "select max(d2.value) from BaseObject o2 join StringProperty t2 on t2.id.id = o2.id and t2.id.name = 'test' and t2.value = doc.fullName and o2.className = 'QA.ExecutionClass' join DateProperty d2 on d2.id.id = o2.id and d2.id.name = 'date'")
   #set($latestExecution = "select max(o1.id) from BaseObject o1 join StringProperty t1 on t1.id.id = o1.id and t1.id.name = 'test' and t1.value = doc.fullName and o1.className = 'QA.ExecutionClass' join DateProperty d1 on d1.id.id = o1.id and d1.id.name = 'date' and d1.value = ($latestDate)")
-  #set($productJoins = "left join StringProperty qaProduct on qaProduct.id.name = 'product' and qaProduct.id.id = ($latestExecution) left join BaseObject qaProductObj on qaProductObj.name = qaProduct.value and qaProductObj.className = 'QA.ProductClass' left join StringProperty qaVersion on qaVersion.id.id = qaProductObj.id and qaVersion.id.name = 'version'")
-  #set($sql = $stringtool.replaceOnce($sql, ', BaseObject as obj ', ", BaseObject as obj $productJoins "))
+  #set($filterJoins = "left join StringProperty qaProduct on qaProduct.id.name = 'product' and qaProduct.id.id = ($latestExecution)")
+  ## Join the version of the product, or the environment of the latest execution with its name and version.
+  #set($sortJoins = '')
+  #if($sortColumn == 'product')
+    #set($sortJoins = " left join BaseObject qaProductObj on qaProductObj.name = qaProduct.value and qaProductObj.className = 'QA.ProductClass' left join StringProperty qaVersion on qaVersion.id.id = qaProductObj.id and qaVersion.id.name = 'version'")
+  #elseif($sortColumn != '')
+    #set($sortJoins = " left join StringProperty qaEnv on qaEnv.id.id = qaProduct.id.id and qaEnv.id.name = '$sortColumn' left join BaseObject qaEnvObj on qaEnvObj.name = qaEnv.value and qaEnvObj.className = '$environmentClasses.get($sortColumn)' left join StringProperty qaEnvName on qaEnvName.id.id = qaEnvObj.id and qaEnvName.id.name = 'name'")
+    #if($sortColumn != 'distribution')
+      #set($sortJoins = "$sortJoins left join StringProperty qaEnvVersion on qaEnvVersion.id.id = qaEnvObj.id and qaEnvVersion.id.name = 'version'")
+    #end
+  #end
+  #set($sql = $stringtool.replaceOnce($sql, ', BaseObject as obj ', ", BaseObject as obj $filterJoins$sortJoins "))
   ##
-  #if(!$productFilterValues.isEmpty())
+  #set($latestExecutionFilter = '')
+  #set($latestExecutionFilterParams = [])
+  #foreach($columnFilter in $filterValuesByColumn.entrySet())
     #set($placeholders = [])
-    #foreach($value in $productFilterValues)
+    #foreach($value in $columnFilter.value)
       #set($discard = $placeholders.add('?'))
     #end
-    #set($productFilter = " and qaProduct.value in ($stringtool.join($placeholders, ', '))")
-    #set($sql = "$sql$productFilter")
-    #set($discard = $sqlParams.addAll($productFilterValues))
+    #set($placeholders = $stringtool.join($placeholders, ', '))
+    #if($columnFilter.key == 'product')
+      #set($latestExecutionFilter = "$latestExecutionFilter and qaProduct.value in ($placeholders)")
+    #else
+      ## Look for the filter values in all the executions of the latest product of the test.
+      #set($latestExecutionFilter = "$latestExecutionFilter and exists (select e.id from BaseObject e, StringProperty eTest, StringProperty eProduct, StringProperty eEnv where e.className = 'QA.ExecutionClass' and eTest.id.id = e.id and eTest.id.name = 'test' and eTest.value = doc.fullName and eProduct.id.id = e.id and eProduct.id.name = 'product' and eProduct.value = qaProduct.value and eEnv.id.id = e.id and eEnv.id.name = '$columnFilter.key' and eEnv.value in ($placeholders))")
+    #end
+    #set($discard = $latestExecutionFilterParams.addAll($columnFilter.value))
+  #end
+  #if($latestExecutionFilter != '')
+    #set($sql = "$sql$latestExecutionFilter")
+    #set($discard = $sqlParams.addAll($latestExecutionFilterParams))
     #set($tagsMatchingFiltersFrom = $stringtool.replaceOnce($tagsMatchingFiltersFrom, ', BaseObject as obj ',
-      ", BaseObject as obj $productJoins "))
-    #set($tagsMatchingFiltersWhere = "$tagsMatchingFiltersWhere$productFilter")
-    #set($discard = $tagsMatchingParams.addAll($productFilterValues))
+      ", BaseObject as obj $filterJoins "))
+    #set($tagsMatchingFiltersWhere = "$tagsMatchingFiltersWhere$latestExecutionFilter")
+    #set($discard = $tagsMatchingParams.addAll($latestExecutionFilterParams))
   #end
   ##
-  #if($sortByProduct)
-    ## Keep only the numbers of the version: '18.7.0-rc-1', '18.7RC1' and '18.7 RC' become '18.7.0', '18.7' and '18.7'.
-    #set($version = 'lower(qaVersion.value)')
-    #set($dashIndex = "locate('-', concat($version, '-'))")
-    #set($rcIndex = "locate('rc', concat($version, 'rc'))")
-    #set($numbers = "trim(substring($version, 1, (case when $dashIndex &lt; $rcIndex then $dashIndex else $rcIndex end) - 1))")
-    ## Pad to at least 3 numbers ('9.11' becomes '9.11.0.0.') so that each number is followed by a dot.
-    #set($padded = "concat($numbers, '.0.0.')")
-    #set($dot1 = "locate('.', $padded)")
-    #set($dot2 = "locate('.', $padded, $dot1 + 1)")
-    #set($dot3 = "locate('.', $padded, $dot2 + 1)")
-    #set($versionNumbers = ["substring($padded, 1, $dot1 - 1)", "substring($padded, $dot1 + 1, $dot2 - $dot1 - 1)",
-      "substring($padded, $dot2 + 1, $dot3 - $dot2 - 1)"])
-    #set($direction = 'asc')
-    #if($orderDirection == 'desc')
-      #set($direction = 'desc')
-    #end
-    ## Tests without execution come last. Numbers are compared by length first, then as strings, so that 9 &lt; 10
-    ## without casting them (which would fail on unexpected values).
-    #set($sql = "$sql order by case when qaVersion.value is null then 1 else 0 end")
-    #foreach($versionNumber in $versionNumbers)
-      #set($sql = "$sql, length($versionNumber) $direction, $versionNumber $direction")
+  #set($direction = 'asc')
+  #if($orderDirection == 'desc')
+    #set($direction = 'desc')
+  #end
+  #if($sortColumn == 'product')
+    ## Tests without execution come last.
+    #versionOrderClauses('qaVersion.value' $direction)
+    #set($sql = "$sql order by case when qaVersion.value is null then 1 else 0 end$versionOrderClauses, doc.fullName")
+  #elseif($sortColumn != '')
+    ## Tests without execution come last. The name of the environment is the value of the execution property when it
+    ## is not an environment page.
+    #set($sql = "$sql order by case when qaProduct.id.id is null then 1 else 0 end, lower(coalesce(qaEnvName.value, qaEnv.value)) $direction")
+    #if($sortColumn != 'distribution')
+      #versionOrderClauses('qaEnvVersion.value' $direction)
+      #set($sql = "$sql$versionOrderClauses")
     #end
     #set($sql = "$sql, doc.fullName")
   #elseif($orderSql != '')
@@ -312,21 +355,40 @@
   #end
   ##
   ##
-  ## Same as #gridresultwithfilter_buildJSON, with a custom filter and order for the product column.
-  ## #gridresult_buildRowsJSON reads $className and $collist, which are the arguments of #gridresultwithfilter_buildJSON
-  ## and are thus not defined here.
+  ## Same as #gridresultwithfilter_buildJSON, with a custom filter and order for the columns computed from the latest
+  ## execution. #gridresult_buildRowsJSON reads $className and $collist, which are the arguments of
+  ## #gridresultwithfilter_buildJSON and are thus not defined here.
   #set($className = 'QA.TestClass')
   #set($collist = ['doc.title', 'doc.space', 'automated', 'status','deprecated', 'userType', 'wikiType'])
   #gridresultwithfilter_buildQuery($className $collist '' $filterWhere $filterParams)
-  #set($productFilterValues = [])
-  #foreach($value in $request.getParameterValues('product'))
-    #if("$!value" != '')
-      #set($discard = $productFilterValues.add($value))
+  ## The environment columns, which are QA.ExecutionClass properties, with the class of the pages they reference.
+  #set($environmentClasses = {
+    'browser': 'QA.BrowserClass',
+    'database': 'QA.DatabaseClass',
+    'servletContainer': 'QA.ServletContainerClass',
+    'java': 'QA.JavaClass',
+    'distribution': 'QA.DistributionClass'
+  })
+  #set($latestExecutionColumns = ['product'])
+  #set($discard = $latestExecutionColumns.addAll($environmentClasses.keySet()))
+  #set($filterValuesByColumn = {})
+  #foreach($column in $latestExecutionColumns)
+    #set($columnFilterValues = [])
+    #foreach($value in $request.getParameterValues($column))
+      #if("$!value" != '')
+        #set($discard = $columnFilterValues.add($value))
+      #end
+    #end
+    #if(!$columnFilterValues.isEmpty())
+      #set($discard = $filterValuesByColumn.put($column, $columnFilterValues))
     #end
   #end
-  #set($sortByProduct = "$!request.sort" == 'product')
-  #if($sortByProduct || !$productFilterValues.isEmpty())
-    #filterAndSortByLatestProduct()
+  #set($sortColumn = '')
+  #if($latestExecutionColumns.contains("$!request.sort"))
+    #set($sortColumn = $request.sort)
+  #end
+  #if($sortColumn != '' || !$filterValuesByColumn.isEmpty())
+    #filterAndSortByLatestExecution()
   #end
   #if("$!request.sql" == '1')
     #set($discard = $map.put('sql', $sql))

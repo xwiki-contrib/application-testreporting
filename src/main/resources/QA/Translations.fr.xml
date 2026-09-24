@@ -40,7 +40,7 @@
 qaapp.WebHome.LiveTable.doc.title=Test
 qaapp.WebHome.LiveTable.doc.space=Catégorie
 qaapp.WebHome.LiveTable.product=Version XWiki testée sur
-qaapp.WebHome.LiveTable.browsers=Navigateurs testés
+qaapp.WebHome.LiveTable.browser=Navigateurs testés
 qaapp.WebHome.LiveTable.automated=Tests Automatiques
 qaapp.WebHome.LiveTable._actions=Actions
 qaapp.WebHome.LiveTable.no.tests.execution.found=Aucune exécution de test n'a été retrouvée
@@ -52,5 +52,16 @@ qaapp.WebHome.addTest.button=Let's Add a test
 qaapp.WebHome.addTest.testName.label=Test Name
 qaapp.WebHome.addTest.testSpace.label=Test Space
 
-</content>
+#######################################
+## DEPRECATED
+#######################################
+#@deprecatedstart
+
+#######################################
+## until 2.9.1
+#######################################
+#@deprecated qaapp.WebHome.LiveTable.browser
+qaapp.WebHome.LiveTable.browsers=Navigateurs testés
+
+#@deprecatedend</content>
 </xwikidoc>
