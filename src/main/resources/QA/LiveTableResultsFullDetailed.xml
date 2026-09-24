@@ -47,6 +47,36 @@
   ## $sortDir
   ## &amp;sort=test&amp;dir=asc
   #set($orderBy = "execution.${sortColumn} ${sortDir}")
+  #set($productJoin = '')
+  #set($productJoinWhere = '')
+  #if($sortColumn == 'product')
+    ## Order by the version of the product, number by number (1 to 3 numbers), ignoring suffixes such as '-rc-1' or
+    ## 'RC1', then by date. XWQL has no case expression, so the suffixes are removed one after the other.
+    #set($productJoin = ', Document as productDoc, productDoc.object(QA.ProductClass) as productObj')
+    #set($productJoinWhere = ' and productDoc.fullName = execution.product')
+    #set($direction = 'asc')
+    #if($sortDir == 'desc')
+      #set($direction = 'desc')
+    #end
+    #set($version = 'lower(productObj.version)')
+    #set($version = "substring($version, 1, locate('-', concat($version, '-')) - 1)")
+    #set($numbers = "trim(substring($version, 1, locate('rc', concat($version, 'rc')) - 1))")
+    ## Pad to at least 3 numbers ('9.11' becomes '9.11.0.0.') so that each number is followed by a dot.
+    #set($padded = "concat($numbers, '.0.0.')")
+    #set($dot1 = "locate('.', $padded)")
+    #set($dot2 = "locate('.', $padded, $dot1 + 1)")
+    #set($dot3 = "locate('.', $padded, $dot2 + 1)")
+    #set($versionNumbers = ["substring($padded, 1, $dot1 - 1)", "substring($padded, $dot1 + 1, $dot2 - $dot1 - 1)",
+      "substring($padded, $dot2 + 1, $dot3 - $dot2 - 1)"])
+    ## Numbers are compared by length first, then as strings, so that 9 &lt; 10 without casting them.
+    #set($orderClauses = [])
+    #foreach($versionNumber in $versionNumbers)
+      #set($discard = $orderClauses.add("length($versionNumber) $direction"))
+      #set($discard = $orderClauses.add("$versionNumber $direction"))
+    #end
+    #set($discard = $orderClauses.add("execution.date $direction"))
+    #set($orderBy = $stringtool.join($orderClauses, ', '))
+  #end
   $response.setContentType('application/json')
   ##
   ## Manually generate the JSON
@@ -64,9 +94,9 @@
   ## $offset
   #set($discard = $map.put('reqNo', $mathtool.toInteger($request.reqNo)))
   ## #set($discard = $map.put('tags', []))
-  #set($dataQuery = "select execution.test, execution.product, execution.application, execution.browser, execution.database, execution.user, execution.date, execution.passed, execution.jira, execution.servletContainer, execution.java, execution.distribution from Document as doc, doc.object(QA.ExecutionClass) as execution where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
+  #set($dataQuery = "select execution.test, execution.product, execution.application, execution.browser, execution.database, execution.user, execution.date, execution.passed, execution.jira, execution.servletContainer, execution.java, execution.distribution from Document as doc, doc.object(QA.ExecutionClass) as execution${productJoin} where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'${productJoinWhere}")
   ##
-  #set($countQuery = "select count(execution) from Document as doc, doc.object(QA.ExecutionClass) as execution where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
+  #set($countQuery = "select count(execution) from Document as doc, doc.object(QA.ExecutionClass) as execution${productJoin} where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'${productJoinWhere}")
   ##
   ## WHERE clause (Filters)
   #if ("$!request.test" != '')
