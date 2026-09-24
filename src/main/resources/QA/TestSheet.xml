@@ -131,7 +131,8 @@
       "translationPrefix" : "qaapp.Custom.LiveTable.",
       'rowCount': 15,
       'maxPages': 10,
-      'defaultOrder': 'asc',
+      'selectedColumn': 'date',
+      'defaultOrder': 'desc',
       'extraParams' : "test=$escapetool.url($doc.fullName)",
       'javascriptName' : 'qaHomePageLiveTable'
     })
