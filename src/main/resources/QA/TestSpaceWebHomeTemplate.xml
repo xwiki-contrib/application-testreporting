@@ -47,7 +47,7 @@
   'doc.title'     :{'type': 'text', 'link': 'view', 'size': 10, 'filterable': true, 'sortable': true},
   'wikiType'      :{'type': 'list', 'class': 'QA.TestClass'},
   'userType'      :{'type': 'list', 'class': 'QA.TestClass'},
-  'product'       :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
+  'product'       :{'type': 'suggest', 'class': 'QA.ExecutionClass', 'html': true, 'filterable': true, 'sortable': true},
   'browsers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'databases'     :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
   'servletContainers'      :{'type': 'text', 'html': true, 'filterable': false, 'sortable': false},
