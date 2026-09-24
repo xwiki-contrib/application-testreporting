@@ -196,6 +196,110 @@
   #set($discard = $row.put("doc_runTest_url", $xwiki.getURL($row.doc_fullName, 'get', "sheet=QA.ExecutionAddSheet")))
 ##ExtendRow Macro End
 #end
+#**
+ * Removes the item at the given index from a list, in place.
+ *#
+#macro(removeListItem $list $index)
+  #set($keptItems = [])
+  #foreach($listItem in $list)
+    #if($foreach.index != $index)
+      #set($discard = $keptItems.add($listItem))
+    #end
+  #end
+  #set($discard = $list.clear())
+  #set($discard = $list.addAll($keptItems))
+#end
+#**
+ * Removes what #gridresultwithfilter_buildQuery added to sort on 'product', which it took for a property of the object
+ * of each row (a QA.TestClass object, or an object of the class given by the product_class request parameter): the
+ * joins and their parameters, which are the last ones of $whereParams. The order clause is removed by the caller.
+ *#
+#macro(removePlatformProductSort)
+  #set($platformProductClauses = {
+    ", ${tableName} ${safe_tableAlias}": " and ${orderObjectAlias}.id=${safe_tableAlias}.id.id and ${safe_tableAlias}.name = ?"
+  })
+  #if($orderObjectAlias != 'obj')
+    #set($discard = $platformProductClauses.put(", BaseObject ${orderObjectAlias}",
+      " and ${orderObjectAlias}.name = doc.fullName and ${orderObjectAlias}.className = ?"))
+  #end
+  #set($removedParams = 0)
+  #foreach($clause in $platformProductClauses.entrySet())
+    ## Only remove the parameter of a clause that is indeed there, so that the parameters stay aligned otherwise.
+    #if($sql.contains($clause.value))
+      #set($sql = $sql.replace($clause.key, '').replace($clause.value, ''))
+      #set($tagsMatchingFiltersFrom = $tagsMatchingFiltersFrom.replace($clause.key, ''))
+      #set($tagsMatchingFiltersWhere = $tagsMatchingFiltersWhere.replace($clause.value, ''))
+      #set($paramIndex = $whereParams.size() + 2 - $removedParams)
+      #removeListItem($sqlParams $paramIndex)
+      #removeListItem($tagsMatchingParams $paramIndex)
+      #set($removedParams = $removedParams + 1)
+    #end
+  #end
+#end
+#**
+ * Filters and orders the query built by #gridresultwithfilter_buildQuery on the latest product tested. This is not a
+ * QA.TestClass property: like in #extendRow, it is the product of the most recent QA.ExecutionClass object of each
+ * test. The filter keeps the tests whose latest product is one of $productFilterValues. The order is on the product
+ * version, compared number by number (1 to 3 numbers), ignoring suffixes such as '-rc-1'.
+ *#
+#macro(filterAndSortByLatestProduct)
+  #if($orderSql != '')
+    #set($sql = $stringtool.removeEnd($sql, " $orderSql"))
+  #end
+  #if($sortByProduct)
+    #removePlatformProductSort()
+  #end
+  ##
+  ## Join the product of the latest execution and its version. Left joins keep the tests that have no execution. The
+  ## subqueries have join conditions and no where clause because query filters (e.g. 'hidden') insert their clause after
+  ## the first where of the statement.
+  #set($latestDate = "select max(d2.value) from BaseObject o2 join StringProperty t2 on t2.id.id = o2.id and t2.id.name = 'test' and t2.value = doc.fullName and o2.className = 'QA.ExecutionClass' join DateProperty d2 on d2.id.id = o2.id and d2.id.name = 'date'")
+  #set($latestExecution = "select max(o1.id) from BaseObject o1 join StringProperty t1 on t1.id.id = o1.id and t1.id.name = 'test' and t1.value = doc.fullName and o1.className = 'QA.ExecutionClass' join DateProperty d1 on d1.id.id = o1.id and d1.id.name = 'date' and d1.value = ($latestDate)")
+  #set($productJoins = "left join StringProperty qaProduct on qaProduct.id.name = 'product' and qaProduct.id.id = ($latestExecution) left join BaseObject qaProductObj on qaProductObj.name = qaProduct.value and qaProductObj.className = 'QA.ProductClass' left join StringProperty qaVersion on qaVersion.id.id = qaProductObj.id and qaVersion.id.name = 'version'")
+  #set($sql = $stringtool.replaceOnce($sql, ', BaseObject as obj ', ", BaseObject as obj $productJoins "))
+  ##
+  #if(!$productFilterValues.isEmpty())
+    #set($placeholders = [])
+    #foreach($value in $productFilterValues)
+      #set($discard = $placeholders.add('?'))
+    #end
+    #set($productFilter = " and qaProduct.value in ($stringtool.join($placeholders, ', '))")
+    #set($sql = "$sql$productFilter")
+    #set($discard = $sqlParams.addAll($productFilterValues))
+    #set($tagsMatchingFiltersFrom = $stringtool.replaceOnce($tagsMatchingFiltersFrom, ', BaseObject as obj ',
+      ", BaseObject as obj $productJoins "))
+    #set($tagsMatchingFiltersWhere = "$tagsMatchingFiltersWhere$productFilter")
+    #set($discard = $tagsMatchingParams.addAll($productFilterValues))
+  #end
+  ##
+  #if($sortByProduct)
+    ## Keep only the numbers of the version: '18.7.0-rc-1', '18.7RC1' and '18.7 RC' become '18.7.0', '18.7' and '18.7'.
+    #set($version = 'lower(qaVersion.value)')
+    #set($dashIndex = "locate('-', concat($version, '-'))")
+    #set($rcIndex = "locate('rc', concat($version, 'rc'))")
+    #set($numbers = "trim(substring($version, 1, (case when $dashIndex &lt; $rcIndex then $dashIndex else $rcIndex end) - 1))")
+    ## Pad to at least 3 numbers ('9.11' becomes '9.11.0.0.') so that each number is followed by a dot.
+    #set($padded = "concat($numbers, '.0.0.')")
+    #set($dot1 = "locate('.', $padded)")
+    #set($dot2 = "locate('.', $padded, $dot1 + 1)")
+    #set($dot3 = "locate('.', $padded, $dot2 + 1)")
+    #set($versionNumbers = ["substring($padded, 1, $dot1 - 1)", "substring($padded, $dot1 + 1, $dot2 - $dot1 - 1)",
+      "substring($padded, $dot2 + 1, $dot3 - $dot2 - 1)"])
+    #set($direction = 'asc')
+    #if($orderDirection == 'desc')
+      #set($direction = 'desc')
+    #end
+    ## Tests without execution come last. Numbers are compared by length first, then as strings, so that 9 &lt; 10
+    ## without casting them (which would fail on unexpected values).
+    #set($sql = "$sql order by case when qaVersion.value is null then 1 else 0 end")
+    #foreach($versionNumber in $versionNumbers)
+      #set($sql = "$sql, length($versionNumber) $direction, $versionNumber $direction")
+    #end
+    #set($sql = "$sql, doc.fullName")
+  #elseif($orderSql != '')
+    #set($sql = "$sql $orderSql")
+  #end
+#end
 #**#
 #if($xcontext.action == 'get' &amp;&amp; "$!{request.outputSyntax}" == 'plain')
   $response.setContentType('application/json')
@@ -208,7 +312,27 @@
   #end
   ##
   ##
-  #gridresultwithfilter_buildJSON('QA.TestClass' ['doc.title', 'doc.space', 'automated', 'status','deprecated', 'userType', 'wikiType'] '' $filterWhere $filterParams $map)
+  ## Same as #gridresultwithfilter_buildJSON, with a custom filter and order for the product column.
+  #gridresultwithfilter_buildQuery('QA.TestClass' ['doc.title', 'doc.space', 'automated', 'status','deprecated', 'userType', 'wikiType'] '' $filterWhere $filterParams)
+  #set($productFilterValues = [])
+  #foreach($value in $request.getParameterValues('product'))
+    #if("$!value" != '')
+      #set($discard = $productFilterValues.add($value))
+    #end
+  #end
+  #set($sortByProduct = "$!request.sort" == 'product')
+  #if($sortByProduct || !$productFilterValues.isEmpty())
+    #filterAndSortByLatestProduct()
+  #end
+  #if("$!request.sql" == '1')
+    #set($discard = $map.put('sql', $sql))
+    #set($discard = $map.put('params', $sqlParams))
+  #end
+  #set($discard = $map.put('reqNo', $numbertool.toNumber($request.reqNo).intValue()))
+  #if("$!request.tagcloud" == 'true')
+    #gridresult_buildTagCloudJSON($map)
+  #end
+  #gridresult_buildRowsJSON($map)
   #foreach ($row in $map.rows)
     #extendRow($row)
   #end
