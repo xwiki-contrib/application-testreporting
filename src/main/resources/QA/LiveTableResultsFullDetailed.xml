@@ -276,9 +276,9 @@
     ## use API to get the XWiki date format
     #set($discard = $row.put('date', $datetool.format("dd-MM-yyyy hh:mm", $item.get(6).getTime())))
     #if($item.get(7) == '1')
-      #set($passedHTML = "&lt;img src=""/xwiki/resources/icons/silk/accept.png""/&gt;&lt;span&gt; Passed&lt;/span&gt;")
+      #set($passedHTML = "&lt;span class=""text-success""&gt;$services.icon.renderHTML('check')&lt;span&gt; Passed&lt;/span&gt;&lt;/span&gt;")
     #else
-      #set($passedHTML = "&lt;img src=""/xwiki/resources/icons/silk/cancel.png""/&gt;&lt;span&gt; Failed&lt;/span&gt;")
+      #set($passedHTML = "&lt;span class=""text-danger""&gt;$services.icon.renderHTML('remove')&lt;span&gt; Failed&lt;/span&gt;&lt;/span&gt;")
     #end
     #set($discard = $row.put('passed', $passedHTML))
     ##

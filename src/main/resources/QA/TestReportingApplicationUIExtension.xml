@@ -172,7 +172,7 @@
     <property>
       <parameters>label=Test Reporting
 target=QA.WebHome
-icon=icon:layers</parameters>
+icon=icon:check</parameters>
     </property>
     <property>
       <scope>wiki</scope>
