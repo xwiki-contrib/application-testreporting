@@ -41,9 +41,10 @@
 ## Macro to extend the default LiveTable row
 #macro(extendRow $row)
   #set($lastExecution=$NULL)
-  ## Get the product version which was last tested.
-  #set($statement = "select execution.product from Document as doc, doc.object(QA.ExecutionClass) as execution where execution.test = :test order by execution.date desc")
-  #set($product = $services.query.xwql($statement).bindValue("test", "${row.doc_space}.${row.doc_name}").setLimit(1).execute())
+  ## Get the product version which was last tested. Executions with the same date are ordered by object id, like the
+  ## latest execution of #filterAndSortByLatestExecution, so that the filters and the sort match what is displayed.
+  #set($statement = "select product.value from BaseObject execution, StringProperty test, DateProperty date, StringProperty product where execution.className = 'QA.ExecutionClass' and test.id.id = execution.id and test.id.name = 'test' and test.value = :test and date.id.id = execution.id and date.id.name = 'date' and product.id.id = execution.id and product.id.name = 'product' order by date.value desc, execution.id desc")
+  #set($product = $services.query.hql($statement).bindValue("test", "${row.doc_space}.${row.doc_name}").setLimit(1).execute())
   #if(!$product.isEmpty())
     #set($statement = "select execution.browser, execution.database, execution.servletContainer, execution.java, execution.distribution from Document as doc, doc.object(QA.ExecutionClass) as execution where execution.product = :product and execution.test = :test")
     #set($results = $services.query.xwql($statement).bindValue("product", $product.get(0)).bindValue("test", "${row.doc_space}.${row.doc_name}").execute())
@@ -262,12 +263,40 @@
   #end
 #end
 #**
+ * Sets $displayedLikeValues to the values of an environment column that #extendRow displays like the given filter
+ * values: the pages of the environment class with the same name and, except for distributions, the same version. A
+ * value that is not a page of that class is kept as is, since it is displayed as is.
+ *#
+#macro(environmentsDisplayedLike $column $values)
+  #set($displayedLikeValues = $collectionstool.getOrderedSet())
+  #set($environmentClass = $environmentClasses.get($column))
+  #foreach($value in $values)
+    #set($discard = $displayedLikeValues.add($value))
+    #set($environmentDoc = $xwiki.getDocument($value))
+    #set($environmentObject = $environmentDoc.getObject($environmentClass))
+    #if($environmentObject)
+      #set($statement = "select distinct envObj.name from BaseObject envObj, StringProperty envName where envObj.className = :className and envName.id.id = envObj.id and envName.id.name = 'name' and envName.value = :name")
+      #set($sameNamePages = $services.query.hql($statement).bindValue('className', $environmentClass).bindValue('name',
+        "$!environmentObject.getProperty('name').value").execute())
+      #foreach($sameNamePage in $sameNamePages)
+        #set($sameNameDoc = $xwiki.getDocument($sameNamePage))
+        ## Compare the versions the way #extendRow displays them.
+        #if($column == 'distribution' || $sameNameDoc.get('version') == $environmentDoc.get('version'))
+          #set($discard = $displayedLikeValues.add($sameNamePage))
+        #end
+      #end
+    #end
+  #end
+#end
+#**
  * Filters and orders the query built by #gridresultwithfilter_buildQuery on the columns computed from the latest
  * execution of each test, which are not QA.TestClass properties: like in #extendRow, the latest execution is the most
- * recent QA.ExecutionClass object of the test, and its product is the latest product tested.
+ * recent QA.ExecutionClass object of the test (the one with the highest id among the most recent ones), and its product
+ * is the latest product tested.
  * The product filter keeps the tests whose latest product is one of the filter values, and the product order is on the
  * product version. The filter of an environment column (browser, database, etc.) keeps the tests with at least one
- * execution of their latest product on one of the filter values, and its order is on the environment of the latest
+ * execution of their latest product on one of the filter values, expanded by #environmentsDisplayedLike before this
+ * macro is called. The order of an environment column is on the environment of the latest
  * execution: its name, then its version. Versions are compared with #versionOrderClauses.
  * The filter values are in $filterValuesByColumn and the sorted column is $sortColumn (empty when none of them).
  *#
@@ -378,6 +407,10 @@
       #if("$!value" != '')
         #set($discard = $columnFilterValues.add($value))
       #end
+    #end
+    #if(!$columnFilterValues.isEmpty() &amp;&amp; $environmentClasses.containsKey($column))
+      #environmentsDisplayedLike($column $columnFilterValues)
+      #set($columnFilterValues = $displayedLikeValues)
     #end
     #if(!$columnFilterValues.isEmpty())
       #set($discard = $filterValuesByColumn.put($column, $columnFilterValues))
