@@ -41,11 +41,17 @@
 #if($xcontext.action == 'get' &amp;&amp; "$!{request.outputSyntax}" == 'plain')
   #set($test = $request.test)
   #set($product = $request.product)
+  ## Sort on the requested execution property, falling back on the date when it isn't supported.
+  #set($sortableColumns = ['test', 'product', 'application', 'browser', 'database', 'servletContainer', 'java',
+    'distribution', 'user', 'date', 'passed', 'jira'])
   #set($sortColumn = $request.sort)
-  #set($sortDir = $request.dir)
-  ## $sortColumn
-  ## $sortDir
-  ## &amp;sort=test&amp;dir=asc
+  #if (!$sortableColumns.contains($sortColumn))
+    #set($sortColumn = 'date')
+  #end
+  #set($sortDir = 'asc')
+  #if ("$!request.dir" == 'desc')
+    #set($sortDir = 'desc')
+  #end
   #set($orderBy = "execution.${sortColumn} ${sortDir}")
   $response.setContentType('application/json')
   ##
@@ -73,9 +79,10 @@
     #set ($dataQuery = "${dataQuery} AND execution.test = :testbind ")
     #set ($countQuery = "${countQuery} and execution.test = :testbind ")
   #end
-  #if ("$!request.passed" != '')
-    #set ($dataQuery = "${dataQuery} AND execution.passed = ${request.passed} ")
-    #set ($countQuery = "${countQuery} and execution.passed = ${request.passed} ")
+  #set ($passed = $mathtool.toInteger($request.passed))
+  #if ("$!passed" != '')
+    #set ($dataQuery = "${dataQuery} AND execution.passed = :passed ")
+    #set ($countQuery = "${countQuery} and execution.passed = :passed ")
   #end
   #if ("$!request.application" != '')
     #set ($dataQuery = "${dataQuery} AND lower(execution.application) LIKE :likeApplication ")
@@ -102,28 +109,21 @@
     #set ($countQuery = "${countQuery} and lower(execution.distribution) LIKE :likeDistribution ")
   #end
   #if ("$!request.user" != '')
-    #set ($dataQuery = "${dataQuery} AND lower(execution.user) LIKE '%$stringtool.lowerCase(${request.user})%' ")
-    #set ($countQuery = "${countQuery} and lower(execution.user) LIKE '%$stringtool.lowerCase(${request.user})%' ")
+    #set ($dataQuery = "${dataQuery} AND lower(execution.user) LIKE :likeUser ")
+    #set ($countQuery = "${countQuery} and lower(execution.user) LIKE :likeUser ")
   #end
+  ## Bind the date range as Date values so that the comparison works on all databases.
+  #set ($dateRange = {})
   #if ("$!request.date" != '')
-    ##set ($dataQuery = "${dataQuery} and execution.date &gt;= '${datetool.format('yyyy-MM-dd hh:mm',1517436000000)}' ")
-    ##set ($countQuery = "${countQuery} and execution.date &gt;= '${datetool.format('yyyy-MM-dd hh:mm',1517436000000)}' ")
-    ##set ($dataQuery = "${dataQuery} and upper(str(execution.date)) like upper($datetool.format('yyyy-MM-dd hh:mm', $request.date.getTime()))")
-    ##set ($countQuery = "${countQuery} and upper(str(execution.date)) LIKE upper($datetool.format('yyyy-MM-dd hh:mm', $request.date.getTime()))")
-    #set ($timestamps = $request.date.split('-'))
-    #if ($timestamps.size() == 2)
-      #set($timestamp0 = $numbertool.toNumber($timestamps[0])+3600000)
-      #set($timestamp1 = $numbertool.toNumber($timestamps[1])+3600000)
-      #set ($date0 = $request.date)
-      #set ($date1 = $datetool.format('yyyy-MM-dd HH:mm',${timestamp0}))
-      #set ($date2 = $datetool.format('yyyy-MM-dd HH:mm',${timestamp1}))
-      #set ($dataQuery = "${dataQuery} and execution.date &gt;= '${date1}' and execution.date &lt;= '${date2}'")
-      #set ($countQuery = "${countQuery} and execution.date &gt;= '${date1}' and execution.date &lt;= '${date2}'")
-    #else
-      ## Fall back to the older string matching
-      #set ($dataQuery = "${dataQuery} and lower(str(execution.date)) like '%$stringtool.lowerCase(${request.database})%'")
-      #set ($countQuery = "${countQuery} and lower(str(execution.date)) like '%$stringtool.lowerCase(${request.database})%'")
-    #end
+    #parseDateRange('between' $request.date $dateRange)
+  #end
+  #if ($dateRange.start)
+    #set ($dataQuery = "${dataQuery} and execution.date &gt;= :dateStart")
+    #set ($countQuery = "${countQuery} and execution.date &gt;= :dateStart")
+  #end
+  #if ($dateRange.end)
+    #set ($dataQuery = "${dataQuery} and execution.date &lt;= :dateEnd")
+    #set ($countQuery = "${countQuery} and execution.date &lt;= :dateEnd")
   #end
   ##End WHERE
   #if("$!product" == '')
@@ -175,6 +175,24 @@
     #set ($database = $database.replaceAll('\\', '\\\\'))
     #set ($discard = $dataQuery.bindValue('likeDatabase', "%${database}%"))
     #set ($discard = $countQuery.bindValue('likeDatabase', "%${database}%"))
+  #end
+  #if ("$!request.user" != '')
+    #set ($user = $stringtool.lowerCase($request.user))
+    #set ($user = $user.replaceAll('\\', '\\\\'))
+    #set ($discard = $dataQuery.bindValue('likeUser', "%${user}%"))
+    #set ($discard = $countQuery.bindValue('likeUser', "%${user}%"))
+  #end
+  #if ("$!passed" != '')
+    #set ($discard = $dataQuery.bindValue('passed', $passed))
+    #set ($discard = $countQuery.bindValue('passed', $passed))
+  #end
+  #if ($dateRange.start)
+    #set ($discard = $dataQuery.bindValue('dateStart', $dateRange.start))
+    #set ($discard = $countQuery.bindValue('dateStart', $dateRange.start))
+  #end
+  #if ($dateRange.end)
+    #set ($discard = $dataQuery.bindValue('dateEnd', $dateRange.end))
+    #set ($discard = $countQuery.bindValue('dateEnd', $dateRange.end))
   #end
   #set($count = $countQuery.execute())
   ## $count
