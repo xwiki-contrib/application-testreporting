@@ -20,8 +20,10 @@
 package org.xwiki.contrib.testreporting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,10 +44,10 @@ import org.xwiki.query.script.QueryManagerScriptService;
 import org.xwiki.rendering.syntax.Syntax;
 import org.xwiki.script.service.ScriptService;
 import org.xwiki.template.TemplateManager;
-import org.xwiki.test.page.PageTest;
-import org.xwiki.test.page.XWikiSyntax20ComponentList;
 import org.xwiki.test.LogLevel;
 import org.xwiki.test.junit5.LogCaptureExtension;
+import org.xwiki.test.page.PageTest;
+import org.xwiki.test.page.XWikiSyntax20ComponentList;
 import org.xwiki.test.page.XWikiSyntax21ComponentList;
 import org.xwiki.velocity.VelocityConfiguration;
 import org.xwiki.velocity.tools.EscapeTool;
@@ -54,6 +56,12 @@ import org.xwiki.velocity.tools.RegexTool;
 
 import com.xpn.xwiki.XWikiContext;
 import com.xpn.xwiki.plugin.tag.TagPluginApi;
+
+import net.sf.jsqlparser.expression.ExpressionVisitorAdapter;
+import net.sf.jsqlparser.expression.Function;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.statement.select.Select;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
@@ -178,85 +186,54 @@ class LiveTableResultsTest extends PageTest
      * Hibernate logs a HHH000174 warning when the arguments of a function call don't match the template of the
      * dialect, i.e. {@code locate(?1, ?2, ?3)} and {@code trim(?1 ?2 ?3 ?4)}.
      */
-    private void assertVersionOrder(List<String> statements)
+    private void assertVersionOrder(List<String> statements) throws Exception
     {
         String statement = statements.stream().filter(s -> s.contains("locate(")).findFirst().orElse(null);
         assertTrue(statement != null, "No statement orders by version: " + statements);
 
-        List<String> locateCalls = getFunctionCallArguments(statement, "locate");
+        List<Function> functions = getOrderByFunctions(statement);
+        List<Function> locateCalls = getCalls(functions, "locate");
         assertFalse(locateCalls.isEmpty());
-        for (String arguments : locateCalls) {
-            assertEquals(3, splitArguments(arguments).size(), "Unexpected locate arguments: " + arguments);
+        for (Function locate : locateCalls) {
+            assertEquals(3, locate.getParameters().getExpressions().size(), "Unexpected call: " + locate);
         }
-
-        List<String> trimCalls = getFunctionCallArguments(statement, "trim");
+        List<Function> trimCalls = getCalls(functions, "trim");
         assertFalse(trimCalls.isEmpty());
-        for (String arguments : trimCalls) {
-            assertTrue(arguments.startsWith("both ' ' from "), "Unexpected trim arguments: " + arguments);
+        for (Function trim : trimCalls) {
+            assertTrue(trim.getNamedParameters() != null, "Unexpected call: " + trim);
+            assertEquals(Arrays.asList("both", "from"), trim.getNamedParameters().getNames());
         }
     }
 
     /**
-     * @return the arguments, as a single string, of each call of the given function in the given statement
+     * @return the function calls of the order by clause of the given statement, which is the only part of the XWQL
+     *     statements that can be parsed as SQL
      */
-    private List<String> getFunctionCallArguments(String statement, String function)
+    private List<Function> getOrderByFunctions(String statement) throws Exception
     {
-        List<String> calls = new ArrayList<>();
-        int index = statement.indexOf(function + '(');
-        while (index >= 0) {
-            boolean isFunctionName = index == 0 || !Character.isJavaIdentifierPart(statement.charAt(index - 1));
-            int start = index + function.length() + 1;
-            if (isFunctionName) {
-                calls.add(statement.substring(start, getClosingParenthesis(statement, start)));
-            }
-            index = statement.indexOf(function + '(', start);
-        }
-        return calls;
-    }
-
-    private int getClosingParenthesis(String statement, int start)
-    {
-        int depth = 0;
-        boolean inString = false;
-        for (int i = start; i < statement.length(); i++) {
-            char c = statement.charAt(i);
-            if (c == '\'') {
-                inString = !inString;
-            } else if (!inString && c == '(') {
-                depth++;
-            } else if (!inString && c == ')') {
-                if (depth == 0) {
-                    return i;
+        String orderBy = StringUtils.substringAfterLast(statement, " order by ");
+        Select select = (Select) CCJSqlParserUtil.parse("select 1 from t order by " + orderBy);
+        List<Function> functions = new ArrayList<>();
+        ExpressionVisitorAdapter visitor = new ExpressionVisitorAdapter()
+        {
+            @Override
+            public void visit(Function function)
+            {
+                functions.add(function);
+                super.visit(function);
+                // The arguments of trim(both ' ' from x) are named parameters, which aren't visited by default.
+                if (function.getNamedParameters() != null) {
+                    function.getNamedParameters().getExpressions().forEach(expression -> expression.accept(this));
                 }
-                depth--;
             }
-        }
-        throw new IllegalArgumentException("Unbalanced parentheses in: " + statement);
+        };
+        ((PlainSelect) select.getSelectBody()).getOrderByElements()
+            .forEach(element -> element.getExpression().accept(visitor));
+        return functions;
     }
 
-    /**
-     * @return the top level arguments of a function call
-     */
-    private List<String> splitArguments(String arguments)
+    private List<Function> getCalls(List<Function> functions, String name)
     {
-        List<String> result = new ArrayList<>();
-        int depth = 0;
-        boolean inString = false;
-        int start = 0;
-        for (int i = 0; i < arguments.length(); i++) {
-            char c = arguments.charAt(i);
-            if (c == '\'') {
-                inString = !inString;
-            } else if (!inString && c == '(') {
-                depth++;
-            } else if (!inString && c == ')') {
-                depth--;
-            } else if (!inString && depth == 0 && c == ',') {
-                result.add(arguments.substring(start, i).trim());
-                start = i + 1;
-            }
-        }
-        result.add(arguments.substring(start).trim());
-        return result;
+        return functions.stream().filter(function -> name.equals(function.getName())).collect(Collectors.toList());
     }
 }
