@@ -36,7 +36,7 @@
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
-  <content>{{include document="XWiki.LiveTableResultsMacros"/}}
+  <content>{{include reference="XWiki.LiveTableResultsMacros"/}}
 {{velocity wiki="false"}}
 #if($xcontext.action == 'get' &amp;&amp; "$!{request.outputSyntax}" == 'plain')
   #set($test = $request.test)
@@ -65,11 +65,11 @@
       #set($direction = 'desc')
     #end
     #set($version = 'lower(productObj.version)')
-    #set($version = "substring($version, 1, locate('-', concat($version, '-')) - 1)")
-    #set($numbers = "trim(substring($version, 1, locate('rc', concat($version, 'rc')) - 1))")
+    #set($version = "substring($version, 1, locate('-', concat($version, '-'), 1) - 1)")
+    #set($numbers = "trim(both ' ' from substring($version, 1, locate('rc', concat($version, 'rc'), 1) - 1))")
     ## Pad to at least 3 numbers ('9.11' becomes '9.11.0.0.') so that each number is followed by a dot.
     #set($padded = "concat($numbers, '.0.0.')")
-    #set($dot1 = "locate('.', $padded)")
+    #set($dot1 = "locate('.', $padded, 1)")
     #set($dot2 = "locate('.', $padded, $dot1 + 1)")
     #set($dot3 = "locate('.', $padded, $dot2 + 1)")
     #set($versionNumbers = ["substring($padded, 1, $dot1 - 1)", "substring($padded, $dot1 + 1, $dot2 - $dot1 - 1)",

@@ -91,5 +91,69 @@
       <type>xar</type>
       <scope>runtime</scope>
     </dependency>
+
+    <!-- Test Dependencies -->
+    <dependency>
+      <!-- The LiveTable results pages use Velocity macros from the macros.vm template which is packaged inside the
+        platform WAR. -->
+      <groupId>org.xwiki.platform</groupId>
+      <artifactId>xwiki-platform-web</artifactId>
+      <version>${platform.version}</version>
+      <type>war</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.xwiki.platform</groupId>
+      <artifactId>xwiki-platform-test-page</artifactId>
+      <version>${platform.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <!-- Maven doesn't put the WAR dependencies on the class path so in order for the ClasspathResourceLoader to find
+        the macros.vm template when running the page tests we need to unpack the WAR in a folder that is included in the
+        class path. Same for the XAR dependencies, which don't contain classes. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack-platform-web</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.xwiki.platform</groupId>
+                  <artifactId>xwiki-platform-web</artifactId>
+                  <version>${platform.version}</version>
+                  <type>war</type>
+                  <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+                  <includes>templates/*</includes>
+                </artifactItem>
+                <!-- The LiveTable results pages include XWiki.LiveTableResultsMacros. -->
+                <artifactItem>
+                  <groupId>org.xwiki.platform</groupId>
+                  <artifactId>xwiki-platform-livetable-ui</artifactId>
+                  <version>${platform.version}</version>
+                  <type>xar</type>
+                  <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+                  <includes>XWiki/LiveTableResultsMacros.xml</includes>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
