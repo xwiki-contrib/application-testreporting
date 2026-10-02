@@ -31,14 +31,14 @@
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <version>1.1</version>
-  <title>#if($doc.name == 'TestSheet')Test Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
+  <title>#if($doc.documentReference.name == 'TestSheet')Test Sheet#{else}$services.display.title($doc, {'displayerHint': 'default'})#end</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
   <content>{{velocity}}
 #set($discard=$xwiki.ssx.use('QA.TestSheet'))
-#if(($context.action=="inline")||($context.action=="edit"))
+#if(($xcontext.action=="inline")||($xcontext.action=="edit"))
   #set ($useWysiwygEditor = $xwiki.getUserPreference('editor') == 'Wysiwyg')
   #set($type="edit")
   {{html wiki="true"}}
@@ -71,7 +71,7 @@
 
 
 {{velocity}}
-#if ($context.action=="view")
+#if ($xcontext.action=="view")
   #if($doc.getObject('QA.TestClass'))
     #set($discard=$xwiki.jsx.use('QA.TestSheet'))
     (%class="buttonwrapper"%)[[Home&gt;&gt;QA.WebHome]] (%class="buttonwrapper"%)[[$doc.space Home&gt;&gt;${doc.space}.WebHome]] (%class="buttonwrapper"%)[[Run Test&gt;&gt;$doc||queryString="sheet=QA.ExecutionAddSheet"]]

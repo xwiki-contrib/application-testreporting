@@ -90,7 +90,7 @@
   #set($map = {})
   #set($rows = [])
   ##
-  #set($offset = $mathtool.toInteger($request.get('offset')))
+  #set($offset = $numbertool.toNumber($request.get('offset')).intValue())
   ## offset starts from 0 in velocity and 1 in javascript
   #set($offset = $offset - 1)
   #if (!$offset || $offset &lt; 0)
@@ -98,7 +98,7 @@
   #end
   ##
   ## $offset
-  #set($discard = $map.put('reqNo', $mathtool.toInteger($request.reqNo)))
+  #set($discard = $map.put('reqNo', $numbertool.toNumber($request.reqNo).intValue()))
   ## #set($discard = $map.put('tags', []))
   #set($dataQuery = "select execution.test, execution.product, execution.application, execution.browser, execution.database, execution.user, execution.date, execution.passed, execution.jira, execution.servletContainer, execution.java, execution.distribution from Document as doc, doc.object(QA.ExecutionClass) as execution${productJoin} where doc.fullName &lt;&gt; 'QA.ExecutionTemplate'${productJoinWhere}")
   ##
@@ -109,7 +109,7 @@
     #set ($dataQuery = "${dataQuery} AND execution.test = :testbind ")
     #set ($countQuery = "${countQuery} and execution.test = :testbind ")
   #end
-  #set ($passed = $mathtool.toInteger($request.passed))
+  #set ($passed = $numbertool.toNumber($request.passed).intValue())
   #if ("$!passed" != '')
     #set ($dataQuery = "${dataQuery} AND execution.passed = :passed ")
     #set ($countQuery = "${countQuery} and execution.passed = :passed ")
@@ -227,7 +227,7 @@
   #set($count = $countQuery.execute())
   ## $count
   #set($discard = $map.put('totalrows', $count))
-  #set($limit =  $mathtool.toInteger($request.get('limit')))
+  #set($limit =  $numbertool.toNumber($request.get('limit')).intValue())
   #set($items = $dataQuery.setLimit($limit).setOffset($offset).execute())
   #set($discard = $map.put('returnedrows', $mathtool.min($items.size(), $limit)))
   #set($discard = $map.put('offset', $mathtool.add($offset, 1)))
@@ -239,7 +239,7 @@
     #set($discard = $row.put('doc_viewable', 'true'))
     #set($testDocument = $xwiki.getDocument($item.get(0)))
     #if(!$testDocument.isNew())
-      #set($discard = $row.put('test', "&lt;a href=""$testDocument.getURL()""&gt;$testDocument.getName()&lt;/a&gt;"))
+      #set($discard = $row.put('test', "&lt;a href=""$testDocument.getURL()""&gt;$testDocument.documentReference.name&lt;/a&gt;"))
     #else
       #set($discard = $row.put('test', "&lt;a href=""$testDocument.getURL()""&gt;$testDocument&lt;/a&gt;"))
     #end

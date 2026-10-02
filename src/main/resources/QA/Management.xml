@@ -39,7 +39,7 @@
   <content>{{velocity}}
 = Existing Tests =
 #set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.TestClass' and doc.fullName &lt;&gt; 'QA.TestTemplate'")
-#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#set($results = $services.query.hql($hql).addFilter('unique').execute())
 #if(!$results.isEmpty())
  {{info}}There are currently ${results.size()} Test Cases (QA.TestClass) in the application. For the full list, please visit [[QA WebHome&gt;&gt;QA.WebHome]].{{/info}}
 #else
@@ -47,7 +47,7 @@
 #end
 = Existing Apps Versions =
 #set($hqlapps = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.AppClass'")
-#set($results = $xwiki.searchDocuments($hqlapps, 0, 0))
+#set($results = $services.query.hql($hqlapps).addFilter('unique').execute())
 #if(!$results.isEmpty())
   #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
   #set($colprops = {
@@ -67,7 +67,7 @@
 #end
 = Existing Product Versions =
 #set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.ProductClass'")
-#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#set($results = $services.query.hql($hql).addFilter('unique').execute())
 #if(!$results.isEmpty())
   #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
   #set($colprops = {
@@ -87,7 +87,7 @@
 #end
 = Existing Browsers =
 #set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.BrowserClass'")
-#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#set($results = $services.query.hql($hql).addFilter('unique').execute())
 #if(!$results.isEmpty())
 
   #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
@@ -107,7 +107,7 @@
 #end
 = Existing Databases =
 #set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.DatabaseClass'")
-#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#set($results = $services.query.hql($hql).addFilter('unique').execute())
 #if(!$results.isEmpty())
 
   #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
@@ -127,7 +127,7 @@
 #end
 = Existing Servlet Containers =
 #set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.ServletContainerClass'")
-#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#set($results = $services.query.hql($hql).addFilter('unique').execute())
 #if(!$results.isEmpty())
 
   #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
@@ -147,7 +147,7 @@
 #end
 = Existing Java Versions =
 #set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.JavaClass'")
-#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#set($results = $services.query.hql($hql).addFilter('unique').execute())
 #if(!$results.isEmpty())
 
   #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
@@ -167,7 +167,7 @@
 #end
 = Existing Distributions =
 #set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.DistributionClass'")
-#set($results = $xwiki.searchDocuments($hql, 0, 0))
+#set($results = $services.query.hql($hql).addFilter('unique').execute())
 #if(!$results.isEmpty())
 
   #set($collist = ["doc.name", "doc.space", "doc.date", "doc.author", "_actions"])
