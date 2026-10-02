@@ -177,7 +177,7 @@
 #set($statsCounter = {})
 
 #set($hql = ", BaseObject as obj where doc.fullName = obj.name and obj.className = 'QA.ExecutionClass' and doc.fullName &lt;&gt; 'QA.ExecutionTemplate'")
-#foreach($item in $xwiki.searchDocuments($hql,5,0))
+#foreach($item in $services.query.hql($hql).setLimit(5).addFilter('unique').execute())
   #foreach($object in $xwiki.getDocument($item).getObjects('QA.ExecutionClass'))
     #set($testerName = $xwiki.getUserName($object.getProperty('user').getValue(), "$first_name $last_name", true))
     #set($testerStats = $statsCounter.get($testerName))
@@ -190,7 +190,7 @@
 #end
 
 |=(% scope="col" %)Tester|=(% scope="col" %)Runs
-#foreach($key in $sorttool.sort($statsCounter.entrySet(), 'value:desc'))
+#foreach($key in $collectiontool.sort($statsCounter.entrySet(), 'value:desc'))
   |{{html}}$key.getKey(){{/html}}|$key.getValue() 
 #end
 #panelfooter()

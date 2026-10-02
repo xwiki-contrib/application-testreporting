@@ -82,7 +82,7 @@
         #set($browserName = $browserDoc.get('name'))
         #set($browserVersions = $browsers.get($browserName))
         #if(!$browserVersions)
-          #set($browserVersions = $collectionstool.getSet())
+          #set($browserVersions = $collectiontool.set)
           #set($discard = $browsers.put($browserName, $browserVersions))
         #end
       #set($discard = $browserVersions.add($browserDoc.get('version')))
@@ -93,7 +93,7 @@
         #set($databaseName = $databaseDoc.get('name'))
         #set($databaseVersions = $databases.get($databaseName))
         #if(!$databaseVersions)
-          #set($databaseVersions = $collectionstool.getSet())
+          #set($databaseVersions = $collectiontool.set)
           #set($discard = $databases.put($databaseName, $databaseVersions))
         #end
         #set($discard = $databaseVersions.add($databaseDoc.get('version')))
@@ -104,7 +104,7 @@
         #set($servletContainerName = $servletContainerDoc.get('name'))
         #set($servletContainerVersions = $servletContainers.get($servletContainerName))
         #if(!$servletContainerVersions)
-          #set($servletContainerVersions = $collectionstool.getSet())
+          #set($servletContainerVersions = $collectiontool.set)
           #set($discard = $servletContainers.put($servletContainerName, $servletContainerVersions))
         #end
       #set($discard = $servletContainerVersions.add($servletContainerDoc.get('version')))
@@ -115,7 +115,7 @@
         #set($javaName = $javaDoc.get('name'))
         #set($javaVersions = $javas.get($javaName))
         #if(!$javaVersions)
-          #set($javaVersions = $collectionstool.getSet())
+          #set($javaVersions = $collectiontool.set)
           #set($discard = $javas.put($javaName, $javaVersions))
         #end
         #set($discard = $javaVersions.add($javaDoc.get('version')))
@@ -133,9 +133,9 @@
     #end
     ## We get an image for each browser and put the versions
     #set($browsersHTML='')
-    #foreach($browser in $sorttool.sort($browsers.entrySet(), 'key:asc'))
+    #foreach($browser in $collectiontool.sort($browsers.entrySet(), 'key:asc'))
       #set($browserIcon = $browser.key+'.png')
-      #set($browser.value = $sorttool.sort($browser.value))
+      #set($browser.value = $collectiontool.sort($browser.value))
       ## Sort (String sort, not Integer sort)
       #if ("$!browser.value" == '')
         #set ($browserValue = '')
@@ -149,10 +149,10 @@
     #set($discard = $row.put("browser","$browsersHTML"))
     ## We get an image for each database and put the versions
     #set($databasesHTML='')
-    #foreach($database in $sorttool.sort($databases.entrySet(), 'key:asc'))
+    #foreach($database in $collectiontool.sort($databases.entrySet(), 'key:asc'))
       #set($databaseIcon = $database.key+'.png')
       ## Sort (String sort, not Integer sort)
-      #set($database.value = $sorttool.sort($database.value))
+      #set($database.value = $collectiontool.sort($database.value))
       #if ("$!database.value" == '')
         #set ($databaseValue = '')
       #else
@@ -163,25 +163,25 @@
     #set($discard = $row.put("database","$databasesHTML"))
     ## We get an image for each servlet container and put the versions
     #set($servletContainersHTML='')
-    #foreach($servletContainer in $sorttool.sort($servletContainers.entrySet(), 'key:asc'))
+    #foreach($servletContainer in $collectiontool.sort($servletContainers.entrySet(), 'key:asc'))
       #set($servletContainerIcon = $servletContainer.key+'.png')
       ## Sort (String sort, not Integer sort)
-      #set($servletContainer.value = $sorttool.sort($servletContainer.value))
+      #set($servletContainer.value = $collectiontool.sort($servletContainer.value))
       #set($servletContainersHTML = $servletContainersHTML + "&lt;img src=""$iconsDoc.getAttachmentURL($servletContainerIcon)"" alt=""$servletContainer.key"" title=""$servletContainer.key""&gt;" + "&lt;span class=""servletContainerVersions""&gt;$!{servletContainer.value.toString().replace('[', '').replace(']', '')}&lt;/span&gt; " + "")
     #end
     #set($discard = $row.put("servletContainer","$servletContainersHTML"))
     ## We get an image for each java version and put the versions
     #set($javasHTML='')
-    #foreach($java in $sorttool.sort($javas.entrySet(), 'key:asc'))
+    #foreach($java in $collectiontool.sort($javas.entrySet(), 'key:asc'))
       #set($javaIcon = $java.key+'.png')
       ## Sort (String sort, not Integer sort)
-      #set($java.value = $sorttool.sort($java.value))
+      #set($java.value = $collectiontool.sort($java.value))
       #set($javasHTML = $javasHTML + "&lt;img src=""$iconsDoc.getAttachmentURL($javaIcon)"" alt=""$java.key"" title=""$java.key""&gt;" + "&lt;span class=""javaVersions""&gt; $!{java.value.toString().replace('[', '').replace(']', '')}&lt;/span&gt; &lt;br&gt;")
     #end
     #set($discard = $row.put("java","$javasHTML"))
     #set($distributionsHTML='')
     ## Only one distribution version per distribution
-    #foreach($distribution in $sorttool.sort($distributions.entrySet(), 'key:asc'))
+    #foreach($distribution in $collectiontool.sort($distributions.entrySet(), 'key:asc'))
       #set($distributionsHTML = $distributionsHTML + "&lt;span class=""distributionVersions""&gt;$!{distribution.value}&lt;/span&gt; &lt;br&gt;")
     #end
     #set($discard = $row.put("distribution","$distributionsHTML"))
@@ -268,7 +268,7 @@
  * value that is not a page of that class is kept as is, since it is displayed as is.
  *#
 #macro(environmentsDisplayedLike $column $values)
-  #set($displayedLikeValues = $collectionstool.getOrderedSet())
+  #set($displayedLikeValues = $collectiontool.orderedSet)
   #set($environmentClass = $environmentClasses.get($column))
   #foreach($value in $values)
     #set($discard = $displayedLikeValues.add($value))

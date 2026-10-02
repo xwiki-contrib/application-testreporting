@@ -56,18 +56,18 @@
 #elseif ("$!request.start" != "" &amp;&amp; "$!request.limit" != "")
   #set($classNameToRemove = "QA.ExecutionClass")
   #if("$!request.start" != "")
-    #set($startOffset = $mathtool.toInteger("$!request.start"))
+    #set($startOffset = $numbertool.toNumber("$!request.start").intValue())
   #else
     #set($startOffset = 0)
   #end
   #if("$!request.limit" != "")
-    #set($limitOffset = $mathtool.toInteger("$!request.limit"))
+    #set($limitOffset = $numbertool.toNumber("$!request.limit").intValue())
   #else
     #set($limitOffset = 0)
   #end
   #set($propType = "StringProperty")
   #set($propName = 'application') $classNameToRemove
-  #set($documentsWithClass = $xwiki.searchDocuments(", BaseObject obj where obj.name = doc.fullName and obj.className = ?  order by doc.date desc", $limitOffset, $startOffset, [$classNameToRemove]))
+  #set($documentsWithClass = $services.query.hql(", BaseObject obj where obj.name = doc.fullName and obj.className = :className order by doc.date desc").bindValue('className', $classNameToRemove).setLimit($limitOffset).setOffset($startOffset).addFilter('unique').execute())
   {{html clean="false"}}
   &lt;a class="update-selectAll" href="#"&gt;Select All&lt;/a&gt;
   &lt;script type="text/javascript"&gt;
